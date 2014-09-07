@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="fbae9280-386f-46d5-a2cb-6e6745bdf595" name="DrvingSim" linkedPackageId="83c164f8-1b6b-434c-a475-d0b05c17d0b5" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="99a09b3a-fade-4077-a6d8-6dca61fa4c32">
+      <elementDefinition Id="f3b45a9e-c2e7-4a6b-8bc9-0cb177e9c4bc" />
+      <body>ละเมิดกฏ</body>
+    </comment>
+    <comment Id="62446e9f-59de-4745-812a-8a29a6805951">
+      <elementDefinition Id="cb9ff5bb-c5f7-4a70-ad23-d45d4c7f1bc8" />
+      <body>เกิดอุบัติเหตุ</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="e621ea9e-7646-417d-b687-2e082686de0d">
+      <profileInstance Id="da94746d-da80-4eb0-b2c5-61a978ebc129" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="2ee3980e-9ab6-4fe5-99e2-61a4699931ba">
+      <profileInstance Id="8d701b77-1c2e-4eb2-ad5b-3604be797971" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="8a8e23e2-f307-4438-8500-c0fd47a2bfe1" name="DrvingSim" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="b0fe188c-698e-484e-992d-71e43f6d6a75" />
+        <nodes>
+          <initialNode Id="e12ec633-4d52-4a31-a03b-bf17c85bd734" name="Initial1" isLeaf="false">
+            <elementDefinition Id="9ca27276-fdce-47c8-8e12-43d4d5a4ae92" />
+            <flowNodeTargets>
+              <controlFlow Id="afb9a91f-c7d8-4f4d-895c-24567d240059" isLeaf="false">
+                <opaqueActionMoniker Id="9188d440-fd26-4060-9d85-a22db9b6a49b" LastKnownName="กำหนดรูปแบบสถานการณ์จำลอง" />
+                <elementDefinition Id="ae9766d5-0f28-4aca-b197-1365aee9e39f" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="9188d440-fd26-4060-9d85-a22db9b6a49b" name="กำหนดรูปแบบสถานการณ์จำลอง" isLeaf="false">
+            <elementDefinition Id="d22d1f64-ca61-464e-9e56-3aaeb0d63865" />
+            <flowNodeTargets>
+              <controlFlow Id="ca64a596-4e03-40bb-86dd-3fc9d97f2a85" isLeaf="false">
+                <opaqueActionMoniker Id="bfe5cd9b-3041-47bf-9b39-670833592a1e" LastKnownName="จัดวางตำแหน่งของวัถตุที่ใช้ในการทดสอบตามรูปแบบที่กำหนด" />
+                <elementDefinition Id="c15ceb21-88fd-446a-abf2-489417db0934" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="bfe5cd9b-3041-47bf-9b39-670833592a1e" name="จัดวางตำแหน่งของวัถตุที่ใช้ในการทดสอบตามรูปแบบที่กำหนด" isLeaf="false">
+            <elementDefinition Id="543bc066-ff22-44e5-986d-49ae2005c0d1" />
+            <flowNodeTargets>
+              <controlFlow Id="fdb118e4-5280-4f67-8cab-362a28492b7a" isLeaf="false">
+                <opaqueActionMoniker Id="6084c37e-b57b-47d6-bcec-cfbfada4704d" LastKnownName="ผู้ใช้ทำการรับการทดสอบ" />
+                <elementDefinition Id="4f102a5d-c0c1-4e4c-ad38-5dc5b3cb800c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="6084c37e-b57b-47d6-bcec-cfbfada4704d" name="ผู้ใช้ทำการรับการทดสอบ" isLeaf="false">
+            <elementDefinition Id="fe5a18ae-2859-477c-98e1-f872df3d5f9e" />
+            <flowNodeTargets>
+              <controlFlow Id="92c8fd26-571a-449d-8b10-ea44dc5ec92c" isLeaf="false">
+                <joinNodeMoniker Id="ff6746d4-034c-49ac-b9cb-fadd5295c1ae" LastKnownName="Join1" />
+                <elementDefinition Id="6f1a15e7-64d7-4eb7-b7bc-277498ef732c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="1ae634a2-0929-4bea-9dee-295348aef1c4" name="Decision1" isLeaf="false">
+            <elementDefinition Id="87791d8d-2653-48ad-a5a8-a435058650fa" />
+            <flowNodeTargets>
+              <controlFlow Id="4f278cfb-33bd-47c3-a9f0-25d77fcf8e1b" isLeaf="false">
+                <opaqueActionMoniker Id="fa8c81db-673d-4391-99b6-f8eebce70bf7" LastKnownName=" บันทึกข้อมูลการละเมิดกฏ" />
+                <elementDefinition Id="bce93cbd-237c-45fb-a132-9b20b0a28251" />
+              </controlFlow>
+              <controlFlow Id="f6083a37-8e58-48e3-a288-ad90cb24ce3a" isLeaf="false">
+                <joinNodeMoniker Id="d8e351d4-4a86-45eb-b87c-f701cb4af34b" LastKnownName="Join2" />
+                <elementDefinition Id="53b9c924-223a-461d-b00b-ad4c192f3b89" />
+              </controlFlow>
+              <controlFlow Id="59a46395-84a7-4703-89fd-ff25b65ff57f" isLeaf="false">
+                <opaqueActionMoniker Id="348d726a-1436-4542-9bf4-069bcc86d558" LastKnownName="บันทึกข้อมูลอุบัติเหตุ" />
+                <elementDefinition Id="edd2e2c3-ddd5-4bcc-aeb0-296f041527c8" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="fa8c81db-673d-4391-99b6-f8eebce70bf7" name=" บันทึกข้อมูลการละเมิดกฏ" isLeaf="false">
+            <elementDefinition Id="dde4420c-7de9-44c6-baed-bda3d0526af3" />
+            <flowNodeTargets>
+              <controlFlow Id="8ec0d2ca-39a8-4892-af55-f8ab2455e909" isLeaf="false">
+                <joinNodeMoniker Id="ff6746d4-034c-49ac-b9cb-fadd5295c1ae" LastKnownName="Join1" />
+                <elementDefinition Id="7c4ce38e-f87d-4309-8271-eb6a1cc91308" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <joinNode Id="ff6746d4-034c-49ac-b9cb-fadd5295c1ae" name="Join1" isLeaf="false">
+            <elementDefinition Id="52b03b18-0e86-4309-af44-af379d6a3f37" />
+            <flowNodeTargets>
+              <controlFlow Id="18325beb-7c7b-42a9-b9b7-19aad451082c" isLeaf="false">
+                <decisionNodeMoniker Id="1ae634a2-0929-4bea-9dee-295348aef1c4" LastKnownName="Decision1" />
+                <elementDefinition Id="91d3efb3-18d5-422f-8812-ec5aa2b759f6" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
+          <joinNode Id="d8e351d4-4a86-45eb-b87c-f701cb4af34b" name="Join2" isLeaf="false">
+            <elementDefinition Id="93426ae5-688b-4560-aa21-6a06fbc93922" />
+            <flowNodeTargets>
+              <controlFlow Id="e5f06f2b-f331-4716-8b01-7261016595d5" isLeaf="false">
+                <opaqueActionMoniker Id="75c4471a-5c4c-4fc3-8f30-5c2b2b132da0" LastKnownName="แสดงผลการทดสอบ ผลการวิเคราะห์พฤติกรรมการขับขี่" />
+                <elementDefinition Id="204b77a9-bef4-4a01-a4d2-8b0383f8512c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
+          <opaqueAction Id="348d726a-1436-4542-9bf4-069bcc86d558" name="บันทึกข้อมูลอุบัติเหตุ" isLeaf="false">
+            <elementDefinition Id="1c0b6a08-7b91-4978-840f-a84f8ce3eff3" />
+            <flowNodeTargets>
+              <controlFlow Id="4b266fba-4c73-41e8-9238-ddd926b9dfa9" isLeaf="false">
+                <joinNodeMoniker Id="d8e351d4-4a86-45eb-b87c-f701cb4af34b" LastKnownName="Join2" />
+                <elementDefinition Id="8e19513d-a003-484c-90ae-a92ed69b8792" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="75c4471a-5c4c-4fc3-8f30-5c2b2b132da0" name="แสดงผลการทดสอบ ผลการวิเคราะห์พฤติกรรมการขับขี่" isLeaf="false">
+            <elementDefinition Id="b01b8007-6517-418e-ae46-d9a7e2e03f52" />
+            <flowNodeTargets>
+              <controlFlow Id="b6bbf593-b93b-4c77-9a5c-d9a65c7c0d40" isLeaf="false">
+                <activityFinalNodeMoniker Id="bfcc885f-944e-40fa-867a-6b3352443183" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="81111847-7d07-4d4b-a63a-bcee0b3d8c55" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode Id="bfcc885f-944e-40fa-867a-6b3352443183" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="3f1dfa95-2411-445a-91bd-c5b7fa37cd6b" />
+          </activityFinalNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="83c164f8-1b6b-434c-a475-d0b05c17d0b5" name="DrivingSimDiagram">
+    <elementDefinition Id="6bb5cd4b-8a9e-4943-a31c-0f50678bc1a4" />
+  </package>
+</activityRootModel>
