@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="70d1c987-8d9e-4a21-a8a6-da627c4971cb" name="UMLUseCaseDiagram1" linkedPackageId="ea5dea2c-823b-44b3-a0f5-b520f08952e2" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="bcf596c5-56ce-49b5-b684-a0f303420481">
+      <profileInstance Id="f208c7f5-f300-4b61-9907-0d1e58424872" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="09c0ece2-a3ee-4c89-8b7e-917dc240c725">
+      <profileInstance Id="99499895-7064-4dcd-8916-40704b035de1" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="04809c73-9160-46cb-9c85-3c14d0252f22" name="Driving Tester" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b5fec71e-fc20-498f-9f53-4c167e9a2692" />
+        <targetEnds>
+          <association Id="4fad976e-e0d2-4e54-a434-2850907c6473" isDerived="false" sourceEndRoleName="Driving Tester" targetEndRoleName="Test Driving" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="2cffe792-43c1-4860-913d-f61c18bbe16d" LastKnownName="Test Driving" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4a3bfccf-7cde-429b-ae0c-e87c890e3e30" name="Driving Tester" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="d5c36df8-3280-469a-b73d-5349a01d71c5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="278e695a-cfdd-4bcd-b33a-b1b4959ef5e3" name="Test Driving" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="92af9768-b999-4eb1-aa6e-0a4cb8c1c7a6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="b016edbe-155c-4141-bcf4-2363756e9f9c" />
+          </association>
+          <association Id="ebfc2040-af37-409f-be60-a5c8c2d146d3" isDerived="false" sourceEndRoleName="Driving Tester" targetEndRoleName="Get Result" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="21cd7573-91bd-457b-92d6-53696c541d66" LastKnownName="Get Result" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="68e2057c-8e5e-4fcc-abad-f76a23d0abe2" name="Driving Tester" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c50d4079-ce02-4430-9bf9-d4e7536f82f9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c4159c88-2736-4b2a-b4de-debe77426e27" name="Get Result" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7a03679e-43bc-4b07-b22f-582ec2e43668" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9f2f4148-f2e4-4147-9088-077cb302af43" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="a767e81a-d335-4eb2-99b2-dd78b785a204" name="Driving Simulator" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="8bb665c3-eb4f-4c2b-ada1-ee01d35dc08d" name="Eye Checking" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7a113fd4-4707-4f45-9ac8-4d39e1fe1f45" />
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="e43e86c3-1557-4d69-b7ac-647c6e75fb19" name="Driving Testing" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="31d99461-13bd-4a11-b1a9-852803c86ab7" />
+        <targetEnds>
+          <association Id="f3e1a480-e46b-4af2-8076-f59f251caecc" isDerived="false" sourceEndRoleName="Driving Testing" targetEndRoleName="Eye Checking" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="8bb665c3-eb4f-4c2b-ada1-ee01d35dc08d" LastKnownName="Eye Checking" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="444b2648-f8d0-4a7b-886a-095e0530728b" name="Driving Testing" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="299c351c-6ff5-4011-a403-945f8bde9c1d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dd2afc77-498a-42ad-bfd1-ac7e02a849de" name="Eye Checking" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="61f1637a-7886-463a-8bfe-dddf7d7ba55a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ba91e7ba-7cbe-48a5-8785-48bee9d401eb" />
+          </association>
+        </targetEnds>
+        <additions>
+          <include Id="a39883c5-c83c-4c91-811c-8d8e3c79ec6b">
+            <useCaseMoniker Id="2cffe792-43c1-4860-913d-f61c18bbe16d" LastKnownName="Test Driving" />
+            <elementDefinition Id="9e30fad6-d016-4fae-bf94-ff37dd622c42" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="6fda11ff-4f36-4d71-b9b7-940567e93619" name="Driving Result" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="dcddc407-7e8d-473d-abfa-a3543a69a4bd" />
+        <targetEnds>
+          <association Id="e240360b-3cce-4855-8882-df8d05b348d3" isDerived="false" sourceEndRoleName="Driving Result" targetEndRoleName="Driving Testing" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="e43e86c3-1557-4d69-b7ac-647c6e75fb19" LastKnownName="Driving Testing" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="aeecf3d2-ef88-48ca-bbc4-f6ef086a804c" name="Driving Result" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="deadacb2-253d-4bf4-9ebc-f3888be9288c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f8d44417-e826-4a0e-91a8-b5097be72444" name="Driving Testing" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="da69eff5-1757-4731-b8cc-7a5407484523" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="52e66ae7-0fbe-4973-a28e-c343d8eb41c1" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="2cffe792-43c1-4860-913d-f61c18bbe16d" name="Test Driving" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="27771bf0-c191-4c23-8603-04ae939671df" />
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="21cd7573-91bd-457b-92d6-53696c541d66" name="Get Result" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e0422698-d9d8-4887-b7d3-df56afb78447" />
+        <additions>
+          <include Id="bdc99930-de7e-4be1-bef1-2159136176ca">
+            <useCaseMoniker Id="6fda11ff-4f36-4d71-b9b7-940567e93619" LastKnownName="Driving Result" />
+            <elementDefinition Id="2e0f0b85-e981-43b5-bd75-3dd7cf61c234" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="ea5dea2c-823b-44b3-a0f5-b520f08952e2" name="DrivingSimDiagram">
+    <elementDefinition Id="6bb5cd4b-8a9e-4943-a31c-0f50678bc1a4" />
+  </package>
+</useCaseModelRoot>
