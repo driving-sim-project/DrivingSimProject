@@ -17,7 +17,6 @@ public class GazeCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(transform.localRotation.eulerAngles.y);
         if (Input.mousePosition.x > Screen.width * (1.0f - rightPanelSize))
         {
             if (transform.localRotation.eulerAngles.y < 20f || transform.localRotation.eulerAngles.y > 330f)
