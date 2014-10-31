@@ -232,7 +232,7 @@ public class Wheel : MonoBehaviour {
 		for (int i=0; i<slipRes; i++)
 		{
 			float f = i * 1.0f/(float)slipRes;
-			localRotation = Quaternion.Euler (0, oldAngle + (newAngle - oldAngle) * f, 0); 		
+            localRotation = Quaternion.Euler(0, newAngle * f, 0); 		
 			inverseLocalRotation = Quaternion.Inverse(localRotation);
 			forward = transform.TransformDirection (localRotation * Vector3.forward);
 			right = transform.TransformDirection (localRotation * Vector3.right);

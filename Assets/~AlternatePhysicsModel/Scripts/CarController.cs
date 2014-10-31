@@ -102,89 +102,94 @@ public class CarController : MonoBehaviour {
 		float optimalSteering = angle / (wheels[0].maxSteeringAngle * Mathf.Deg2Rad);
 		if (fVelo < 1)
 			optimalSteering = 0;
-				
-		float steerInput = 0;
-		if (Input.GetKey (KeyCode.LeftArrow))
-			steerInput = -1;
-		if (Input.GetKey (KeyCode.RightArrow))
-			steerInput = 1;
 
-		if (steerInput < steering)
-		{
-			float steerSpeed = (steering>0)?(1/(steerReleaseTime+veloSteerReleaseTime*fVelo)) :(1/(steerTime+veloSteerTime*fVelo));
-			if (steering > optimalSteering)
-				steerSpeed *= 1 + (steering-optimalSteering) * steerCorrectionFactor;
-			steering -= steerSpeed * Time.deltaTime;
-			if (steerInput > steering)
-				steering = steerInput;
-		}
-		else if (steerInput > steering)
-		{
-			float steerSpeed = (steering<0)?(1/(steerReleaseTime+veloSteerReleaseTime*fVelo)) :(1/(steerTime+veloSteerTime*fVelo));
-			if (steering < optimalSteering)
-				steerSpeed *= 1 + (optimalSteering-steering) * steerCorrectionFactor;
-			steering += steerSpeed * Time.deltaTime;
-			if (steerInput < steering)
-				steering = steerInput;
-		}
+        float steerInput = Input.GetAxis("Horizontal");
+        //Debug.Log(steerInput);
+
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //    steerInput = -1;
+        //if (Input.GetKey(KeyCode.RightArrow))
+        //    steerInput = 1;
+
+        if (steerInput < steering)
+        {
+            float steerSpeed = (steering > 0) ? (1 / (steerReleaseTime + veloSteerReleaseTime * fVelo)) : (1 / (steerTime + veloSteerTime * fVelo));
+            if (steering > optimalSteering)
+                steerSpeed *= 1 + (steering - optimalSteering) * steerCorrectionFactor;
+            steering -= steerSpeed * Time.deltaTime;
+            if (steerInput > steering)
+                steering = steerInput;
+        }
+        else if (steerInput > steering)
+        {
+            float steerSpeed = (steering < 0) ? (1 / (steerReleaseTime + veloSteerReleaseTime * fVelo)) : (1 / (steerTime + veloSteerTime * fVelo));
+            if (steering < optimalSteering)
+                steerSpeed *= 1 + (optimalSteering - steering) * steerCorrectionFactor;
+            steering += steerSpeed * Time.deltaTime;
+            if (steerInput < steering)
+                steering = steerInput;
+        }
+
+        steering = steerInput;
 		
 		// Throttle/Brake
 
-		bool accelKey = Input.GetKey (KeyCode.UpArrow);
-		bool brakeKey = Input.GetKey (KeyCode.DownArrow);
-		
+        float accelKey = Input.GetAxis("Vertical");
+        //bool brakeKey = Input.GetKey (KeyCode.DownArrow);
+
+        //Debug.Log(accelKey);
+
 		if (drivetrain.automatic && drivetrain.gear == 0)
 		{
-			accelKey = Input.GetKey (KeyCode.DownArrow);
-			brakeKey = Input.GetKey (KeyCode.UpArrow);
+			accelKey = Input.GetAxis("Vertical");
 		}
 		
 		if (Input.GetKey (KeyCode.LeftShift))
 		{
-			throttle += Time.deltaTime / throttleTime;
-			throttleInput += Time.deltaTime / throttleTime;
+            throttle += Input.GetAxis("Vertical");
+			throttleInput += Input.GetAxis("Vertical");
 		}
-		else if (accelKey)
+		else if (accelKey > 0.0f)
 		{
-			if (drivetrain.slipRatio < 0.10f)
-				throttle += Time.deltaTime / throttleTime;
-			else if (!tractionControl)
-				throttle += Time.deltaTime / throttleTimeTraction;
-			else
-				throttle -= Time.deltaTime / throttleReleaseTime;
+            //if (drivetrain.slipRatio < 0.10f)
+            //    throttle += Time.deltaTime / throttleTime;
+            //else if (!tractionControl)
+            //    throttle += Time.deltaTime / throttleTimeTraction;
+            //else
+            //    throttle -= Time.deltaTime / throttleReleaseTime;
 
-			if (throttleInput < 0)
-				throttleInput = 0;
-			throttleInput += Time.deltaTime / throttleTime;
-			brake = 0;
+            throttle = accelKey;
+            throttleInput = accelKey;
 		}
 		else 
 		{
-			if (drivetrain.slipRatio < 0.2f)
-				throttle -= Time.deltaTime / throttleReleaseTime;
-			else
-				throttle -= Time.deltaTime / throttleReleaseTimeTraction;
+            //if (drivetrain.slipRatio < 0.2f)
+            //    throttle -= Time.deltaTime / throttleReleaseTime;
+            //else
+            //    throttle -= Time.deltaTime / throttleReleaseTimeTraction;
+            throttleInput = 0;
 		}
 		throttle = Mathf.Clamp01 (throttle);
 
-		if (brakeKey)
+        if (accelKey < 0.0f)
 		{
-			if (drivetrain.slipRatio < 0.2f)
-				brake += Time.deltaTime / throttleTime;
-			else
-				brake += Time.deltaTime / throttleTimeTraction;
-			throttle = 0;
-			throttleInput -= Time.deltaTime / throttleTime;
+            //if (drivetrain.slipRatio < 0.2f)
+            //    brake += Time.deltaTime / throttleTime;
+            //else
+            //    brake += Time.deltaTime / throttleTimeTraction;
+			brake = -accelKey;
+            throttleInput = accelKey;
 		}
 		else 
-		{
-			if (drivetrain.slipRatio < 0.2f)
-				brake -= Time.deltaTime / throttleReleaseTime;
-			else
-				brake -= Time.deltaTime / throttleReleaseTimeTraction;
+        {
+            //if (drivetrain.slipRatio < 0.2f)
+            //    brake -= Time.deltaTime / throttleReleaseTime;
+            //else
+            //    brake -= Time.deltaTime / throttleReleaseTimeTraction;
+            brake = 0;
 		}
-		brake = Mathf.Clamp01 (brake);
-		throttleInput = Mathf.Clamp (throttleInput, -1, 1);
+        //brake = Mathf.Clamp01 (brake);
+        //throttleInput = throttleInput;
 				
 		// Handbrake
 		handbrake = Mathf.Clamp01 ( handbrake + (Input.GetKey (KeyCode.Space)? Time.deltaTime: -Time.deltaTime) );
