@@ -7,6 +7,7 @@ public class GazeCamera : MonoBehaviour {
 
     public float rightPanelSize = 0.2f;
     public float leftPanelSize = 0f;
+    public float panelSize = 0.5f;
     public int gazeSpeed = 1;
 
 
@@ -17,22 +18,25 @@ public class GazeCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.mousePosition.x > Screen.width * (1.0f - rightPanelSize))
+        if (Input.mousePosition.y < Screen.height * panelSize)
         {
-            if (transform.localRotation.eulerAngles.y < 20f || transform.localRotation.eulerAngles.y > 330f)
-                transform.Rotate(Vector3.up, gazeSpeed * Time.deltaTime);
-        }
-        else if (Input.mousePosition.x < Screen.width * leftPanelSize)
-        {
-            if (transform.localRotation.eulerAngles.y > 340f || transform.localRotation.eulerAngles.y < 30f)
-                transform.Rotate(Vector3.up, -gazeSpeed * Time.deltaTime);
-        }
-        else
-        {
-            if (transform.localRotation.eulerAngles.y < 359f && transform.localRotation.eulerAngles.y > 30f)
-                transform.Rotate(Vector3.up, gazeSpeed * Time.deltaTime);
-            else if (transform.localRotation.eulerAngles.y > 1f && transform.localRotation.eulerAngles.y < 350f)
-                transform.Rotate(Vector3.up, -gazeSpeed * Time.deltaTime);
+            if (Input.mousePosition.x > Screen.width * (1.0f - rightPanelSize))
+            {
+                if (transform.localRotation.eulerAngles.y < 20f || transform.localRotation.eulerAngles.y > 330f)
+                    transform.Rotate(Vector3.up, gazeSpeed * Time.deltaTime);
+            }
+            else if (Input.mousePosition.x < Screen.width * leftPanelSize)
+            {
+                if (transform.localRotation.eulerAngles.y > 340f || transform.localRotation.eulerAngles.y < 30f)
+                    transform.Rotate(Vector3.up, -gazeSpeed * Time.deltaTime);
+            }
+            else
+            {
+                if (transform.localRotation.eulerAngles.y < 359f && transform.localRotation.eulerAngles.y > 30f)
+                    transform.Rotate(Vector3.up, gazeSpeed * Time.deltaTime);
+                else if (transform.localRotation.eulerAngles.y > 1f && transform.localRotation.eulerAngles.y < 350f)
+                    transform.Rotate(Vector3.up, -gazeSpeed * Time.deltaTime);
+            }
         }
 	}
 }

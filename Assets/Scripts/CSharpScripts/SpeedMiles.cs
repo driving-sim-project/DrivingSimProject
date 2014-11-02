@@ -26,8 +26,8 @@ public class SpeedMiles : MonoBehaviour {
             transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
         else if (adjustDegree(needleAngle) < adjustDegree(speedAngle + originAngle) )
             transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
-        Debug.Log("Needle : " + adjustDegree(needleAngle));
-        Debug.Log("Speed : " + adjustDegree(speedAngle + originAngle));
+        //Debug.Log("Needle : " + adjustDegree(needleAngle));
+        //Debug.Log("Speed : " + adjustDegree(speedAngle + originAngle));
 	}
 
     void OnGUI()
