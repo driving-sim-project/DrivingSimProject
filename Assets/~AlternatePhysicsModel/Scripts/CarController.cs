@@ -103,7 +103,6 @@ public class CarController : MonoBehaviour {
 		if (fVelo < 1)
 			optimalSteering = 0;
 
-
         float steerInput = Input.GetAxis("Horizontal");
         //Debug.Log(steerInput);
 
