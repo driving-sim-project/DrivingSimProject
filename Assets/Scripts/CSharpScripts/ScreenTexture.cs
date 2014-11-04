@@ -31,7 +31,8 @@ public class ScreenTexture : MonoBehaviour {
             mainCamera.projectionMatrix = camera.projectionMatrix;
             texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
             texture.Apply();
-            mirrorPlane.renderer.material.mainTexture = texture;
+            mirrorPlane.renderer.material.SetTexture( 0, texture);
+            mirrorPlane.renderer.material.SetTextureScale("_MainTex", new Vector2(-1f, 1f));
             shoot = true;
             Resources.UnloadUnusedAssets();
             time = Time.time;

@@ -6,6 +6,8 @@ using System.Collections;
 [RequireComponent (typeof (Drivetrain))]
 public class CarController : MonoBehaviour {
 
+    public GameObject headlight;
+
 	// Add all wheels of the car here, so brake and steering forces can be applied to them.
 	public Wheel[] wheels;
 	
@@ -167,6 +169,7 @@ public class CarController : MonoBehaviour {
             //    throttle -= Time.deltaTime / throttleReleaseTime;
             //else
             //    throttle -= Time.deltaTime / throttleReleaseTimeTraction;
+            throttle = 0;
             throttleInput = 0;
 		}
 		throttle = Mathf.Clamp01 (throttle);
@@ -178,7 +181,7 @@ public class CarController : MonoBehaviour {
             //else
             //    brake += Time.deltaTime / throttleTimeTraction;
 			brake = -accelKey;
-            throttleInput = accelKey;
+            throttleInput = -accelKey;
 		}
 		else 
         {
@@ -187,6 +190,7 @@ public class CarController : MonoBehaviour {
             //else
             //    brake -= Time.deltaTime / throttleReleaseTimeTraction;
             brake = 0;
+            throttleInput = 0;
 		}
         //brake = Mathf.Clamp01 (brake);
         //throttleInput = throttleInput;
@@ -217,6 +221,10 @@ public class CarController : MonoBehaviour {
 			w.handbrake = handbrake;
 			w.steering = steering;
 		}
+
+        //Headlight
+        if (Input.GetButtonDown("R3"))
+            headlight.gameObject.SetActive(!headlight.gameObject.active);
 	}
 	
 	// Debug GUI. Disable when not needed.

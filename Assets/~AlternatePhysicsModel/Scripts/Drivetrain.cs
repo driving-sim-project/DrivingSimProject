@@ -62,6 +62,7 @@ public class Drivetrain : MonoBehaviour {
 	public float slipRatio = 0.0f;
 	float engineAngularVelo;
 	
+    int drivenGear = 0;
 	
 	float Sqr (float x) { return x*x; }
 	
@@ -139,14 +140,40 @@ public class Drivetrain : MonoBehaviour {
 			rpm = minClutchRPM;
 			
 		// Automatic gear shifting. Bases shift points on throttle input and rpm.
-		if (automatic)
+        if(Input.GetButtonDown("ShiftUp")){
+            if (drivenGear == 0)
+                drivenGear = 1;
+            else if (drivenGear == -1)
+                drivenGear = 0;
+        }
+
+        if (Input.GetButtonDown("ShiftDown"))
+        {
+            if (drivenGear == 0)
+                drivenGear = -1;
+            else if (drivenGear == 1)
+                drivenGear = 0;
+        }
+
+        if (drivenGear == 0)
+            gear = 1;
+        else if (drivenGear == 1 && gear < 2)
+            gear = 2;
+        else if (drivenGear == -1)
+            gear = 0;
+
+		if (automatic && drivenGear == 1)
 		{
-			if (rpm >= maxRPM * (0.5f + 0.5f * throttleInput))
-				ShiftUp ();
-			else if (rpm <= maxRPM * (0.25f + 0.4f * throttleInput) && gear > 2)
-				ShiftDown ();
-			if (throttleInput < 0 && rpm <= minRPM)
-				gear = (gear == 0?2:0);
+            //if (rpm >= maxRPM * (0.5f + 0.5f * throttleInput))
+            //    ShiftUp ();
+            //else if (rpm <= maxRPM * (0.25f + 0.4f * throttleInput) && gear > 2)
+            //    ShiftDown ();
+            if (rpm >= maxRPM)
+                ShiftUp();
+            else if (rpm <= maxRPM * 0.4f && gear > 2)
+                ShiftDown();
+            if (throttleInput < 0 && rpm <= minRPM)
+                gear = (gear == 1 ? 2 : 1);
 		}
 	}
 		
