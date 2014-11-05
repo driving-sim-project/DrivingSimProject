@@ -8,18 +8,13 @@ public class ScreenTexture : MonoBehaviour {
     public Camera mainCamera;
     public Camera camera;
     public GameObject mirrorPlane;
-    public float interval = 0.1f;
+    public float interval = 0.02f;
     private Texture2D texture;
     private Texture2D border; 
-    private int screenWidth;
-    private int screenHeight;
-    private bool  shoot = false;
     private float time;
 
 
     void  Start (){
-        screenWidth = Screen.width;
-        screenHeight = Screen.height;
         texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         time = Time.time;
     }
@@ -33,7 +28,6 @@ public class ScreenTexture : MonoBehaviour {
             texture.Apply();
             mirrorPlane.renderer.material.SetTexture( 0, texture);
             mirrorPlane.renderer.material.SetTextureScale("_MainTex", new Vector2(-1f, 1f));
-            shoot = true;
             Resources.UnloadUnusedAssets();
             time = Time.time;
         }

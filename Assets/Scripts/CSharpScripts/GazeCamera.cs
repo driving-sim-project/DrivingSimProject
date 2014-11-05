@@ -3,18 +3,10 @@ using System.Collections;
 
 public class GazeCamera : MonoBehaviour {
 
-    private Camera mainCam;
-
     public float rightPanelSize = 0.2f;
     public float leftPanelSize = 0f;
     public float panelSize = 0.5f;
     public int gazeSpeed = 1;
-
-
-	// Use this for initialization
-	void Start () {
-        mainCam = this.camera;
-	}
 	
 	// Update is called once per frame
 	void Update () {

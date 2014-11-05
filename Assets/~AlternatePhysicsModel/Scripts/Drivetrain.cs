@@ -88,7 +88,26 @@ public class Drivetrain : MonoBehaviour {
 			result=0;
 		return result;
 	}
-	
+
+    void Update()
+    {
+        if (Input.GetButtonDown("ShiftUp"))
+        {
+            if (drivenGear == 0)
+                drivenGear = 1;
+            else if (drivenGear == -1)
+                drivenGear = 0;
+        }
+
+        if (Input.GetButtonDown("ShiftDown"))
+        {
+            if (drivenGear == 0)
+                drivenGear = -1;
+            else if (drivenGear == 1)
+                drivenGear = 0;
+        }
+    }
+
 	void FixedUpdate () 
 	{
 		float ratio = gearRatios[gear] * finalDriveRatio;
@@ -102,9 +121,9 @@ public class Drivetrain : MonoBehaviour {
 			// Neutral gear - just rev up engine
 			float engineAngularAcceleration = (engineTorque-engineFrictionTorque) / engineInertia;
 			engineAngularVelo += engineAngularAcceleration * Time.deltaTime;
-			
+
 			// Apply torque to car body
-			rigidbody.AddTorque(-engineOrientation * engineTorque);
+            rigidbody.AddTorque(-engineOrientation * engineTorque);
 		}
 		else
 		{
@@ -138,23 +157,8 @@ public class Drivetrain : MonoBehaviour {
 			minClutchRPM += throttle * 3000;
 		if (rpm < minClutchRPM)
 			rpm = minClutchRPM;
-			
-		// Automatic gear shifting. Bases shift points on throttle input and rpm.
-        if(Input.GetButtonDown("ShiftUp")){
-            if (drivenGear == 0)
-                drivenGear = 1;
-            else if (drivenGear == -1)
-                drivenGear = 0;
-        }
 
-        if (Input.GetButtonDown("ShiftDown"))
-        {
-            if (drivenGear == 0)
-                drivenGear = -1;
-            else if (drivenGear == 1)
-                drivenGear = 0;
-        }
-
+        // Automatic gear shifting. Bases shift points on throttle input and rpm.
         if (drivenGear == 0)
             gear = 1;
         else if (drivenGear == 1 && gear < 2)

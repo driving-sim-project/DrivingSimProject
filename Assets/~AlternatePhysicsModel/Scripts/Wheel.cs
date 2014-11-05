@@ -75,7 +75,7 @@ public class Wheel : MonoBehaviour {
 	Rigidbody body;
 	float maxSlip;
 	float maxAngle;
-	float oldAngle;	
+    //float oldAngle;
 	Skidmarks skid;
 	
 	float CalcLongitudinalForce(float Fz,float slip)
@@ -256,7 +256,7 @@ public class Wheel : MonoBehaviour {
 		float lateralSlipVelo = Vector3.Dot (wheelVelo, right);
 		slipVelo = Mathf.Sqrt(longitunalSlipVelo * longitunalSlipVelo + lateralSlipVelo * lateralSlipVelo);
 		
-		oldAngle = newAngle;
+        //oldAngle = newAngle;
 		return totalForce;
 	}
 	
