@@ -78,6 +78,10 @@ public class CarController : MonoBehaviour {
 	// factor, to make the correction easier.
 	public float steerCorrectionFactor = 4.0f;
 
+    public float accelKey = 0;
+
+    public int speed = 0;
+
 	// Used by SoundController to get average slip velo of all wheels for skid sounds.
 	public float slipVelo {
 		get {
@@ -139,7 +143,7 @@ public class CarController : MonoBehaviour {
 		
 		// Throttle/Brake
 
-        float accelKey = Input.GetAxis("Vertical");
+        accelKey = Input.GetAxis("Vertical");
         //bool brakeKey = Input.GetKey (KeyCode.DownArrow);
 
         //Debug.Log(accelKey);
@@ -229,6 +233,8 @@ public class CarController : MonoBehaviour {
         //Headlight
         if (Input.GetButtonDown("R3"))
             headlight.gameObject.SetActive(!headlight.gameObject.active);
+
+        speed = (int)(rigidbody.velocity.magnitude * 3.6f);
 	}
 	
 	// Debug GUI. Disable when not needed.

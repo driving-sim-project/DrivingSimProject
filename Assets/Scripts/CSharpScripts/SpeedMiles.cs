@@ -18,7 +18,7 @@ public class SpeedMiles : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        speedAngle = -car.rigidbody.velocity.magnitude * 3.6f / maxSpeed * 100f * (maxAngle - originAngle) / 100f - 1;
+        speedAngle = -car.speed * 1f / maxSpeed * 100f * (maxAngle - originAngle) / 100f - 1;
         needleAngle = transform.rotation.eulerAngles.z;
         if (adjustDegree(needleAngle) == adjustDegree(speedAngle + originAngle))
             transform.Rotate(0f, 0f, 0f);
@@ -32,7 +32,7 @@ public class SpeedMiles : MonoBehaviour {
 
     void OnGUI()
     {
-        GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + car.rigidbody.velocity.magnitude * 3.6f);
+        GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + car.speed);
     }
 
     int adjustDegree(float degree)
