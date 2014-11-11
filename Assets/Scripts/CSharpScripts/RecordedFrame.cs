@@ -13,7 +13,8 @@ public class RecordedFrame {
     public Quaternion rotation;
     public Vector3[] wheelsPosition;
     public Quaternion[] wheelsRotation;
-
+    public Quaternion cameraRotaion;
+    public string gazingObjectName;
 
     public RecordedFrame( CarController car )
     {
@@ -31,6 +32,12 @@ public class RecordedFrame {
         }
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();
+        cameraRotaion = Camera.main.transform.rotation;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100f, 1<<0))
+        {
+            gazingObjectName = hit.collider.tag;
+        }
     }
 
 }
