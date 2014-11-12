@@ -9,7 +9,6 @@ public class SpeedMiles : MonoBehaviour {
     public int maxSpeed;
 
     float speedAngle;
-    float needleAngle;
 
 	// Use this for initialization
 	void Start () {
@@ -19,21 +18,20 @@ public class SpeedMiles : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         speedAngle = -car.speed * 1f / maxSpeed * 100f * (maxAngle - originAngle) / 100f - 1;
-        needleAngle = transform.rotation.eulerAngles.z;
-        if (adjustDegree(needleAngle) == adjustDegree(speedAngle + originAngle))
-            transform.Rotate(0f, 0f, 0f);
-        else if (adjustDegree(needleAngle) > adjustDegree(speedAngle + originAngle) && adjustDegree(needleAngle) != 1)
-            transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
-        else if (adjustDegree(needleAngle) < adjustDegree(speedAngle + originAngle) )
-            transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
+        //if (adjustDegree(needleAngle) == adjustDegree(speedAngle + originAngle))
+        transform.localEulerAngles = new Vector3(car.transform.rotation.x, car.transform.rotation.y, -adjustDegree(speedAngle) - originAngle);
+        //else if (adjustDegree(needleAngle) > adjustDegree(speedAngle + originAngle) && adjustDegree(needleAngle) != 1)
+        //    transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
+        //else if (adjustDegree(needleAngle) < adjustDegree(speedAngle + originAngle) )
+        //    transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
         //Debug.Log("Needle : " + adjustDegree(needleAngle));
         //Debug.Log("Speed : " + adjustDegree(speedAngle + originAngle));
 	}
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + car.speed);
-    }
+    //void OnGUI()
+    //{
+    //    GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + car.speed);
+    //}
 
     int adjustDegree(float degree)
     {

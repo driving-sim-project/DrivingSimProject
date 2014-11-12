@@ -10,6 +10,7 @@ public class CarController : MonoBehaviour {
     //Headlight & Taillight object
     public GameObject headlight;
     public GameObject taillight;
+    public GameObject rearlight;
 
 	// Add all wheels of the car here, so brake and steering forces can be applied to them.
 	public Wheel[] wheels;
@@ -103,138 +104,148 @@ public class CarController : MonoBehaviour {
 	
 	void Update () 
 	{
-		// Steering
-		Vector3 carDir = transform.forward;
-		float fVelo = rigidbody.velocity.magnitude;
-		Vector3 veloDir = rigidbody.velocity * (1/fVelo);
-		float angle = -Mathf.Asin(Mathf.Clamp( Vector3.Cross(veloDir, carDir).y, -1, 1));
-		float optimalSteering = angle / (wheels[0].maxSteeringAngle * Mathf.Deg2Rad);
-		if (fVelo < 1)
-			optimalSteering = 0;
-
-        float steerInput = Input.GetAxis("Horizontal");
-        //Debug.Log(steerInput);
-
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //    steerInput = -1;
-        //if (Input.GetKey(KeyCode.RightArrow))
-        //    steerInput = 1;
-
-        if (steerInput < steering)
+        if (GetComponent<ReplayPlayer>() == null)
         {
-            float steerSpeed = (steering > 0) ? (1 / (steerReleaseTime + veloSteerReleaseTime * fVelo)) : (1 / (steerTime + veloSteerTime * fVelo));
-            if (steering > optimalSteering)
-                steerSpeed *= 1 + (steering - optimalSteering) * steerCorrectionFactor;
-            steering -= steerSpeed * Time.deltaTime;
-            if (steerInput > steering)
-                steering = steerInput;
-        }
-        else if (steerInput > steering)
-        {
-            float steerSpeed = (steering < 0) ? (1 / (steerReleaseTime + veloSteerReleaseTime * fVelo)) : (1 / (steerTime + veloSteerTime * fVelo));
-            if (steering < optimalSteering)
-                steerSpeed *= 1 + (optimalSteering - steering) * steerCorrectionFactor;
-            steering += steerSpeed * Time.deltaTime;
+            // Steering
+            Vector3 carDir = transform.forward;
+            float fVelo = rigidbody.velocity.magnitude;
+            Vector3 veloDir = rigidbody.velocity * (1 / fVelo);
+            float angle = -Mathf.Asin(Mathf.Clamp(Vector3.Cross(veloDir, carDir).y, -1, 1));
+            float optimalSteering = angle / (wheels[0].maxSteeringAngle * Mathf.Deg2Rad);
+            if (fVelo < 1)
+                optimalSteering = 0;
+
+            float steerInput = Input.GetAxis("Horizontal");
+            //Debug.Log(steerInput);
+
+            //if (Input.GetKey(KeyCode.LeftArrow))
+            //    steerInput = -1;
+            //if (Input.GetKey(KeyCode.RightArrow))
+            //    steerInput = 1;
+
             if (steerInput < steering)
-                steering = steerInput;
+            {
+                float steerSpeed = (steering > 0) ? (1 / (steerReleaseTime + veloSteerReleaseTime * fVelo)) : (1 / (steerTime + veloSteerTime * fVelo));
+                if (steering > optimalSteering)
+                    steerSpeed *= 1 + (steering - optimalSteering) * steerCorrectionFactor;
+                steering -= steerSpeed * Time.deltaTime;
+                if (steerInput > steering)
+                    steering = steerInput;
+            }
+            else if (steerInput > steering)
+            {
+                float steerSpeed = (steering < 0) ? (1 / (steerReleaseTime + veloSteerReleaseTime * fVelo)) : (1 / (steerTime + veloSteerTime * fVelo));
+                if (steering < optimalSteering)
+                    steerSpeed *= 1 + (optimalSteering - steering) * steerCorrectionFactor;
+                steering += steerSpeed * Time.deltaTime;
+                if (steerInput < steering)
+                    steering = steerInput;
+            }
+
+            steering = steerInput;
+
+            // Throttle/Brake
+
+            accelKey = Input.GetAxis("Vertical");
+            //bool brakeKey = Input.GetKey (KeyCode.DownArrow);
+
+            //Debug.Log(accelKey);
+
+            if (drivetrain.automatic && drivetrain.gear == 0)
+            {
+                accelKey = Input.GetAxis("Vertical");
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                throttle += Input.GetAxis("Vertical");
+                throttleInput += Input.GetAxis("Vertical");
+            }
+            else if (accelKey > 0.0f)
+            {
+                //if (drivetrain.slipRatio < 0.10f)
+                //    throttle += Time.deltaTime / throttleTime;
+                //else if (!tractionControl)
+                //    throttle += Time.deltaTime / throttleTimeTraction;
+                //else
+                //    throttle -= Time.deltaTime / throttleReleaseTime;
+                throttle = accelKey;
+                throttleInput = accelKey;
+            }
+            else
+            {
+                //if (drivetrain.slipRatio < 0.2f)
+                //    throttle -= Time.deltaTime / throttleReleaseTime;
+                //else
+                //    throttle -= Time.deltaTime / throttleReleaseTimeTraction;
+                throttle = 0;
+                throttleInput = 0;
+            }
+            throttle = Mathf.Clamp01(throttle);
+
+            if (accelKey < 0.0f)
+            {
+                //if (drivetrain.slipRatio < 0.2f)
+                //    brake += Time.deltaTime / throttleTime;
+                //else
+                //    brake += Time.deltaTime / throttleTimeTraction;
+                taillight.gameObject.SetActive(true);
+                brake = -accelKey;
+                throttleInput = -accelKey;
+            }
+            else
+            {
+                //if (drivetrain.slipRatio < 0.2f)
+                //    brake -= Time.deltaTime / throttleReleaseTime;
+                //else
+                //    brake -= Time.deltaTime / throttleReleaseTimeTraction;
+                taillight.gameObject.SetActive(false);
+                brake = 0;
+                throttleInput = 0;
+            }
+            //brake = Mathf.Clamp01 (brake);
+            //throttleInput = throttleInput;
+
+            // Handbrake
+            handbrake = Mathf.Clamp01(handbrake + (Input.GetKey(KeyCode.Space) ? Time.deltaTime : -Time.deltaTime));
+
+            // Gear shifting
+            float shiftThrottleFactor = Mathf.Clamp01((Time.time - lastShiftTime) / shiftSpeed);
+            drivetrain.throttle = throttle * shiftThrottleFactor;
+            drivetrain.throttleInput = throttleInput;
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                lastShiftTime = Time.time;
+                drivetrain.ShiftUp();
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                lastShiftTime = Time.time;
+                drivetrain.ShiftDown();
+            }
+
+            // Apply inputs
+            foreach (Wheel w in wheels)
+            {
+                w.brake = brake;
+                w.handbrake = handbrake;
+                w.steering = steering;
+            }
+
+            if (drivetrain.gear == 0)
+                rearlight.gameObject.SetActive(true);
+            else
+                rearlight.gameObject.SetActive(false);
+
+            //Headlight
+            if (Input.GetButtonDown("R3"))
+                headlight.gameObject.SetActive(!headlight.gameObject.active);
+
+            speed = (int)(rigidbody.velocity.magnitude * 3.6f);
+            
         }
 
-        steering = steerInput;
-		
-		// Throttle/Brake
-
-        accelKey = Input.GetAxis("Vertical");
-        //bool brakeKey = Input.GetKey (KeyCode.DownArrow);
-
-        //Debug.Log(accelKey);
-
-		if (drivetrain.automatic && drivetrain.gear == 0)
-		{
-			accelKey = Input.GetAxis("Vertical");
-		}
-		
-		if (Input.GetKey (KeyCode.LeftShift))
-		{
-            throttle += Input.GetAxis("Vertical");
-			throttleInput += Input.GetAxis("Vertical");
-		}
-		else if (accelKey > 0.0f)
-		{
-            //if (drivetrain.slipRatio < 0.10f)
-            //    throttle += Time.deltaTime / throttleTime;
-            //else if (!tractionControl)
-            //    throttle += Time.deltaTime / throttleTimeTraction;
-            //else
-            //    throttle -= Time.deltaTime / throttleReleaseTime;
-            throttle = accelKey;
-            throttleInput = accelKey;
-		}
-		else 
-		{
-            //if (drivetrain.slipRatio < 0.2f)
-            //    throttle -= Time.deltaTime / throttleReleaseTime;
-            //else
-            //    throttle -= Time.deltaTime / throttleReleaseTimeTraction;
-            throttle = 0;
-            throttleInput = 0;
-		}
-		throttle = Mathf.Clamp01 (throttle);
-
-        if (accelKey < 0.0f)
-		{
-            //if (drivetrain.slipRatio < 0.2f)
-            //    brake += Time.deltaTime / throttleTime;
-            //else
-            //    brake += Time.deltaTime / throttleTimeTraction;
-            taillight.gameObject.SetActive(true);
-			brake = -accelKey;
-            throttleInput = -accelKey;
-		}
-		else 
-        {
-            //if (drivetrain.slipRatio < 0.2f)
-            //    brake -= Time.deltaTime / throttleReleaseTime;
-            //else
-            //    brake -= Time.deltaTime / throttleReleaseTimeTraction;
-            taillight.gameObject.SetActive(false);
-            brake = 0;
-            throttleInput = 0;
-		}
-        //brake = Mathf.Clamp01 (brake);
-        //throttleInput = throttleInput;
-				
-		// Handbrake
-		handbrake = Mathf.Clamp01 ( handbrake + (Input.GetKey (KeyCode.Space)? Time.deltaTime: -Time.deltaTime) );
-		
-		// Gear shifting
-		float shiftThrottleFactor = Mathf.Clamp01((Time.time - lastShiftTime)/shiftSpeed);
-		drivetrain.throttle = throttle * shiftThrottleFactor;
-		drivetrain.throttleInput = throttleInput;
-		
-		if(Input.GetKeyDown(KeyCode.A))
-		{
-			lastShiftTime = Time.time;
-			drivetrain.ShiftUp ();
-		}
-		if(Input.GetKeyDown(KeyCode.Z))
-		{
-			lastShiftTime = Time.time;
-			drivetrain.ShiftDown ();
-		}
-
-		// Apply inputs
-		foreach(Wheel w in wheels)
-		{
-			w.brake = brake;
-			w.handbrake = handbrake;
-			w.steering = steering;
-		}
-
-        //Headlight
-        if (Input.GetButtonDown("R3"))
-            headlight.gameObject.SetActive(!headlight.gameObject.active);
-
-        speed = (int)(rigidbody.velocity.magnitude * 3.6f);
 	}
 	
 	// Debug GUI. Disable when not needed.
