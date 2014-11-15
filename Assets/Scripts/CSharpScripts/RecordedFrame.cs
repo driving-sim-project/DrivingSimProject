@@ -33,8 +33,8 @@ public class RecordedFrame {
         List<Vector3> wheelsPositionTemp = new List<Vector3>();
         List<Quaternion> wheelsRotationTemp = new List<Quaternion>();
         foreach(Wheel w in car.wheels){
-            wheelsPositionTemp.Add(w.model.transform.position);
-            wheelsRotationTemp.Add(w.model.transform.rotation);
+            wheelsPositionTemp.Add(w.model.transform.localPosition);
+            wheelsRotationTemp.Add(w.model.transform.localRotation);
         }
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();
