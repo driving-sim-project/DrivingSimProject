@@ -19,6 +19,7 @@ public class RecordedFrame {
     public bool rearlight;
     public Vector3 eyePosition;
     public Quaternion wheelControllerRotation;
+    public int[] wheelAngle;
 
     public RecordedFrame( CarController car )
     {
@@ -32,12 +33,17 @@ public class RecordedFrame {
         steering = Input.GetAxis("Horizontal") * -450f;
         List<Vector3> wheelsPositionTemp = new List<Vector3>();
         List<Quaternion> wheelsRotationTemp = new List<Quaternion>();
+        List<int> wheelAngleTemp = new List<int>();
         foreach(Wheel w in car.wheels){
             wheelsPositionTemp.Add(w.model.transform.localPosition);
             wheelsRotationTemp.Add(w.model.transform.localRotation);
+            wheelAngleTemp.Add((int)((w.model.transform.localRotation.eulerAngles.y % 180) > 90 ? 
+                180 - (w.model.transform.localRotation.eulerAngles.y % 180):
+                w.model.transform.localRotation.eulerAngles.y % 180));
         }
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();
+        wheelAngle = wheelAngleTemp.ToArray();
         cameraRotaion = Camera.main.transform.rotation;
         RaycastHit hit;
         eyePosition = Input.mousePosition;

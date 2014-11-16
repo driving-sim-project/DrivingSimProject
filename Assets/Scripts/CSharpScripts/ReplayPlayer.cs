@@ -64,14 +64,14 @@ public class ReplayPlayer : MonoBehaviour {
         GUI.Label(new Rect(20, 60, 300, 30), "Throttle : " + (recording.frames[fn].throttle > 0 ? (int)(recording.frames[fn].throttle * 100f) : 0) + " %");
         GUI.Label(new Rect(20, 80, 300, 30), "Brake : " + (recording.frames[fn].throttle <= 0 ? (int)(Mathf.Abs(recording.frames[fn].throttle) * 100f) : 0) + " %");
         GUI.Label(new Rect(20, 100, 300, 30), "Steering Wheel : " + (recording.frames[fn].steering == 0 ? "Center 0":
-            (recording.frames[fn].steering > 0 ? "Left " + Mathf.Abs(recording.frames[fn].steering) : "Right " + Mathf.Abs(recording.frames[fn].steering))
+            (recording.frames[fn].steering > 0 ? "Left " + (int)Mathf.Abs(recording.frames[fn].steering) : "Right " + (int)Mathf.Abs(recording.frames[fn].steering))
             ) + " degree");
         GUI.Label(new Rect(20, 120, 300, 30), "Looking at : " + recording.frames[fn].gazingObjectName);
         GUI.Label(new Rect(20, 140, 300, 30), "Driving time : " + recording.frames[recording.frames.Count - 1].time + " sec");
         GUI.Label(new Rect(20, 160, 300, 30), "Average speed : " + recording.avgSpeed + " km/h");
         GUI.Label(new Rect(20, 180, 300, 30), "Top speed : " + recording.topSpeed + " km/h");
         GUI.Label(new Rect(20, 200, 300, 30), "Distance : " + recording.distance + " km");
-        GUI.Label(new Rect(20, 220, 300, 30), "Wheel Angle : " + Quaternion.Angle(Quaternion.identity, recording.frames[fn].wheelsRotation[0]));
+        GUI.Label(new Rect(20, 220, 300, 30), "Wheel Angle : " + recording.frames[fn].wheelAngle[0] + " Degree");
         GUI.DrawTexture(new Rect(recording.frames[fn].eyePosition.x, Screen.height - recording.frames[fn].eyePosition.y, cursorWidth, cursorHeight), cursorImage);
     }
 }
