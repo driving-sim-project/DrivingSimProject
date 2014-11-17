@@ -48,9 +48,8 @@ public class RecordedFrame {
         RaycastHit hit;
         eyePosition = Input.mousePosition;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(eyePosition), out hit, 100f, 1 << 0))
-        {
             gazingObjectName = hit.collider.tag;
-        }
+        else
+            gazingObjectName = "Forward";
     }
-
 }

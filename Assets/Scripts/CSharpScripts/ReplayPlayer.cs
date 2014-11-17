@@ -46,7 +46,7 @@ public class ReplayPlayer : MonoBehaviour {
                         wheelsModel[i].transform.localPosition = recording.frames[fn].wheelsPosition[i];
                         wheelsModel[i].transform.localRotation = recording.frames[fn].wheelsRotation[i];
                     }
-                    Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
+                    //Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
                 }
             }
             else
@@ -72,6 +72,11 @@ public class ReplayPlayer : MonoBehaviour {
         GUI.Label(new Rect(20, 180, 300, 30), "Top speed : " + recording.topSpeed + " km/h");
         GUI.Label(new Rect(20, 200, 300, 30), "Distance : " + recording.distance + " km");
         GUI.Label(new Rect(20, 220, 300, 30), "Wheel Angle : " + recording.frames[fn].wheelAngle[0] + " Degree");
+        GUI.Box(new Rect(Screen.width - 300, 10, 300, 30 * recording.gazingNameList.Length + 1), "Gazing Statistics");
+        for (int i = 0; i < recording.gazingNameList.Length; i++ )
+        {
+            GUI.Label(new Rect(Screen.width - 290, 30 + 20 * i, 300, 30), recording.gazingNameList[i] + " : " + (recording.gazingPerList[i] * 100f) / recording.frames.Count + "%");
+        }
         GUI.DrawTexture(new Rect(recording.frames[fn].eyePosition.x, Screen.height - recording.frames[fn].eyePosition.y, cursorWidth, cursorHeight), cursorImage);
     }
 }

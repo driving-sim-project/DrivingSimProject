@@ -3,22 +3,14 @@ using System.Collections;
 
 public class LaneDetector : MonoBehaviour {
 
-    static bool trigger = false;
-
     void OnTriggerEnter(Collider other)
     {
-        if (trigger == false && other.tag == "Car")
-        {
-            trigger = true;
-            Debug.Log(other.gameObject);
-        }
+        if(other.tag == "Car")
+            Debug.Log(other.tag);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Car"){
-            trigger = false;
-            Debug.Log("Exit");
-        }
+        Debug.Log("Exit");
     }
 }

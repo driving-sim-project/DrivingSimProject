@@ -5,7 +5,6 @@ public class ScreenTexture : MonoBehaviour {
     public int thumbProportion = 25;
     public Color borderColor = Color.white;
     public int borderWidth = 2;
-    public Camera mainCamera;
     public Camera camera;
     public GameObject mirrorPlane;
     public float interval = 0.02f;
@@ -23,7 +22,7 @@ public class ScreenTexture : MonoBehaviour {
     {
         if (Time.time > time + interval)
         {
-            mainCamera.projectionMatrix = camera.projectionMatrix;
+            Camera.main.projectionMatrix = camera.projectionMatrix;
             texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
             texture.Apply();
             mirrorPlane.renderer.material.SetTexture( 0, texture);

@@ -10,11 +10,16 @@ public class RecordedMotion : ScriptableObject {
     public float distance = 0f;
     public int topSpeed = 0;
     public int currentFrameNumber;
+    public string[] gazingNameList;
+    public int[] gazingPerList;
 
-    Vector3 posTemp;
 
     public void Init(List<RecordedFrame> ftemp, int cfntemp)
     {
+        Vector3 posTemp;
+        List<string> gazingNameListTemp = new List<string>();
+        List<int> gazingPerListTemp = new List<int>();
+        int gazingIndex = -1;
         frames = ftemp;
         currentFrameNumber = cfntemp;
         posTemp = frames[0].position;
@@ -25,7 +30,21 @@ public class RecordedMotion : ScriptableObject {
                 topSpeed = rm.speed;
             distance += Vector3.Distance(posTemp, rm.position)/1000f;
             posTemp = rm.position;
+            if (gazingNameListTemp.Contains(rm.gazingObjectName) == false)
+            {
+                gazingNameListTemp.Add(rm.gazingObjectName);
+                gazingPerListTemp.Add(1);
+            }
+            else
+            {
+                gazingIndex = gazingNameListTemp.IndexOf(rm.gazingObjectName);
+                gazingPerListTemp[gazingIndex] += 1;
+            }
         }
+        if (distance < 1f)
+            distance = 0f;
         avgSpeed = (int)(avgSpeed * 1f / frames.Count);
+        gazingNameList = gazingNameListTemp.ToArray();
+        gazingPerList = gazingPerListTemp.ToArray();
     }
 }

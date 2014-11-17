@@ -26,7 +26,7 @@ public class ReplayRecord : MonoBehaviour {
     {
         RecordedMotion motion = ScriptableObject.CreateInstance<RecordedMotion>();
         motion.Init(frames, 1);
-        AssetDatabase.CreateAsset(motion, "Assets/ReplayRecording.asset");
+        AssetDatabase.CreateAsset(motion, "Assets/Replay" + System.DateTime.Now.ToString("_yyyy-MM-dd_HH-mm-ss") + ".asset");
         AssetDatabase.SaveAssets();
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = motion;
