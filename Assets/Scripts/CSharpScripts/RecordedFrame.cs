@@ -20,6 +20,8 @@ public class RecordedFrame {
     public Vector3 eyePosition;
     public Quaternion wheelControllerRotation;
     public int[] wheelAngle;
+    public bool sidelightR;
+    public bool sidelightL;
 
     public RecordedFrame( CarController car )
     {
@@ -29,6 +31,8 @@ public class RecordedFrame {
         rotation = car.transform.rotation;
         headlight = car.headlight.active;
         rearlight = car.rearlight.active;
+        sidelightL = car.sidelightL.active;
+        sidelightR = car.sidelightR.active;
         throttle = car.accelKey;
         steering = Input.GetAxis("Horizontal") * -450f;
         List<Vector3> wheelsPositionTemp = new List<Vector3>();
@@ -47,7 +51,7 @@ public class RecordedFrame {
         cameraRotaion = Camera.main.transform.rotation;
         RaycastHit hit;
         eyePosition = Input.mousePosition;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(eyePosition), out hit, 100f, 1 << 0))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(eyePosition), out hit, 150f, 1 << 0))
             gazingObjectName = hit.collider.tag;
         else
             gazingObjectName = "Forward";
