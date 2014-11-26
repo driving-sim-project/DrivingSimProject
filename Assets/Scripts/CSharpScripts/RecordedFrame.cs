@@ -18,7 +18,7 @@ public class RecordedFrame {
     public string gazingObjectName;
     public bool rearlight;
     public Vector3 eyePosition;
-    public Quaternion wheelControllerRotation;
+    public Quaternion steeringWheelRotation;
     public int[] wheelAngle;
     public bool sidelightR;
     public bool sidelightL;
@@ -48,6 +48,7 @@ public class RecordedFrame {
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();
         wheelAngle = wheelAngleTemp.ToArray();
+        steeringWheelRotation = car.steeringWheel.transform.localRotation;
         cameraRotaion = Camera.main.transform.rotation;
         RaycastHit hit;
         eyePosition = Input.mousePosition;

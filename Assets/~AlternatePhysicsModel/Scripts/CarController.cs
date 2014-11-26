@@ -13,6 +13,7 @@ public class CarController : MonoBehaviour {
     public GameObject rearlight;
     public GameObject sidelightL;
     public GameObject sidelightR;
+    public GameObject steeringWheel;
 
 	// Add all wheels of the car here, so brake and steering forces can be applied to them.
 	public Wheel[] wheels;
@@ -129,6 +130,8 @@ public class CarController : MonoBehaviour {
             //    steerInput = -1;
             //if (Input.GetKey(KeyCode.RightArrow))
             //    steerInput = 1;
+
+            steeringWheel.transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + (Input.GetAxis("Horizontal") * -450f));
 
             if (steerInput < steering)
             {

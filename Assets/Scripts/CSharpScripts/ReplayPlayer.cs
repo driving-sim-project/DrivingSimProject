@@ -63,6 +63,7 @@ public class ReplayPlayer : MonoBehaviour {
                         wheelsModel[i].transform.localPosition = recording.frames[fn].wheelsPosition[i];
                         wheelsModel[i].transform.localRotation = recording.frames[fn].wheelsRotation[i];
                     }
+                    car.steeringWheel.transform.localRotation = recording.frames[fn].steeringWheelRotation;
                     //Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
                 }
             }
