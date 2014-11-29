@@ -76,7 +76,7 @@ public class MainMenu : MonoBehaviour {
 
                 case 1:
                     GUI.Box(new Rect(guiPosition[0], guiPosition[1], guiPosition[0] * 2, guiPosition[1] * 2), "Please Wait.....", titleBox);
-                    Application.LoadLevel("TestTask");
+                    Application.LoadLevel("Replay");
                     break;
 
                 case 2:
