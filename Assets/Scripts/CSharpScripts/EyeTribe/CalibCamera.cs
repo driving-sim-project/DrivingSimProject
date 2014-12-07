@@ -232,7 +232,7 @@ public class CalibCamera : MonoBehaviour, IGazeListener, ICalibrationProcessHand
 
                 if (GUI.Button(new Rect(x + btnPadding, y + btnPadding, btnWidth, btnHeight), btnText))
                 {
-                    Application.LoadLevel(1);
+                    Application.LoadLevel(SceneManager.GoScene);
                 }
             }
         }
@@ -305,7 +305,7 @@ public class CalibCamera : MonoBehaviour, IGazeListener, ICalibrationProcessHand
             //Handle on main UI thread
             QueueCallback(new Callback(delegate
             {
-                Application.LoadLevel(1);
+                Application.LoadLevel(SceneManager.GoScene);
             }));
         }
     }
