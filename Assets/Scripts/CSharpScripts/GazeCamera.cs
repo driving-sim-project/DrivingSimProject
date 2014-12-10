@@ -16,18 +16,26 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
     private GazeDataValidator gazeUtils;
     private Camera cam;
-
+    private Component gazeIndicator;
+    private Vector3 camPosition;
     private double eyesDistance;
     private double baseDist;
     private double depthMod;
 
     void Start()
     {
+        Screen.autorotateToPortrait = false;
+        
+        gazeIndicator = cam.transform.GetChild(0);
+
         gazeUtils = new GazeDataValidator(30);
         GazeManager.Instance.AddGazeListener(this);
+    }
+
+    void Awake()
+    {
         cam = GetComponent<Camera>();
-        if(!GazeManager.Instance.IsActivated)
-            GazeManager.Instance.Activate(GazeManager.ApiVersion.VERSION_1_0, GazeManager.ClientMode.Push);
+        camPosition = cam.transform.localPosition;
     }
 
     public void OnGazeUpdate(GazeData gazeData)
@@ -42,25 +50,25 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         if (null != userPos)
         {
             //mapping cam panning to 3:2 aspect ratio
-            double tx = (userPos.X * 5) - 2.5f;
-            double ty = (userPos.Y * 3) - 1.5f;
+            //double tx = (userPos.X * 5) - 2.5f;
+            //double ty = (userPos.Y * 3) - 1.5f;
 
             //position camera X-Y plane and adjust distance
             eyesDistance = gazeUtils.GetLastValidUserDistance();
-            depthMod = 2 * eyesDistance;
+            depthMod = 0.1f * eyesDistance;
 
-            //Vector3 newPos = new Vector3(
-            //    (float)tx,
-            //    (float)ty,
-            //    (float)(baseDist + depthMod));
-            //cam.transform.position = newPos;
+            Vector3 newPos = new Vector3(
+                (float)(camPosition.x),
+                (float)(camPosition.y),
+                (float)(camPosition.z + depthMod));
+            cam.transform.localPosition = newPos;
 
             //camera 'look at' origo
-            //cam.transform.LookAt(GetComponentInParent<CarController>().transform);
+            //cam.transform.LookAt(Vector3.forward);
 
             //tilt cam according to eye angle
-            //double angle = gazeUtils.GetLastValidEyesAngle();
-            //cam.transform.localEulerAngles = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z + (float)angle);
+            double angle = gazeUtils.GetLastValidEyesAngle();
+            cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, (float)angle, cam.transform.eulerAngles.z);
         }
 
         Point2D gazeCoords = gazeUtils.GetLastValidSmoothedGazeCoordinates();
@@ -73,10 +81,12 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             Vector3 screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
 
             Vector3 planeCoord = cam.ScreenToWorldPoint(screenPoint);
+            gazeIndicator.transform.position = planeCoord;
 
             //handle collision detection
-            Debug.Log(checkGazeCollision(screenPoint));
+            checkGazeCollision(screenPoint);
         }
+
 
 	}
 

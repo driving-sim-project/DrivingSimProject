@@ -30,5 +30,6 @@ public class ReplayRecord : MonoBehaviour {
         AssetDatabase.SaveAssets();
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = motion;
+        Application.LoadLevel("startmenu");
     }
 }
