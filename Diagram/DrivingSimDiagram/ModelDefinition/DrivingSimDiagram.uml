@@ -49,33 +49,18 @@
                 isLeaf="false">
                 <opaqueActionMoniker
                   Id="d22d1f64-ca61-464e-9e56-3aaeb0d63865"
-                  LastKnownName="กำหนดรูปแบบสถานการณ์จำลอง"
+                  LastKnownName="เลือกรูปแบบสถานการณ์จำลอง"
                   LastKnownLocation="DrivingSimDiagram.uml" />
               </controlFlow>
             </flowNodeTargets>
           </initialNode>
           <opaqueAction
             Id="d22d1f64-ca61-464e-9e56-3aaeb0d63865"
-            name="กำหนดรูปแบบสถานการณ์จำลอง"
+            name="เลือกรูปแบบสถานการณ์จำลอง"
             isLeaf="false">
             <flowNodeTargets>
               <controlFlow
-                Id="c15ceb21-88fd-446a-abf2-489417db0934"
-                isLeaf="false">
-                <opaqueActionMoniker
-                  Id="543bc066-ff22-44e5-986d-49ae2005c0d1"
-                  LastKnownName="จัดวางตำแหน่งของวัถตุที่ใช้ในการทดสอบตามรูปแบบที่กำหนด"
-                  LastKnownLocation="DrivingSimDiagram.uml" />
-              </controlFlow>
-            </flowNodeTargets>
-          </opaqueAction>
-          <opaqueAction
-            Id="543bc066-ff22-44e5-986d-49ae2005c0d1"
-            name="จัดวางตำแหน่งของวัถตุที่ใช้ในการทดสอบตามรูปแบบที่กำหนด"
-            isLeaf="false">
-            <flowNodeTargets>
-              <controlFlow
-                Id="4f102a5d-c0c1-4e4c-ad38-5dc5b3cb800c"
+                Id="ac5966f8-7b9d-4260-b5c8-e00dba04c508"
                 isLeaf="false">
                 <opaqueActionMoniker
                   Id="fe5a18ae-2859-477c-98e1-f872df3d5f9e"
@@ -121,7 +106,7 @@
                   LastKnownLocation="DrivingSimDiagram.uml" />
               </controlFlow>
               <controlFlow
-                Id="edd2e2c3-ddd5-4bcc-aeb0-296f041527c8"
+                Id="c53595db-127c-49cf-988d-970009c2b56b"
                 isLeaf="false">
                 <opaqueActionMoniker
                   Id="1c0b6a08-7b91-4978-840f-a84f8ce3eff3"
@@ -151,11 +136,11 @@
             isLeaf="false">
             <flowNodeTargets>
               <controlFlow
-                Id="91d3efb3-18d5-422f-8812-ec5aa2b759f6"
+                Id="92214e31-3d43-4178-a2e8-0f24175d6e49"
                 isLeaf="false">
-                <decisionNodeMoniker
-                  Id="87791d8d-2653-48ad-a5a8-a435058650fa"
-                  LastKnownName="Decision1"
+                <opaqueActionMoniker
+                  Id="d12d8e54-ad29-42db-90ba-44ea06477372"
+                  LastKnownName="บันทึกข้อมูลพฤติกรรมการขับขี่"
                   LastKnownLocation="DrivingSimDiagram.uml" />
               </controlFlow>
             </flowNodeTargets>
@@ -204,18 +189,69 @@
                   LastKnownLocation="DrivingSimDiagram.uml" />
               </controlFlow>
             </flowNodeTargets>
+            <pins>
+              <opaqueActionHasOutputValues>
+                <outputPin
+                  Id="e4e2e849-6f9a-4f91-b378-594eed4ff2ae"
+                  name="Display"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="57e547db-2814-44ca-b9bb-e8157718505c"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </outputPin>
+              </opaqueActionHasOutputValues>
+            </pins>
           </opaqueAction>
           <activityFinalNode
             Id="3f1dfa95-2411-445a-91bd-c5b7fa37cd6b"
             name="ActivityFinal1"
             isLeaf="false" />
+          <opaqueAction
+            Id="d12d8e54-ad29-42db-90ba-44ea06477372"
+            name="บันทึกข้อมูลพฤติกรรมการขับขี่"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="ef5abde9-5660-4984-acd3-c395c093240a"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="87791d8d-2653-48ad-a5a8-a435058650fa"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="DrivingSimDiagram.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <pins>
+              <opaqueActionHasInputValues>
+                <inputPin
+                  Id="9bcb4985-8196-4a8a-accb-85852552c640"
+                  name="Wheel Controller &amp; EyeTribe"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="721116ac-f577-4769-9983-1ded2232bbbe"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </inputPin>
+              </opaqueActionHasInputValues>
+            </pins>
+          </opaqueAction>
         </nodes>
       </activity>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <actor
         Id="b5fec71e-fc20-498f-9f53-4c167e9a2692"
-        name="Driving Tester"
+        name="Driving User"
         isAbstract="false"
         isLeaf="false">
         <targetEnds>
@@ -297,6 +333,201 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="fefc772a-4bee-421d-8047-3af3397fe9ce"
+            isDerived="false"
+            sourceEndRoleName="Driving User"
+            targetEndRoleName="Free Drive"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="d4e0eaac-0e2a-454a-8481-a94a193667eb"
+              LastKnownName="Free Drive"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fec21a75-2caf-4e7a-8334-5957bbf976b1"
+                  name="Driving User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="89471849-8efc-4cf8-8dea-1cbbe7288e51"
+                  name="Free Drive"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="91244d3c-23bd-4349-b088-1e7f5880493f"
+            isDerived="false"
+            sourceEndRoleName="Driving User"
+            targetEndRoleName="Mission"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e6bfcaf0-4622-4af0-913a-ae8fe0364fe6"
+              LastKnownName="Mission"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1c9b2d7f-4ea7-45da-93af-83635831bf06"
+                  name="Driving User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="92875b5f-a119-48f3-9794-98dbd2036b34"
+                  name="Mission"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="1005fea8-1072-4460-b067-3abeb9f698cc"
+            isDerived="false"
+            sourceEndRoleName="Driving User"
+            targetEndRoleName="Replay"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="67469e7b-69c1-4edd-ad3a-e4439386b9b3"
+              LastKnownName="Replay"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="025835eb-dfe5-4faf-a666-878d34736c11"
+                  name="Driving User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2210cd12-fcd9-4e3c-9695-5e1086774461"
+                  name="Replay"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="e89c1378-3777-4a7d-8a02-c11dcfe2d9a1"
+            isDerived="false"
+            sourceEndRoleName="Driving User"
+            targetEndRoleName="Controller"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="6e70cc2e-d4e1-43d4-a719-dc7a11a57ea9"
+              LastKnownName="Show Controller"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0ccc9f8a-dde6-4523-b638-a43da336cdd1"
+                  name="Driving User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3c71a3c4-ae34-42f1-a80e-dabd45b1a0bb"
+                  name="Controller"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="daced044-a327-4c14-b08c-8490416acefa"
+            isDerived="false"
+            sourceEndRoleName="Driving User"
+            targetEndRoleName="Exit"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="ff3f2195-3fdc-4d15-b447-d76666871056"
+              LastKnownName="Exit"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7217c8bc-98b9-4bbc-af3f-490194e63b53"
+                  name="Driving User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b4355c01-305a-432a-aec4-a7aeb6174dce"
+                  name="Exit"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
       </actor>
     </packageHasNamedElement>
@@ -313,14 +544,7 @@
         Id="7a113fd4-4707-4f45-9ac8-4d39e1fe1f45"
         name="Eye Checking"
         isAbstract="false"
-        isLeaf="false">
-        <subjects>
-          <subsystemMoniker
-            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
-            LastKnownName="Driving Simulator"
-            LastKnownLocation="DrivingSimDiagram.uml" />
-        </subjects>
-      </useCase>
+        isLeaf="false" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <actor
@@ -466,12 +690,6 @@
               LastKnownLocation="DrivingSimDiagram.uml" />
           </include>
         </additions>
-        <subjects>
-          <subsystemMoniker
-            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
-            LastKnownName="Driving Simulator"
-            LastKnownLocation="DrivingSimDiagram.uml" />
-        </subjects>
       </useCase>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -521,12 +739,6 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
-        <subjects>
-          <subsystemMoniker
-            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
-            LastKnownName="Driving Simulator"
-            LastKnownLocation="DrivingSimDiagram.uml" />
-        </subjects>
       </useCase>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -534,14 +746,7 @@
         Id="27771bf0-c191-4c23-8603-04ae939671df"
         name="Test Driving"
         isAbstract="false"
-        isLeaf="false">
-        <subjects>
-          <subsystemMoniker
-            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
-            LastKnownName="Driving Simulator"
-            LastKnownLocation="DrivingSimDiagram.uml" />
-        </subjects>
-      </useCase>
+        isLeaf="false" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <useCase
@@ -558,6 +763,123 @@
               LastKnownLocation="DrivingSimDiagram.uml" />
           </include>
         </additions>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="97de5503-47c0-4cb3-a773-2cf236e78de0"
+        name="Analysis System to improve more event"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="0352d4bc-7eff-45d6-a41e-0edf81e56aa7"
+        name="Artifact1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="de094eaf-c34e-48fd-92eb-38ada35134a1"
+        name="Mode Select"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="55fe0d43-b2e5-47ce-9cff-8a5d68c419ca">
+            <useCaseMoniker
+              Id="d4e0eaac-0e2a-454a-8481-a94a193667eb"
+              LastKnownName="Free Drive"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+          <include
+            Id="279f3fa8-9a9f-40e0-ac1f-0bac9504c262">
+            <useCaseMoniker
+              Id="e6bfcaf0-4622-4af0-913a-ae8fe0364fe6"
+              LastKnownName="Mission"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+          <include
+            Id="2dc16234-ebc5-4952-a53b-61fa7ed1ecfe">
+            <useCaseMoniker
+              Id="67469e7b-69c1-4edd-ad3a-e4439386b9b3"
+              LastKnownName="Replay"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+          <include
+            Id="3a2069b3-4d1c-4c26-8511-fbd442b9f4e2">
+            <useCaseMoniker
+              Id="6e70cc2e-d4e1-43d4-a719-dc7a11a57ea9"
+              LastKnownName="Show Controller"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+          <include
+            Id="f0a4bc75-cc15-4728-858d-8ca8fdf1f142">
+            <useCaseMoniker
+              Id="ff3f2195-3fdc-4d15-b447-d76666871056"
+              LastKnownName="Exit"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+        </additions>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d4e0eaac-0e2a-454a-8481-a94a193667eb"
+        name="Free Drive"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="41ca174d-53db-4632-b039-4811bdd7275b"
+            isDerived="false"
+            sourceEndRoleName="Free Drive"
+            targetEndRoleName="UseCase1"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="d3d66288-ea29-44bc-98e7-964655d1f6e5"
+              LastKnownName="Drive"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c1a8d017-d777-473d-ba16-8a6a87227ba2"
+                  name="Free Drive"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7afa5922-4647-42bb-a5f9-ab1a57c504e5"
+                  name="UseCase1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <additions>
+          <include
+            Id="da34d114-05fc-4ba1-ad3d-8d155b38099e">
+            <useCaseMoniker
+              Id="461a38eb-66b9-4c55-be5c-0e89ed0a46a5"
+              LastKnownName="EyeTribe Calibrate"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+        </additions>
         <subjects>
           <subsystemMoniker
             Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
@@ -568,10 +890,365 @@
     </packageHasNamedElement>
     <packageHasNamedElement>
       <useCase
-        Id="97de5503-47c0-4cb3-a773-2cf236e78de0"
-        name="Analysis System to improve more event"
+        Id="e6bfcaf0-4622-4af0-913a-ae8fe0364fe6"
+        name="Mission"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="5d5a29b4-523c-4615-a5bf-acd7259fce45"
+            isDerived="false"
+            sourceEndRoleName="Mission"
+            targetEndRoleName="UseCase2"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="165a0b4f-0523-4ad0-bd37-1460883b5ad2"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="aa747ab9-c8bc-4022-af5d-c2d0cf2eec3d"
+                  name="Mission"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6fbd6c27-ef80-411a-bce9-eb7e6e6ea063"
+                  name="UseCase2"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <additions>
+          <include
+            Id="f23c8625-a411-4a6b-a8cd-d7ee8f94c81d">
+            <useCaseMoniker
+              Id="461a38eb-66b9-4c55-be5c-0e89ed0a46a5"
+              LastKnownName="EyeTribe Calibrate"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="67469e7b-69c1-4edd-ad3a-e4439386b9b3"
+        name="Replay"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="a6a29727-9ef2-4187-a0b6-6ac3d7bf976c">
+            <useCaseMoniker
+              Id="cd70dcd7-43ca-4922-a0d5-efe7b1e863e6"
+              LastKnownName="Replay Data"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="6e70cc2e-d4e1-43d4-a719-dc7a11a57ea9"
+        name="Show Controller"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ff3f2195-3fdc-4d15-b447-d76666871056"
+        name="Exit"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="461a38eb-66b9-4c55-be5c-0e89ed0a46a5"
+        name="EyeTribe Calibrate"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="9ace078d-117e-413d-9fed-38d263bd1725">
+            <useCaseMoniker
+              Id="821a83d1-578d-4dd9-b36b-6060e4919c8d"
+              LastKnownName="EyeTribe Manager"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d3d66288-ea29-44bc-98e7-964655d1f6e5"
+        name="Drive"
         isAbstract="false"
         isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="165a0b4f-0523-4ad0-bd37-1460883b5ad2"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="25799ae7-854c-445b-8204-812a30bb558d"
+        name="Mission Controller"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="3cb38eaa-f370-435c-85f5-8b8321c7dd5f">
+            <useCaseMoniker
+              Id="821a83d1-578d-4dd9-b36b-6060e4919c8d"
+              LastKnownName="EyeTribe Manager"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </dependency>
+        </suppliersInternal>
+        <extendedCases>
+          <extend
+            Id="4f35e265-6f63-4a8d-9003-99a5f384fb6b">
+            <useCaseMoniker
+              Id="e6bfcaf0-4622-4af0-913a-ae8fe0364fe6"
+              LastKnownName="Mission"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="cd70dcd7-43ca-4922-a0d5-efe7b1e863e6"
+        name="Replay Data"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="5dffd612-e56d-425c-8e93-206bdbdc481c">
+            <useCaseMoniker
+              Id="25799ae7-854c-445b-8204-812a30bb558d"
+              LastKnownName="Mission Controller"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="821a83d1-578d-4dd9-b36b-6060e4919c8d"
+        name="EyeTribe Manager"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d7e05ff5-9f72-4612-80da-7c495c4b9770"
+        name="Traffic Rules&#xD;&#xA;Checker"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="5461e422-3d78-407d-9561-f107d2a2e06c">
+            <useCaseMoniker
+              Id="25799ae7-854c-445b-8204-812a30bb558d"
+              LastKnownName="Mission Controller"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="1f69a3c8-583e-43be-a501-ab5c17b5193b"
+        name="The EyeTribe"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="0b5785b5-38fe-40f9-b33e-38851db59372"
+            isDerived="false"
+            sourceEndRoleName="The EyeTribe SDK"
+            targetEndRoleName="EyeTribe Manager"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="821a83d1-578d-4dd9-b36b-6060e4919c8d"
+              LastKnownName="EyeTribe Manager"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="df43d27a-cd72-419d-a7e9-a47dec11341f"
+                  name="The EyeTribe SDK"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="dd0a6ac7-af96-4f25-b97c-93d93f49db3c"
+                  name="EyeTribe Manager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </artifact>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9b157180-1a30-4ec1-abb0-605cbdf4d2d5"
+        name="Mission Result"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="0bb80a0e-c02b-4836-9776-4c8e6c7551cf"
+            isDerived="false"
+            sourceEndRoleName="Mission Result"
+            targetEndRoleName="Driving User"
+            isLeaf="false"
+            isAbstract="false">
+            <actorMoniker
+              Id="b5fec71e-fc20-498f-9f53-4c167e9a2692"
+              LastKnownName="Driving User"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="98a5f64f-57fd-480a-a654-88cbb81ab80a"
+                  name="Mission Result"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ebdbb765-5f07-4112-b7e3-ba4739120cb6"
+                  name="Driving User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <extendedCases>
+          <extend
+            Id="4a1c7a19-5f2f-4f66-9179-a01766176f66">
+            <useCaseMoniker
+              Id="25799ae7-854c-445b-8204-812a30bb558d"
+              LastKnownName="Mission Controller"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </extend>
+          <extend
+            Id="3bf720b6-2075-4c73-a009-60e89b752239">
+            <useCaseMoniker
+              Id="cd70dcd7-43ca-4922-a0d5-efe7b1e863e6"
+              LastKnownName="Replay Data"
+              LastKnownLocation="DrivingSimDiagram.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd7416d9-c0c0-4cb1-81a6-1a4ab48515de"
+            LastKnownName="Driving Simulator"
+            LastKnownLocation="DrivingSimDiagram.uml" />
+        </subjects>
+      </useCase>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

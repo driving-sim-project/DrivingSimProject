@@ -1,41 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="70d1c987-8d9e-4a21-a8a6-da627c4971cb" name="UMLUseCaseDiagram1" linkedPackageId="ea5dea2c-823b-44b3-a0f5-b520f08952e2" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="70d1c987-8d9e-4a21-a8a6-da627c4971cb" name="UMLUseCaseDiagram1" linkedPackageId="ea5dea2c-823b-44b3-a0f5-b520f08952e2" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
   <packagedElements>
     <useCaseModelRootHasTypes>
-      <actor Id="04809c73-9160-46cb-9c85-3c14d0252f22" name="Driving Tester" isAbstract="false" isLeaf="false">
+      <actor Id="04809c73-9160-46cb-9c85-3c14d0252f22" name="Driving User" isAbstract="false" isLeaf="false">
         <elementDefinition Id="b5fec71e-fc20-498f-9f53-4c167e9a2692" />
         <targetEnds>
-          <association Id="4fad976e-e0d2-4e54-a434-2850907c6473" isDerived="false" sourceEndRoleName="Driving Tester" targetEndRoleName="Test Driving" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="2cffe792-43c1-4860-913d-f61c18bbe16d" LastKnownName="Test Driving" />
+          <association Id="1e2a6eb1-0a66-48c1-b7ba-fbaf5e6d4cc1" isDerived="false" sourceEndRoleName="Driving User" targetEndRoleName="Free Drive" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="c20c2ede-85d7-4d3c-8f78-e23aa0d00004" LastKnownName="Free Drive" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="4a3bfccf-7cde-429b-ae0c-e87c890e3e30" name="Driving Tester" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="d5c36df8-3280-469a-b73d-5349a01d71c5" />
+                <memberEnd Id="eb2b8d95-65a5-4681-8ef7-d22544e8be40" name="Driving User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="fec21a75-2caf-4e7a-8334-5957bbf976b1" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="278e695a-cfdd-4bcd-b33a-b1b4959ef5e3" name="Test Driving" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="92af9768-b999-4eb1-aa6e-0a4cb8c1c7a6" />
+                <memberEnd Id="948ae8a2-278f-486c-bb7a-af170de4d7e3" name="Free Drive" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="89471849-8efc-4cf8-8dea-1cbbe7288e51" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="b016edbe-155c-4141-bcf4-2363756e9f9c" />
+            <elementDefinition Id="fefc772a-4bee-421d-8047-3af3397fe9ce" />
           </association>
-          <association Id="ebfc2040-af37-409f-be60-a5c8c2d146d3" isDerived="false" sourceEndRoleName="Driving Tester" targetEndRoleName="Get Result" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="21cd7573-91bd-457b-92d6-53696c541d66" LastKnownName="Get Result" />
+          <association Id="2b32219b-cd63-481e-a504-b858e24cec88" isDerived="false" sourceEndRoleName="Driving User" targetEndRoleName="Mission" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9519a324-082a-435d-8625-bd08561aab47" LastKnownName="Mission" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="68e2057c-8e5e-4fcc-abad-f76a23d0abe2" name="Driving Tester" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="c50d4079-ce02-4430-9bf9-d4e7536f82f9" />
+                <memberEnd Id="05a8226e-2d61-4982-a553-a6f617da5ce0" name="Driving User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1c9b2d7f-4ea7-45da-93af-83635831bf06" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="c4159c88-2736-4b2a-b4de-debe77426e27" name="Get Result" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="7a03679e-43bc-4b07-b22f-582ec2e43668" />
+                <memberEnd Id="fe17639d-1e86-4f32-8c84-a79c093b6b09" name="Mission" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="92875b5f-a119-48f3-9794-98dbd2036b34" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="9f2f4148-f2e4-4147-9088-077cb302af43" />
+            <elementDefinition Id="91244d3c-23bd-4349-b088-1e7f5880493f" />
+          </association>
+          <association Id="9f35d9bb-e4ca-4b2a-96a2-49af34f16f5a" isDerived="false" sourceEndRoleName="Driving User" targetEndRoleName="Replay" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="3b6ece65-6e50-49d0-bc59-f712679ead78" LastKnownName="Replay" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f4384748-e181-46a6-8839-95772c0f0b06" name="Driving User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="025835eb-dfe5-4faf-a666-878d34736c11" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="159b8fd0-ff36-4934-ac10-088e9b7ff7d0" name="Replay" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2210cd12-fcd9-4e3c-9695-5e1086774461" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1005fea8-1072-4460-b067-3abeb9f698cc" />
+          </association>
+          <association Id="5f3687f4-a33a-432d-9961-0db13b0b03da" isDerived="false" sourceEndRoleName="Driving User" targetEndRoleName="Controller" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4135c23d-556f-4319-b25b-dedd895a154a" LastKnownName="Show Controller" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="41fc8135-c017-4013-8bef-13e48732571e" name="Driving User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="0ccc9f8a-dde6-4523-b638-a43da336cdd1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="85c27e51-a2f9-4ac0-83dc-09c434de0097" name="Controller" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3c71a3c4-ae34-42f1-a80e-dabd45b1a0bb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="e89c1378-3777-4a7d-8a02-c11dcfe2d9a1" />
+          </association>
+          <association Id="736358a4-78f1-46cd-98be-ebe967a420c8" isDerived="false" sourceEndRoleName="Driving User" targetEndRoleName="Exit" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="871a6bda-c178-41fc-8e66-ebf6e365f270" LastKnownName="Exit" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="517afed0-6370-4f73-9557-4602b1e4410d" name="Driving User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7217c8bc-98b9-4bbc-af3f-490194e63b53" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="340e66d4-ab2a-4073-a77d-0ade88449625" name="Exit" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b4355c01-305a-432a-aec4-a7aeb6174dce" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="daced044-a327-4c14-b08c-8490416acefa" />
           </association>
         </targetEnds>
       </actor>
@@ -46,38 +94,12 @@
       </subsystem>
     </useCaseModelRootHasTypes>
     <packageHasNamedElement>
-      <useCase Id="8bb665c3-eb4f-4c2b-ada1-ee01d35dc08d" name="Eye Checking" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="7a113fd4-4707-4f45-9ac8-4d39e1fe1f45" />
-        <subjects>
-          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
-        </subjects>
-      </useCase>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <useCase Id="e43e86c3-1557-4d69-b7ac-647c6e75fb19" name="Driving Testing" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="31d99461-13bd-4a11-b1a9-852803c86ab7" />
-        <targetEnds>
-          <association Id="f3e1a480-e46b-4af2-8076-f59f251caecc" isDerived="false" sourceEndRoleName="Driving Testing" targetEndRoleName="Eye Checking" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="8bb665c3-eb4f-4c2b-ada1-ee01d35dc08d" LastKnownName="Eye Checking" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="444b2648-f8d0-4a7b-886a-095e0530728b" name="Driving Testing" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="299c351c-6ff5-4011-a403-945f8bde9c1d" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="dd2afc77-498a-42ad-bfd1-ac7e02a849de" name="Eye Checking" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="61f1637a-7886-463a-8bfe-dddf7d7ba55a" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="ba91e7ba-7cbe-48a5-8785-48bee9d401eb" />
-          </association>
-        </targetEnds>
+      <useCase Id="c20c2ede-85d7-4d3c-8f78-e23aa0d00004" name="Free Drive" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d4e0eaac-0e2a-454a-8481-a94a193667eb" />
         <additions>
-          <include Id="a39883c5-c83c-4c91-811c-8d8e3c79ec6b">
-            <useCaseMoniker Id="2cffe792-43c1-4860-913d-f61c18bbe16d" LastKnownName="Test Driving" />
-            <elementDefinition Id="9e30fad6-d016-4fae-bf94-ff37dd622c42" />
+          <include Id="a39c5be4-6f87-4f20-8979-5e4a5cd25b53">
+            <useCaseMoniker Id="b309e21f-e266-4b55-9321-4a728c01503b" LastKnownName="EyeTribe Calibrate" />
+            <elementDefinition Id="da34d114-05fc-4ba1-ad3d-8d155b38099e" />
           </include>
         </additions>
         <subjects>
@@ -86,48 +108,173 @@
       </useCase>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <useCase Id="6fda11ff-4f36-4d71-b9b7-940567e93619" name="Driving Result" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="dcddc407-7e8d-473d-abfa-a3543a69a4bd" />
+      <useCase Id="9519a324-082a-435d-8625-bd08561aab47" name="Mission" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e6bfcaf0-4622-4af0-913a-ae8fe0364fe6" />
+        <additions>
+          <include Id="81595d21-cef6-4143-90be-390b7c50483c">
+            <useCaseMoniker Id="b309e21f-e266-4b55-9321-4a728c01503b" LastKnownName="EyeTribe Calibrate" />
+            <elementDefinition Id="f23c8625-a411-4a6b-a8cd-d7ee8f94c81d" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="3b6ece65-6e50-49d0-bc59-f712679ead78" name="Replay" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="67469e7b-69c1-4edd-ad3a-e4439386b9b3" />
+        <suppliersInternal>
+          <dependency Id="4019a5b6-a4a9-4453-8cf2-7976b189d6f1">
+            <useCaseMoniker Id="62590ee3-731c-40a8-af8e-a35c4f468e6c" LastKnownName="Replay Data" />
+            <elementDefinition Id="a6a29727-9ef2-4187-a0b6-6ac3d7bf976c" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4135c23d-556f-4319-b25b-dedd895a154a" name="Show Controller" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="6e70cc2e-d4e1-43d4-a719-dc7a11a57ea9" />
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="871a6bda-c178-41fc-8e66-ebf6e365f270" name="Exit" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ff3f2195-3fdc-4d15-b447-d76666871056" />
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b309e21f-e266-4b55-9321-4a728c01503b" name="EyeTribe Calibrate" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="461a38eb-66b9-4c55-be5c-0e89ed0a46a5" />
+        <additions>
+          <include Id="011c669c-142e-42b8-a128-565d734f732b">
+            <useCaseMoniker Id="f7c8b762-6ec4-42e9-8151-2b0addcef63b" LastKnownName="EyeTribe Manager" />
+            <elementDefinition Id="9ace078d-117e-413d-9fed-38d263bd1725" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="c936ee0d-0955-4a81-8138-cdfaf6ba6334" name="Mission Controller" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="25799ae7-854c-445b-8204-812a30bb558d" />
+        <suppliersInternal>
+          <dependency Id="54a74fc7-eb36-4682-9887-86c012fc6a15">
+            <useCaseMoniker Id="f7c8b762-6ec4-42e9-8151-2b0addcef63b" LastKnownName="EyeTribe Manager" />
+            <elementDefinition Id="3cb38eaa-f370-435c-85f5-8b8321c7dd5f" />
+          </dependency>
+        </suppliersInternal>
+        <extendedCases>
+          <extend Id="614befa7-f939-4d7a-bbe1-fd000c6770cd">
+            <useCaseMoniker Id="9519a324-082a-435d-8625-bd08561aab47" LastKnownName="Mission" />
+            <elementDefinition Id="4f35e265-6f63-4a8d-9003-99a5f384fb6b" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="62590ee3-731c-40a8-af8e-a35c4f468e6c" name="Replay Data" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="cd70dcd7-43ca-4922-a0d5-efe7b1e863e6" />
+        <extendedCases>
+          <extend Id="1fce32b7-a2d3-41fa-93e2-fb1a48749d75">
+            <useCaseMoniker Id="c936ee0d-0955-4a81-8138-cdfaf6ba6334" LastKnownName="Mission Controller" />
+            <elementDefinition Id="5dffd612-e56d-425c-8e93-206bdbdc481c" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="f7c8b762-6ec4-42e9-8151-2b0addcef63b" name="EyeTribe Manager" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="821a83d1-578d-4dd9-b36b-6060e4919c8d" />
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="f479bd3d-6d1f-4e28-b8be-4893ef40c091" name="Traffic Rules&#xD;&#xA;Checker" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d7e05ff5-9f72-4612-80da-7c495c4b9770" />
+        <extendedCases>
+          <extend Id="7fe57853-7377-420d-89fe-bfb8cbb1ff36">
+            <useCaseMoniker Id="c936ee0d-0955-4a81-8138-cdfaf6ba6334" LastKnownName="Mission Controller" />
+            <elementDefinition Id="5461e422-3d78-407d-9561-f107d2a2e06c" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <useCaseModelRootHasTypes>
+      <artifact Id="380699af-b885-46bf-a6d2-aba25771faec" name="The EyeTribe" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1f69a3c8-583e-43be-a501-ab5c17b5193b" />
         <targetEnds>
-          <association Id="e240360b-3cce-4855-8882-df8d05b348d3" isDerived="false" sourceEndRoleName="Driving Result" targetEndRoleName="Driving Testing" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="e43e86c3-1557-4d69-b7ac-647c6e75fb19" LastKnownName="Driving Testing" />
+          <association Id="5e76fcbc-7794-4e9b-9207-5cba494842ca" isDerived="false" sourceEndRoleName="The EyeTribe SDK" targetEndRoleName="EyeTribe Manager" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="f7c8b762-6ec4-42e9-8151-2b0addcef63b" LastKnownName="EyeTribe Manager" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="aeecf3d2-ef88-48ca-bbc4-f6ef086a804c" name="Driving Result" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="deadacb2-253d-4bf4-9ebc-f3888be9288c" />
+                <memberEnd Id="4850d518-81a1-489d-a660-d66b57c80e46" name="The EyeTribe SDK" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="df43d27a-cd72-419d-a7e9-a47dec11341f" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="f8d44417-e826-4a0e-91a8-b5097be72444" name="Driving Testing" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="da69eff5-1757-4731-b8cc-7a5407484523" />
+                <memberEnd Id="f7c6b169-9d03-4826-93b4-11a6de4faaa7" name="EyeTribe Manager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dd0a6ac7-af96-4f25-b97c-93d93f49db3c" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="52e66ae7-0fbe-4973-a28e-c343d8eb41c1" />
+            <elementDefinition Id="0b5785b5-38fe-40f9-b33e-38851db59372" />
           </association>
         </targetEnds>
-        <subjects>
-          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
-        </subjects>
-      </useCase>
-    </packageHasNamedElement>
+      </artifact>
+    </useCaseModelRootHasTypes>
     <packageHasNamedElement>
-      <useCase Id="2cffe792-43c1-4860-913d-f61c18bbe16d" name="Test Driving" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="27771bf0-c191-4c23-8603-04ae939671df" />
-        <subjects>
-          <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
-        </subjects>
-      </useCase>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <useCase Id="21cd7573-91bd-457b-92d6-53696c541d66" name="Get Result" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="e0422698-d9d8-4887-b7d3-df56afb78447" />
-        <additions>
-          <include Id="bdc99930-de7e-4be1-bef1-2159136176ca">
-            <useCaseMoniker Id="6fda11ff-4f36-4d71-b9b7-940567e93619" LastKnownName="Driving Result" />
-            <elementDefinition Id="2e0f0b85-e981-43b5-bd75-3dd7cf61c234" />
-          </include>
-        </additions>
+      <useCase Id="50b4f96c-7f8b-4d4f-a67a-4128dc88cb2e" name="Mission Result" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9b157180-1a30-4ec1-abb0-605cbdf4d2d5" />
+        <targetEnds>
+          <association Id="7c6f1152-0734-4bdd-9ca4-0742732f90d8" isDerived="false" sourceEndRoleName="Mission Result" targetEndRoleName="Driving User" isLeaf="false" isAbstract="false">
+            <actorMoniker Id="04809c73-9160-46cb-9c85-3c14d0252f22" LastKnownName="Driving User" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="aa893ad6-ef48-4661-8191-b7d6812c88fc" name="Mission Result" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="98a5f64f-57fd-480a-a654-88cbb81ab80a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="45c6e265-697e-49f8-8435-711c85dd2927" name="Driving User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ebdbb765-5f07-4112-b7e3-ba4739120cb6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0bb80a0e-c02b-4836-9776-4c8e6c7551cf" />
+          </association>
+        </targetEnds>
+        <extendedCases>
+          <extend Id="b22b990b-2b82-4ca9-ac4e-114103fa6ed6">
+            <useCaseMoniker Id="c936ee0d-0955-4a81-8138-cdfaf6ba6334" LastKnownName="Mission Controller" />
+            <elementDefinition Id="4a1c7a19-5f2f-4f66-9179-a01766176f66" />
+          </extend>
+          <extend Id="c726c89f-619f-42bf-9784-f14eb356e6af">
+            <useCaseMoniker Id="62590ee3-731c-40a8-af8e-a35c4f468e6c" LastKnownName="Replay Data" />
+            <elementDefinition Id="3bf720b6-2075-4c73-a009-60e89b752239" />
+          </extend>
+        </extendedCases>
         <subjects>
           <subsystemMoniker Id="a767e81a-d335-4eb2-99b2-dd78b785a204" LastKnownName="Driving Simulator" />
         </subjects>
