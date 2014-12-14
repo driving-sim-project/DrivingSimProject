@@ -11,6 +11,9 @@ public class CarController : MonoBehaviour {
     public GameObject headlight;
     public GameObject taillight;
     public GameObject rearlight;
+    public GameObject sidelightL;
+    public GameObject sidelightR;
+    public GameObject steeringWheel;
 
 	// Add all wheels of the car here, so brake and steering forces can be applied to them.
 	public Wheel[] wheels;
@@ -83,6 +86,11 @@ public class CarController : MonoBehaviour {
 
     public int speed = 0;
 
+    bool sidelightSR = false;
+    bool sidelightSL = false;
+    float sidelightInterval = 0.5f;
+    float sidelightLastInterval = 0f;
+
 	// Used by SoundController to get average slip velo of all wheels for skid sounds.
 	public float slipVelo {
 		get {
@@ -104,7 +112,7 @@ public class CarController : MonoBehaviour {
 	
 	void Update () 
 	{
-        if (GetComponent<ReplayPlayer>() == null)
+        if (this.GetComponent<ReplayPlayer>() == null)
         {
             // Steering
             Vector3 carDir = transform.forward;
@@ -122,6 +130,8 @@ public class CarController : MonoBehaviour {
             //    steerInput = -1;
             //if (Input.GetKey(KeyCode.RightArrow))
             //    steerInput = 1;
+
+            steeringWheel.transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + (Input.GetAxis("Horizontal") * -450f));
 
             if (steerInput < steering)
             {
@@ -242,12 +252,65 @@ public class CarController : MonoBehaviour {
             if (Input.GetButtonDown("R3"))
                 headlight.gameObject.SetActive(!headlight.gameObject.active);
 
+            //Sidelight switch
+            //R
+            if (Input.GetButtonDown("R2"))
+            {
+                sidelightSL = false;
+                sidelightSR = sidelightSR == true ? sidelightSR = false : sidelightSR = true;
+                sidelightLastInterval = Time.time;
+            }
+            //L
+            if(Input.GetButtonDown("R1"))
+            {
+                sidelightSR = false;
+                sidelightSL = sidelightSL == true ? sidelightSL = false : sidelightSL = true;
+                sidelightLastInterval = Time.time;
+            }
+
+            if (sidelightSL == true )
+            {
+                if(Time.time <= sidelightLastInterval + sidelightInterval){
+                    sidelightL.SetActive(true);
+                }
+                else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
+                {
+                    sidelightLastInterval = Time.time;
+                }
+                else if(Time.time >= sidelightLastInterval + sidelightInterval)
+                {
+                    sidelightL.SetActive(false);
+                }
+            }
+            else
+                sidelightL.SetActive(false);
+
+            if (sidelightSR == true)
+            {
+                if (Time.time <= sidelightLastInterval + sidelightInterval)
+                {
+                    sidelightR.SetActive(true);
+                }
+                else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
+                {
+                    sidelightLastInterval = Time.time;
+                }
+                else if (Time.time >= sidelightLastInterval + sidelightInterval)
+                {
+                    sidelightR.SetActive(false);
+
+                }
+                 
+            }else
+                sidelightR.SetActive(false);
+
             speed = (int)(rigidbody.velocity.magnitude * 3.6f);
             
         }
 
 	}
-	
+
+
 	// Debug GUI. Disable when not needed.
     //void OnGUI()
     //{

@@ -10,20 +10,6 @@
       <body>เกิดอุบัติเหตุ</body>
     </comment>
   </ownedCommentsInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="e621ea9e-7646-417d-b687-2e082686de0d">
-      <profileInstance Id="da94746d-da80-4eb0-b2c5-61a978ebc129" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="2ee3980e-9ab6-4fe5-99e2-61a4699931ba">
-      <profileInstance Id="8d701b77-1c2e-4eb2-ad5b-3604be797971" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <activityRootModelHasActivity>
       <activity Id="8a8e23e2-f307-4438-8500-c0fd47a2bfe1" name="DrvingSim" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
@@ -33,26 +19,17 @@
             <elementDefinition Id="9ca27276-fdce-47c8-8e12-43d4d5a4ae92" />
             <flowNodeTargets>
               <controlFlow Id="afb9a91f-c7d8-4f4d-895c-24567d240059" isLeaf="false">
-                <opaqueActionMoniker Id="9188d440-fd26-4060-9d85-a22db9b6a49b" LastKnownName="กำหนดรูปแบบสถานการณ์จำลอง" />
+                <opaqueActionMoniker Id="9188d440-fd26-4060-9d85-a22db9b6a49b" LastKnownName="เลือกรูปแบบสถานการณ์จำลอง" />
                 <elementDefinition Id="ae9766d5-0f28-4aca-b197-1365aee9e39f" />
               </controlFlow>
             </flowNodeTargets>
           </initialNode>
-          <opaqueAction Id="9188d440-fd26-4060-9d85-a22db9b6a49b" name="กำหนดรูปแบบสถานการณ์จำลอง" isLeaf="false">
+          <opaqueAction Id="9188d440-fd26-4060-9d85-a22db9b6a49b" name="เลือกรูปแบบสถานการณ์จำลอง" isLeaf="false">
             <elementDefinition Id="d22d1f64-ca61-464e-9e56-3aaeb0d63865" />
             <flowNodeTargets>
-              <controlFlow Id="ca64a596-4e03-40bb-86dd-3fc9d97f2a85" isLeaf="false">
-                <opaqueActionMoniker Id="bfe5cd9b-3041-47bf-9b39-670833592a1e" LastKnownName="จัดวางตำแหน่งของวัถตุที่ใช้ในการทดสอบตามรูปแบบที่กำหนด" />
-                <elementDefinition Id="c15ceb21-88fd-446a-abf2-489417db0934" />
-              </controlFlow>
-            </flowNodeTargets>
-          </opaqueAction>
-          <opaqueAction Id="bfe5cd9b-3041-47bf-9b39-670833592a1e" name="จัดวางตำแหน่งของวัถตุที่ใช้ในการทดสอบตามรูปแบบที่กำหนด" isLeaf="false">
-            <elementDefinition Id="543bc066-ff22-44e5-986d-49ae2005c0d1" />
-            <flowNodeTargets>
-              <controlFlow Id="fdb118e4-5280-4f67-8cab-362a28492b7a" isLeaf="false">
+              <controlFlow Id="8d0a62ad-08a1-4fa0-b2f3-5ac42e403e14" isLeaf="false">
                 <opaqueActionMoniker Id="6084c37e-b57b-47d6-bcec-cfbfada4704d" LastKnownName="ผู้ใช้ทำการรับการทดสอบ" />
-                <elementDefinition Id="4f102a5d-c0c1-4e4c-ad38-5dc5b3cb800c" />
+                <elementDefinition Id="ac5966f8-7b9d-4260-b5c8-e00dba04c508" />
               </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
@@ -76,9 +53,9 @@
                 <joinNodeMoniker Id="d8e351d4-4a86-45eb-b87c-f701cb4af34b" LastKnownName="Join2" />
                 <elementDefinition Id="53b9c924-223a-461d-b00b-ad4c192f3b89" />
               </controlFlow>
-              <controlFlow Id="59a46395-84a7-4703-89fd-ff25b65ff57f" isLeaf="false">
+              <controlFlow Id="a8bc2e7a-2a55-49e0-a404-6d27c04c2447" isLeaf="false">
                 <opaqueActionMoniker Id="348d726a-1436-4542-9bf4-069bcc86d558" LastKnownName="บันทึกข้อมูลอุบัติเหตุ" />
-                <elementDefinition Id="edd2e2c3-ddd5-4bcc-aeb0-296f041527c8" />
+                <elementDefinition Id="c53595db-127c-49cf-988d-970009c2b56b" />
               </controlFlow>
             </flowNodeTargets>
           </decisionNode>
@@ -94,9 +71,9 @@
           <joinNode Id="ff6746d4-034c-49ac-b9cb-fadd5295c1ae" name="Join1" isLeaf="false">
             <elementDefinition Id="52b03b18-0e86-4309-af44-af379d6a3f37" />
             <flowNodeTargets>
-              <controlFlow Id="18325beb-7c7b-42a9-b9b7-19aad451082c" isLeaf="false">
-                <decisionNodeMoniker Id="1ae634a2-0929-4bea-9dee-295348aef1c4" LastKnownName="Decision1" />
-                <elementDefinition Id="91d3efb3-18d5-422f-8812-ec5aa2b759f6" />
+              <controlFlow Id="ec7e7908-2a30-4a71-8cc8-65758ba7f559" isLeaf="false">
+                <opaqueActionMoniker Id="5e6cb449-e413-45ad-ba70-fffc1b9933ea" LastKnownName="บันทึกข้อมูลพฤติกรรมการขับขี่" />
+                <elementDefinition Id="92214e31-3d43-4178-a2e8-0f24175d6e49" />
               </controlFlow>
             </flowNodeTargets>
           </joinNode>
@@ -126,15 +103,62 @@
                 <elementDefinition Id="a8694796-6a26-47fd-9f17-43ae98c83d2c" />
               </controlFlow>
             </flowNodeTargets>
+            <pins>
+              <opaqueActionHasOutputValues>
+                <outputPin Id="1280b89a-b53a-4f7c-b6b9-c35555e91cba" name="Display" isLeaf="false" ordering="Unordered" isControlType="false" isControl="false">
+                  <elementDefinition Id="e4e2e849-6f9a-4f91-b378-594eed4ff2ae" />
+                  <upperBound>
+                    <literalInteger Id="c64b4f96-c048-47ee-913d-4f50332a0814" name="2147483647" value="2147483647">
+                      <elementDefinition Id="57e547db-2814-44ca-b9bb-e8157718505c" />
+                    </literalInteger>
+                  </upperBound>
+                </outputPin>
+              </opaqueActionHasOutputValues>
+            </pins>
           </opaqueAction>
           <activityFinalNode Id="bfcc885f-944e-40fa-867a-6b3352443183" name="ActivityFinal1" isLeaf="false">
             <elementDefinition Id="3f1dfa95-2411-445a-91bd-c5b7fa37cd6b" />
           </activityFinalNode>
+          <opaqueAction Id="5e6cb449-e413-45ad-ba70-fffc1b9933ea" name="บันทึกข้อมูลพฤติกรรมการขับขี่" isLeaf="false">
+            <elementDefinition Id="d12d8e54-ad29-42db-90ba-44ea06477372" />
+            <flowNodeTargets>
+              <controlFlow Id="241df808-923d-4abf-879c-8075f04a6154" isLeaf="false">
+                <decisionNodeMoniker Id="1ae634a2-0929-4bea-9dee-295348aef1c4" LastKnownName="Decision1" />
+                <elementDefinition Id="ef5abde9-5660-4984-acd3-c395c093240a" />
+              </controlFlow>
+            </flowNodeTargets>
+            <pins>
+              <opaqueActionHasInputValues>
+                <inputPin Id="1e7f1790-5f83-4de0-a01a-145d80f2da56" name="Wheel Controller &amp; EyeTribe" isLeaf="false" ordering="Unordered" isControlType="false" isControl="false">
+                  <elementDefinition Id="9bcb4985-8196-4a8a-accb-85852552c640" />
+                  <upperBound>
+                    <literalInteger Id="dd278de7-a302-4cbc-9a5d-8a84433eb701" name="2147483647" value="2147483647">
+                      <elementDefinition Id="721116ac-f577-4769-9983-1ded2232bbbe" />
+                    </literalInteger>
+                  </upperBound>
+                </inputPin>
+              </opaqueActionHasInputValues>
+            </pins>
+          </opaqueAction>
         </nodes>
       </activity>
     </activityRootModelHasActivity>
   </packagedElements>
   <package Id="83c164f8-1b6b-434c-a475-d0b05c17d0b5" name="DrivingSimDiagram">
     <elementDefinition Id="6bb5cd4b-8a9e-4943-a31c-0f50678bc1a4" />
+    <profileInstances>
+      <packageHasProfileInstances Id="e621ea9e-7646-417d-b687-2e082686de0d">
+        <profileInstance Id="da94746d-da80-4eb0-b2c5-61a978ebc129" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="2ee3980e-9ab6-4fe5-99e2-61a4699931ba">
+        <profileInstance Id="8d701b77-1c2e-4eb2-ad5b-3604be797971" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </activityRootModel>

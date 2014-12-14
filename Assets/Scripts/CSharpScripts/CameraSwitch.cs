@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
 
 public class CameraSwitch : MonoBehaviour
 {
-    public GameObject[] cameras;
+    public GameObject[] camerasList;
     public string[] shortcuts;
     public bool changeAudioListener = true;
     void Update()
     {
         int i = 0;
-        for (i = 0; i < cameras.Length; i++)
+        for (i = 0; i < camerasList.Length; i++)
         {
             if (Input.GetKeyUp(shortcuts[i]))
                 SwitchCamera(i);
@@ -20,23 +19,23 @@ public class CameraSwitch : MonoBehaviour
     void SwitchCamera(int index)
     {
         int i = 0;
-        for (i = 0; i < cameras.Length; i++)
+        for (i = 0; i < camerasList.Length; i++)
         {
             if (i != index)
             {
                 if (changeAudioListener)
                 {
-                    cameras[i].GetComponent<AudioListener>().enabled = false;
+                    camerasList[i].GetComponent<AudioListener>().enabled = false;
                 }
-                cameras[i].camera.enabled = false;
+                camerasList[i].camera.enabled = false;
             }
             else
             {
                 if (changeAudioListener)
                 {
-                    cameras[i].GetComponent<AudioListener>().enabled = true;
+                    camerasList[i].GetComponent<AudioListener>().enabled = true;
                 }
-                cameras[i].camera.enabled = true;
+                camerasList[i].camera.enabled = true;
             }
         }
 
