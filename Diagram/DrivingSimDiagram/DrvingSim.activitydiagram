@@ -9,6 +9,10 @@
       <elementDefinition Id="cb9ff5bb-c5f7-4a70-ad23-d45d4c7f1bc8" />
       <body>เกิดอุบัติเหตุ</body>
     </comment>
+    <comment Id="ae1d2c6f-773d-4941-bdf2-e9e15a89f87d">
+      <elementDefinition Id="21d86237-13eb-44b0-b09a-a92c54a23300" />
+      <body>ปรับแต่งค่าไม่สำเร็จ</body>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <activityRootModelHasActivity>
@@ -27,9 +31,9 @@
           <opaqueAction Id="9188d440-fd26-4060-9d85-a22db9b6a49b" name="เลือกรูปแบบสถานการณ์จำลอง" isLeaf="false">
             <elementDefinition Id="d22d1f64-ca61-464e-9e56-3aaeb0d63865" />
             <flowNodeTargets>
-              <controlFlow Id="8d0a62ad-08a1-4fa0-b2f3-5ac42e403e14" isLeaf="false">
-                <opaqueActionMoniker Id="6084c37e-b57b-47d6-bcec-cfbfada4704d" LastKnownName="ผู้ใช้ทำการรับการทดสอบ" />
-                <elementDefinition Id="ac5966f8-7b9d-4260-b5c8-e00dba04c508" />
+              <controlFlow Id="e82407e1-e68b-490d-9673-4defa846c988" isLeaf="false">
+                <joinNodeMoniker Id="5606468e-a5fd-4424-ba15-7940fd57736d" LastKnownName="Join3" />
+                <elementDefinition Id="15c20ba1-4480-4b74-b9d6-4fe9feb1faf5" />
               </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
@@ -140,6 +144,37 @@
               </opaqueActionHasInputValues>
             </pins>
           </opaqueAction>
+          <opaqueAction Id="8bfcae77-dede-4e5e-9f70-84880d538a35" name="ทำการปรับค่าอุปกรณ์ The EyeTribe" isLeaf="false">
+            <elementDefinition Id="4dc64730-bf8e-45e4-87d3-4a1fadcae641" />
+            <flowNodeTargets>
+              <controlFlow Id="618da39a-97cf-4486-ba08-cb2f66b21903" isLeaf="false">
+                <decisionNodeMoniker Id="8240ba16-daaa-4169-bd80-338d79b6781b" LastKnownName="Decision2" />
+                <elementDefinition Id="2dddbb02-b328-4f1d-b3d7-523e1b307136" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="8240ba16-daaa-4169-bd80-338d79b6781b" name="Decision2" isLeaf="false">
+            <elementDefinition Id="8e48a0f6-b35a-4ab4-8f3b-40dc22ff656d" />
+            <flowNodeTargets>
+              <controlFlow Id="79bf1b80-e578-45fe-bf73-1d8375d3f8bb" isLeaf="false">
+                <opaqueActionMoniker Id="6084c37e-b57b-47d6-bcec-cfbfada4704d" LastKnownName="ผู้ใช้ทำการรับการทดสอบ" />
+                <elementDefinition Id="45609ea5-0257-4a20-ab9f-9ecbeb316409" />
+              </controlFlow>
+              <controlFlow Id="6f050575-4996-4f7c-a933-0c54e6d65d9b" isLeaf="false">
+                <joinNodeMoniker Id="5606468e-a5fd-4424-ba15-7940fd57736d" LastKnownName="Join3" />
+                <elementDefinition Id="e0af7524-7a11-4a62-bd84-d1282374970c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <joinNode Id="5606468e-a5fd-4424-ba15-7940fd57736d" name="Join3" isLeaf="false">
+            <elementDefinition Id="edf0d732-5d12-41f1-94ac-b4506b822507" />
+            <flowNodeTargets>
+              <controlFlow Id="95515dd6-9a64-447e-9e5c-2d52a692726c" isLeaf="false">
+                <opaqueActionMoniker Id="8bfcae77-dede-4e5e-9f70-84880d538a35" LastKnownName="ทำการปรับค่าอุปกรณ์ The EyeTribe" />
+                <elementDefinition Id="39090ee1-ddb7-4770-b996-fb1bf256ffa0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
         </nodes>
       </activity>
     </activityRootModelHasActivity>

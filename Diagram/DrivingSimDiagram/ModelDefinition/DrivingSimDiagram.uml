@@ -12,6 +12,10 @@
       Id="cb9ff5bb-c5f7-4a70-ad23-d45d4c7f1bc8">
       <body>เกิดอุบัติเหตุ</body>
     </comment>
+    <comment
+      Id="21d86237-13eb-44b0-b09a-a92c54a23300">
+      <body>ปรับแต่งค่าไม่สำเร็จ</body>
+    </comment>
   </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances
@@ -60,11 +64,11 @@
             isLeaf="false">
             <flowNodeTargets>
               <controlFlow
-                Id="ac5966f8-7b9d-4260-b5c8-e00dba04c508"
+                Id="15c20ba1-4480-4b74-b9d6-4fe9feb1faf5"
                 isLeaf="false">
-                <opaqueActionMoniker
-                  Id="fe5a18ae-2859-477c-98e1-f872df3d5f9e"
-                  LastKnownName="ผู้ใช้ทำการรับการทดสอบ"
+                <joinNodeMoniker
+                  Id="edf0d732-5d12-41f1-94ac-b4506b822507"
+                  LastKnownName="Join3"
                   LastKnownLocation="DrivingSimDiagram.uml" />
               </controlFlow>
             </flowNodeTargets>
@@ -245,6 +249,59 @@
               </opaqueActionHasInputValues>
             </pins>
           </opaqueAction>
+          <opaqueAction
+            Id="4dc64730-bf8e-45e4-87d3-4a1fadcae641"
+            name="ทำการปรับค่าอุปกรณ์ The EyeTribe"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="2dddbb02-b328-4f1d-b3d7-523e1b307136"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="8e48a0f6-b35a-4ab4-8f3b-40dc22ff656d"
+                  LastKnownName="Decision2"
+                  LastKnownLocation="DrivingSimDiagram.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="8e48a0f6-b35a-4ab4-8f3b-40dc22ff656d"
+            name="Decision2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="45609ea5-0257-4a20-ab9f-9ecbeb316409"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="fe5a18ae-2859-477c-98e1-f872df3d5f9e"
+                  LastKnownName="ผู้ใช้ทำการรับการทดสอบ"
+                  LastKnownLocation="DrivingSimDiagram.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="e0af7524-7a11-4a62-bd84-d1282374970c"
+                isLeaf="false">
+                <joinNodeMoniker
+                  Id="edf0d732-5d12-41f1-94ac-b4506b822507"
+                  LastKnownName="Join3"
+                  LastKnownLocation="DrivingSimDiagram.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <joinNode
+            Id="edf0d732-5d12-41f1-94ac-b4506b822507"
+            name="Join3"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="39090ee1-ddb7-4770-b996-fb1bf256ffa0"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4dc64730-bf8e-45e4-87d3-4a1fadcae641"
+                  LastKnownName="ทำการปรับค่าอุปกรณ์ The EyeTribe"
+                  LastKnownLocation="DrivingSimDiagram.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
         </nodes>
       </activity>
     </packageHasNamedElement>

@@ -9,6 +9,11 @@ public class LaneDetector : MonoBehaviour {
             Debug.Log(other.tag);
     }
 
+    void OnTriggerStay(Collider other)
+    {
+
+    }
+
     void OnTriggerExit(Collider other)
     {
         Debug.Log("Exit");

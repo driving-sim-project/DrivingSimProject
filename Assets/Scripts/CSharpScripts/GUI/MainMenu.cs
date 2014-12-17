@@ -4,8 +4,13 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 
-    public GameObject[] menuList;
-    public GameObject bgObject;
+    public Image bgObject;
+    public Image[] canvasList;
+
+    public int defaultMenu = 0;
+    public Sprite[] menuList;
+    public Sprite emptyMenu;
+    
 
     private float[] guiPosition = new float[2];
     private GUIStyle titleBox;
@@ -17,14 +22,13 @@ public class MainMenu : MonoBehaviour {
         guiPosition[0] = Screen.width/2f - 320;
         guiPosition[1] = Screen.height/2f - 240;
         Screen.lockCursor = true;
-        selectedMenu = 0;
+        selectedMenu = defaultMenu;
         selectTime = 0f;
-        
     }
 
     void Start()
     {
-        menuList[selectedMenu].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        MenuUpdate();
     }
 
 	// Update is called once per frame
@@ -40,14 +44,9 @@ public class MainMenu : MonoBehaviour {
                 selectedMenu = menuList.Length - 1;
 
             selectedMenu = selectedMenu % menuList.Length;
-            foreach (GameObject menu in menuList){
-                if (menu == menuList[selectedMenu])
-                    menu.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-                else
-                    menu.transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+
+            MenuUpdate();
             
-            bgObject.GetComponent<Image>().sprite = menuList[selectedMenu].GetComponent<Image>().sprite;
             selectTime = Time.time;
         }        
 	}
@@ -97,6 +96,23 @@ public class MainMenu : MonoBehaviour {
             }
         }
         
+    }
+
+    void MenuUpdate()
+    {
+        
+
+        int tmpMenu;
+        for (int i = 0; i < canvasList.Length; i++)
+        {
+            tmpMenu = selectedMenu - 2 + i;
+            if (tmpMenu < 0 || tmpMenu >= menuList.Length)
+                canvasList[i].sprite = emptyMenu;
+            else
+                canvasList[i].sprite = menuList[tmpMenu];
+        }
+
+        bgObject.sprite = menuList[selectedMenu];
     }
 
 }
