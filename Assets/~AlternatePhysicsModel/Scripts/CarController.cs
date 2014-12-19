@@ -112,7 +112,7 @@ public class CarController : MonoBehaviour {
 	
 	void Update () 
 	{
-        if (this.GetComponent<ReplayPlayer>() == null)
+        if (this.GetComponent<ReplayPlayer>() == null && TrafficChecker.isAccident != true)
         {
             // Steering
             Vector3 carDir = transform.forward;

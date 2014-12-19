@@ -62,7 +62,7 @@ public class MainMenu : MonoBehaviour {
 
         //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), titleBackground, ScaleMode.StretchToFill);
 
-        if (Input.GetAxis("Vertical") > 0.5f)
+        if (Time.timeSinceLevelLoad > 1f && Input.GetAxis("Vertical") > 0.5f)
         {
             titleBox = GUI.skin.box;
             titleBox.alignment = TextAnchor.MiddleCenter;
@@ -76,12 +76,14 @@ public class MainMenu : MonoBehaviour {
 
                 case 1:
                     GUI.Box(new Rect(guiPosition[0], guiPosition[1], guiPosition[0] * 2, guiPosition[1] * 2), "Please Wait.....", titleBox);
-                    Application.LoadLevel("taskSel");
+                    SceneManager.setSeqScenes("taskSel", "calib_scene");
+                    Application.LoadLevel(SceneManager.FromScene);
                     break;
 
                 case 2:
                     GUI.Box(new Rect(guiPosition[0], guiPosition[1], guiPosition[0] * 2, guiPosition[1] * 2), "Please Wait.....", titleBox);
-                    Application.LoadLevel("replay");
+                    SceneManager.setSeqScenes("taskSel", "replay");
+                    Application.LoadLevel(SceneManager.FromScene);
                     break;
 
                 case 3:
@@ -91,7 +93,7 @@ public class MainMenu : MonoBehaviour {
 
                 default:
                     GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 4, Screen.height / 4), "Exit", titleBox);
-                    Application.LoadLevel("startmenu");
+                    Application.Quit();
                     break;
             }
         }

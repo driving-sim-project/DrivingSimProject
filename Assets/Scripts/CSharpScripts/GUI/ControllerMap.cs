@@ -16,7 +16,7 @@ public class ControllerMap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time > selectTime + 0.5f && Input.GetAxis("Vertical") > 0.5f)
+        if (Input.GetAxis("Vertical") < -0.5f)
         {
             selectTime = Time.time;
             if (index == controllerMap.Length - 1)
