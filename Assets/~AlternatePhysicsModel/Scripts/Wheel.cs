@@ -270,7 +270,7 @@ public class Wheel : MonoBehaviour {
         {
             if (hit.collider.gameObject.name == "Terrain")
             {
-                Debug.Log(hit.collider.gameObject.name);
+                transform.parent.GetComponent<TrafficChecker>().isOffTrack = true;
             }
         }
         

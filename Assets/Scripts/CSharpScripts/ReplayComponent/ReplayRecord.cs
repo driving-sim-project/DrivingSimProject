@@ -27,7 +27,6 @@ public class ReplayRecord : MonoBehaviour {
             currentFrame.currentDistance += tmpFrame.currentDistance;
         frames.Add(currentFrame);
         tmpFrame = currentFrame;
-
 	}
 
     public void Save()

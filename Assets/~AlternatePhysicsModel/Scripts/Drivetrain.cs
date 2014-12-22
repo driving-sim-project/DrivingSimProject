@@ -162,7 +162,6 @@ public class Drivetrain : MonoBehaviour {
 		if (rpm < minClutchRPM)
 			rpm = minClutchRPM;
 
-        audio.pitch = (rpm / maxRPM) + 0.2f;
 
         // Automatic gear shifting. Bases shift points on throttle input and rpm.
         if (drivenGear == 0)
@@ -197,10 +196,7 @@ public class Drivetrain : MonoBehaviour {
 			gear --;
 	}
 
-    void Awake()
-    {
-        audio = GetComponent<AudioSource>() as AudioSource;
-    }
+    
     
 	// Debug GUI. Disable when not needed.
     void OnGUI()

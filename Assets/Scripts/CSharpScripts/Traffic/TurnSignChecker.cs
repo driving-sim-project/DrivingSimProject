@@ -5,16 +5,13 @@ public class TurnSignChecker : MonoBehaviour {
 
     public Collider startPoint;
     public Collider endPoint;
+    public string ruleText;
     float maxDistance;
     float cornerAngle;
     float firstEnter = 0f;
     float firstLeft = 0f;
 
     TrafficChecker tc;
-
-    public void setTrafficChecker(TrafficChecker trafficChecker){
-        tc = trafficChecker;
-    }
 
     void Start()
     {

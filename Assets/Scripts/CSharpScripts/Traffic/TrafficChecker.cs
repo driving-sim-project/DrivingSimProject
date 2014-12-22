@@ -7,11 +7,14 @@ using System.Collections.Generic;
 public class TrafficChecker : MonoBehaviour {
 
     private List<CollisionData> colliderList = new List<CollisionData>();
-    public ColliderList[] checkpointList;
-    public static bool isAccident {  get; private set; }
+    public Collider[] checkpointList;
+    public bool isAccident { get; private set; }
+    public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
+    public bool isOffTrack = false;
 
     bool loading = false;
+    float cpDistance = 0f;
 
     ReplayRecord replayRec;
     RecordedFrame replayFrameTmp;
@@ -19,10 +22,14 @@ public class TrafficChecker : MonoBehaviour {
     public AudioClip accidentSFX;
     public Sprite accident;
     public Sprite nowloading;
+    public Sprite offtrack;
+    public Sprite finish;
+    int cpCounter = 0;
 
     void Awake()
     {
         isAccident = false;
+        isFinish = false;
         Time.timeScale = 1f;
     }
 
@@ -34,7 +41,7 @@ public class TrafficChecker : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (isAccident == true)
+        if (isAccident == true || isOffTrack == true || isFinish == true)
         {
             if (Input.GetButtonDown("Enter"))
             {
@@ -47,45 +54,74 @@ public class TrafficChecker : MonoBehaviour {
 
     void OnTriggerEnter( Collider Other )
     {
-        if( replayFrameTmp == null  ){
-            replayFrameTmp = replayRec.currentFrame;
-        }
-        if (Other.tag == "TrafficLine")
+        if (SceneManager.GoScene != "replay")
         {
-            if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == false)
+            if (replayFrameTmp == null)
             {
-                Debug.Log("You're Hitting " + Other.transform.parent.GetInstanceID());
-                colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.transform.parent.GetInstanceID(), Time.time));
+                replayFrameTmp = replayRec.currentFrame;
             }
-        }
-        else if (Other.tag == "SignDetectionLine")
-        {
-            if (replayRec.currentFrame.currentDistance - replayFrameTmp.currentDistance > 2f)
+            if (Other.tag == "TrafficLine")
             {
-                if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint.GetInstanceID() == Other.GetInstanceID())
+                if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == false)
                 {
-                    Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(replayRec.currentFrame.currentDistance);
-                }
-                else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
-                {
-                    Debug.Log(Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance));
+                    Debug.Log("You're Hitting " + Other.transform.parent.GetInstanceID());
+                    colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.transform.parent.GetInstanceID(), Time.time));
                 }
             }
-            replayFrameTmp = replayRec.currentFrame;
-        }    
-        
+            else if (Other.tag == "SignDetectionLine")
+            {
+                if (replayRec.currentFrame.currentDistance - replayFrameTmp.currentDistance > 2f)
+                {
+                    if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint.GetInstanceID() == Other.GetInstanceID())
+                    {
+                        Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(replayRec.currentFrame.currentDistance);
+                    }
+                    else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
+                    {
+                        Debug.Log(Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance));
+                    }
+                }
+                replayFrameTmp = replayRec.currentFrame;
+            }
+            else if(Other.tag == "Checkpoint")
+            {
+                if (replayRec.currentFrame.currentDistance > cpDistance + 10f)
+                {
+                    if (checkpointList[cpCounter] == Other)
+                    {
+                        cpDistance = replayRec.currentFrame.currentDistance;
+                        cpCounter += 1;
+                        //Debug.Log("Checkpoint" + cpCounter);
+                        if (cpCounter == checkpointList.Length)
+                        {
+                            isFinish = true;
+                            //Debug.Log("Finish!!");
+                        }
+                    }
+                    else
+                    {
+                        cpDistance = 0;
+                        cpCounter = 1;
+                        //Debug.Log("Checkpoint reset");
+                    }
+                }
+            }
+        }
     }
 
     void OnTriggerExit( Collider Other )
     {
-        if (Other.tag == "TrafficLine")
-        {
-            if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == true)
+        if(SceneManager.GoScene != "replay"){
+            if (Other.tag == "TrafficLine")
             {
-                colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).LeaveTime(Time.time);
+                if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == true)
+                {
+                    colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).LeaveTime(Time.time);
+                }
+                Debug.Log("You're Leaving " + Other.transform.parent.GetInstanceID() + " from " + colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).collisionTime + " at " + colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).leaveTime);
             }
-            Debug.Log("You're Leaving " + Other.transform.parent.GetInstanceID() + " from " + colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).collisionTime + " at " + colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).leaveTime);
         }
+        
     }
 
     void OnCollisionEnter( Collision collision )
@@ -98,13 +134,30 @@ public class TrafficChecker : MonoBehaviour {
 
     void OnGUI()
     {
-        if (isAccident == true)
-        {
-            if (loading == true)
-                GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), nowloading.texture, ScaleMode.StretchToFill);
-            else
-                GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), accident.texture, ScaleMode.StretchToFill);
+        if(SceneManager.GoScene != "replay"){
+            if (isFinish == true)
+            {
+                if (loading == true)
+                    GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), nowloading.texture, ScaleMode.StretchToFill);
+                else
+                    GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), finish.texture, ScaleMode.StretchToFill);
+            }
+            else if (isAccident == true)
+            {
+                if (loading == true)
+                    GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), nowloading.texture, ScaleMode.StretchToFill);
+                else
+                    GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), accident.texture, ScaleMode.StretchToFill);
+            }
+            else if (isOffTrack == true)
+            {
+                if (loading == true)
+                    GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), nowloading.texture, ScaleMode.StretchToFill);
+                else
+                    GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), offtrack.texture, ScaleMode.StretchToFill);
+            }
         }
+        
     }
 
     void ToMainMenu()

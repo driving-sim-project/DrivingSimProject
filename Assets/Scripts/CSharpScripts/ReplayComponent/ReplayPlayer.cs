@@ -14,6 +14,8 @@ public class ReplayPlayer : MonoBehaviour {
 
     List<RecordedMotion> recordList = new List<RecordedMotion>();
     RecordedMotion recording;
+    AudioSource audio;
+
     bool gui = true;
     float startTime;
     int fn;
@@ -27,6 +29,7 @@ public class ReplayPlayer : MonoBehaviour {
             if(file.name.Contains(Application.loadedLevelName))
                 recordList.Add(file);
         }
+        audio = GetComponent<AudioSource>();
     }
 
 	// Use this for initialization
@@ -66,6 +69,7 @@ public class ReplayPlayer : MonoBehaviour {
                         wheelsModel[i].transform.localRotation = recording.frames[fn].wheelsRotation[i];
                     }
                     car.steeringWheel.transform.localRotation = recording.frames[fn].steeringWheelRotation;
+                    audio.pitch = recording.frames[fn].rpm + 0.2f;
                     //Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
                 }
             }
@@ -83,7 +87,7 @@ public class ReplayPlayer : MonoBehaviour {
         box.alignment = TextAnchor.UpperCenter;
         if(playing == true && gui == true){
             GUI.Box(new Rect(10, 10, 300, 300), "Driving Data", box);
-            GUI.Label(new Rect(20, 40, 300, 30), "Speed : " + recording.frames[fn].speed + " km/h");
+            GUI.Label(new Rect(20, 40, 300, 30), "Speed : " + recording.frames[fn].speed + " km/h" + (recording.frames[fn].speed > 60 ? "( Over speed limit at 60 km/h. )": "( Speed limit at 60 km/h. )"));
             GUI.Label(new Rect(20, 60, 300, 30), "Throttle : " + (recording.frames[fn].throttle > 0 ?
                 (int)(recording.frames[fn].throttle * 100f) : 0) + " %");
             GUI.Label(new Rect(20, 80, 300, 30), "Brake : " + (recording.frames[fn].throttle <= 0 ?
@@ -95,13 +99,20 @@ public class ReplayPlayer : MonoBehaviour {
             GUI.Label(new Rect(20, 140, 300, 30), "Driving time : " + recording.frames[recording.frames.Count - 1].time + " sec");
             GUI.Label(new Rect(20, 160, 300, 30), "Average speed : " + recording.avgSpeed + " km/h");
             GUI.Label(new Rect(20, 180, 300, 30), "Top speed : " + recording.topSpeed + " km/h");
-            GUI.Label(new Rect(20, 200, 300, 30), "Distance : " + recording.distance + " km");
+            GUI.Label(new Rect(20, 200, 300, 30), "Distance : " + recording.distance + " m");
             GUI.Label(new Rect(20, 220, 300, 30), "Wheel Angle : " + recording.frames[fn].wheelAngle[0] + " Degree");
-            GUI.Box(new Rect(Screen.width - 320, 10, 300, 30 * recording.gazingNameList.Length + 1), "Gazing Statistics", box);
+            GUI.Label(new Rect(20, 240, 300, 30), "Headlight : " + (recording.frames[fn].headlight == true ? "On":"Off"));
+            GUI.Label(new Rect(20, 260, 300, 30), "R Turn Light : " + (recording.frames[fn].sidelightR == true ? "On" : "Off"));
+            GUI.Label(new Rect(20, 280, 300, 30), "L Turn Light : " + (recording.frames[fn].sidelightL == true ? "On" : "Off"));
+
+
+            GUI.Box(new Rect(Screen.width - 320, 10, 300, 20 + 30 * recording.gazingNameList.Length), "Gazing Statistics", box);
             for (int i = 0; i < recording.gazingNameList.Length; i++)
                 GUI.Label(new Rect(Screen.width - 320, 30 + 20 * i, 300, 30),
                     recording.gazingNameList[i] + " : " + (recording.gazingPerList[i] * 100f) / recording.frames.Count + "%");
             GUI.DrawTexture(new Rect(recording.frames[fn].eyePosition.x, Screen.height - recording.frames[fn].eyePosition.y, cursorWidth, cursorHeight), cursorImage);
+            
+        
         }
         else
         {

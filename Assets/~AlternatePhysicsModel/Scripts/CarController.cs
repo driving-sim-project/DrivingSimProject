@@ -4,6 +4,7 @@ using System.Collections;
 // This class is repsonsible for controlling inputs to the car.
 // Change this code to implement other input types, such as support for analogue input, or AI cars.
 [RequireComponent (typeof (Drivetrain))]
+[RequireComponent(typeof(AudioSource))]
 public class CarController : MonoBehaviour {
 
     //Headlight & Taillight object
@@ -38,7 +39,7 @@ public class CarController : MonoBehaviour {
 	float handbrake;
 		
 	// cached Drivetrain reference
-	Drivetrain drivetrain;
+	public Drivetrain drivetrain;
     AudioSource audio;
 
 	// How long the car takes to shift gears
@@ -101,17 +102,21 @@ public class CarController : MonoBehaviour {
 		}
 	}
 
-	// Initialize
-	void Start () 
-	{
+    void Awake()
+    {
         if (SceneManager.GoScene == "replay")
         {
-            GetComponent<TrafficChecker>().enabled = false;
             GetComponent<Drivetrain>().enabled = false;
             GetComponent<ReplayRecord>().enabled = false;
             GetComponent<ReplayPlayer>().enabled = true;
         }
-        else
+        audio = GetComponent<AudioSource>() as AudioSource;
+    }
+
+	// Initialize
+	void Start () 
+	{
+        if (SceneManager.GoScene != "replay")
         {
             if (centerOfMass != null)
                 rigidbody.centerOfMass = centerOfMass.localPosition;
@@ -122,7 +127,8 @@ public class CarController : MonoBehaviour {
 	
 	void Update () 
 	{
-        if (GetComponent<ReplayPlayer>().enabled == false && TrafficChecker.isAccident == false)
+        
+        if (GetComponent<ReplayPlayer>().enabled == false)
         {
             // Steering
             Vector3 carDir = transform.forward;
@@ -164,8 +170,7 @@ public class CarController : MonoBehaviour {
 
             steering = steerInput;
 
-            // Throttle/Brake
-
+            // Throttle/Brake            
             accelKey = Input.GetAxis("Vertical");
             //bool brakeKey = Input.GetKey (KeyCode.DownArrow);
 
@@ -175,7 +180,8 @@ public class CarController : MonoBehaviour {
             {
                 accelKey = Input.GetAxis("Vertical");
             }
-
+            if (GetComponent<TrafficChecker>().isAccident == true || GetComponent<TrafficChecker>().isOffTrack == true || GetComponent<TrafficChecker>().isFinish == true)
+                accelKey = -1f;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 throttle += Input.GetAxis("Vertical");
@@ -317,9 +323,9 @@ public class CarController : MonoBehaviour {
                 sidelightR.SetActive(false);
 
             speed = (int)(rigidbody.velocity.magnitude * 3.6f);
-
+            audio.pitch = (drivetrain.rpm / drivetrain.maxRPM) + 0.2f;
         }
-
+        
 	}
 
 

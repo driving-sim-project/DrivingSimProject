@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class RecordedFrame {
 
+    public float rpm;
     public int speed;
     public float time;
     public bool headlight;
@@ -27,6 +28,7 @@ public class RecordedFrame {
     public RecordedFrame( CarController car )
     {
         currentDistance = 0f;
+        rpm = car.drivetrain.rpm / car.drivetrain.maxRPM;
         speed = car.speed;
         time = Time.time;
         position = car.transform.position;

@@ -21,12 +21,14 @@ public class RecordedMotion : ScriptableObject {
         int gazingIndex = -1;
         frames = ftemp;
         currentFrameNumber = cfntemp;
+
+
+        distance = frames[frames.Count - 1].currentDistance;
         foreach (RecordedFrame rm in frames)
         {
             avgSpeed += rm.speed;
             if(topSpeed < rm.speed) 
                 topSpeed = rm.speed;
-            distance += rm.currentDistance;
             if (gazingNameListTemp.Contains(rm.gazingObjectName) == false)
             {
                 gazingNameListTemp.Add(rm.gazingObjectName);
