@@ -6,32 +6,34 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CarController))]
 public class ReplayPlayer : MonoBehaviour {
 
-    public RecordedMotion recording;
     public GameObject[] wheelsModel;
     public Texture2D cursorImage;
 
     private int cursorWidth = 32;
     private int cursorHeight = 32;
 
+    List<RecordedMotion> recordList = new List<RecordedMotion>();
+    RecordedMotion recording;
     bool gui = true;
     float startTime;
     int fn;
     CarController car;
+    bool playing = false;
 
     void Awake()
     {
-        car = GetComponent(typeof(CarController)) as CarController;
-        if (recording != null)
+        foreach (RecordedMotion file in Resources.LoadAll<RecordedMotion>("Replays/"))
         {
-            recording.currentFrameNumber = 0;
-            fn = recording.currentFrameNumber;
-            Debug.Log("framecount : " + recording.frames.Count);
+            if(file.name.Contains(Application.loadedLevelName))
+                recordList.Add(file);
         }
     }
 
 	// Use this for initialization
 	void Start () {
-        startTime = Time.time;
+        car = GetComponent(typeof(CarController)) as CarController;
+        recording = recordList[recordList.Count - 1];
+        ReplaySetup();
 	}
 	
 	// Update is called once per frame
@@ -77,11 +79,9 @@ public class ReplayPlayer : MonoBehaviour {
 
     void OnGUI()
     {
-
-        if(gui == true){
-            GUIStyle box = GUI.skin.box;
-            box.alignment = TextAnchor.UpperCenter;
-
+        GUIStyle box = GUI.skin.box;
+        box.alignment = TextAnchor.UpperCenter;
+        if(playing == true && gui == true){
             GUI.Box(new Rect(10, 10, 300, 300), "Driving Data", box);
             GUI.Label(new Rect(20, 40, 300, 30), "Speed : " + recording.frames[fn].speed + " km/h");
             GUI.Label(new Rect(20, 60, 300, 30), "Throttle : " + (recording.frames[fn].throttle > 0 ?
@@ -103,6 +103,26 @@ public class ReplayPlayer : MonoBehaviour {
                     recording.gazingNameList[i] + " : " + (recording.gazingPerList[i] * 100f) / recording.frames.Count + "%");
             GUI.DrawTexture(new Rect(recording.frames[fn].eyePosition.x, Screen.height - recording.frames[fn].eyePosition.y, cursorWidth, cursorHeight), cursorImage);
         }
+        else
+        {
+            GUI.Box(new Rect(10, 10, 300, 300), "Replay Data List", box);
+            for (int i = 0; i < recordList.Count; i++)
+            {
+                GUI.Label(new Rect(20, 30 + 20 * i, 300, 30), recordList[i].name);
+            }
 
+        }
+
+    }
+
+    void ReplaySetup()
+    {
+        startTime = Time.time;
+        if (recording != null)
+        {
+            recording.currentFrameNumber = 0;
+            fn = recording.currentFrameNumber;
+        }
+        playing = true;
     }
 }

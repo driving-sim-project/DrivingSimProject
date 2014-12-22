@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour {
         Screen.lockCursor = true;
         selectedMenu = defaultMenu;
         selectTime = 0f;
+        Time.timeScale = 1f;
     }
 
     void Start()
@@ -102,8 +103,6 @@ public class MainMenu : MonoBehaviour {
 
     void MenuUpdate()
     {
-        
-
         int tmpMenu;
         for (int i = 0; i < canvasList.Length; i++)
         {
@@ -116,5 +115,4 @@ public class MainMenu : MonoBehaviour {
 
         bgObject.sprite = menuList[selectedMenu];
     }
-
 }

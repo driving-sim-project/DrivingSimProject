@@ -3,8 +3,11 @@ using System.Collections;
 
 // This class simulates a car's engine and drivetrain, generating
 // torque, and applying the torque to the wheels.
+[RequireComponent(typeof(AudioSource))]
 public class Drivetrain : MonoBehaviour {
-	
+
+    AudioSource audio;
+
 	// All the wheels the drivetrain should power
 	public Wheel[] poweredWheels;
 	
@@ -62,7 +65,7 @@ public class Drivetrain : MonoBehaviour {
 	public float slipRatio = 0.0f;
 	float engineAngularVelo;
 	
-    int drivenGear = 0;
+    public int drivenGear = 0;
 	
 	float Sqr (float x) { return x*x; }
 	
@@ -89,7 +92,7 @@ public class Drivetrain : MonoBehaviour {
 		return result;
 	}
 
-    void Update()
+    void Update ()
     {
         if (Input.GetButtonDown("ShiftUp"))
         {
@@ -114,8 +117,8 @@ public class Drivetrain : MonoBehaviour {
 		float inertia = engineInertia * Sqr(ratio);
 		float engineFrictionTorque = engineBaseFriction + rpm * engineRPMFriction;
 		float engineTorque = (CalcEngineTorque() + Mathf.Abs(engineFrictionTorque)) * throttle;
-		slipRatio = 0.0f;		
-		
+		slipRatio = 0.0f;
+
 		if (ratio == 0)
 		{
 			// Neutral gear - just rev up engine
@@ -150,13 +153,16 @@ public class Drivetrain : MonoBehaviour {
 		// update state
 		slipRatio *= Mathf.Sign ( ratio );
 		rpm = engineAngularVelo * (60.0f/(2*Mathf.PI));
-		
+
+
 		// very simple simulation of clutch - just pretend we are at a higher rpm.
 		float minClutchRPM = minRPM;
 		if (gear == 2)
 			minClutchRPM += throttle * 3000;
 		if (rpm < minClutchRPM)
 			rpm = minClutchRPM;
+
+        audio.pitch = (rpm / maxRPM) + 0.2f;
 
         // Automatic gear shifting. Bases shift points on throttle input and rpm.
         if (drivenGear == 0)
@@ -190,11 +196,16 @@ public class Drivetrain : MonoBehaviour {
 		if (gear > 0)
 			gear --;
 	}
-	
+
+    void Awake()
+    {
+        audio = GetComponent<AudioSource>() as AudioSource;
+    }
+    
 	// Debug GUI. Disable when not needed.
     void OnGUI()
     {
-        GUILayout.Label("RPM: " + rpm);
+        //GUILayout.Label("RPM: " + rpm);
         GUILayout.Label("Gear: " + (gear - 1));
         //automatic = GUILayout.Toggle(automatic, "Automatic Transmission");
     }

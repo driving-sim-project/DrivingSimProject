@@ -266,7 +266,14 @@ public class Wheel : MonoBehaviour {
 		up = transform.up;
 		RaycastHit hit;
 		bool onGround = Physics.Raycast( pos, -up, out hit, suspensionTravel + radius);
-		
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject.name == "Terrain")
+            {
+                Debug.Log(hit.collider.gameObject.name);
+            }
+        }
+        
 		if (onGround && hit.collider.isTrigger)
 		{
 			onGround = false;float dist = suspensionTravel + radius;

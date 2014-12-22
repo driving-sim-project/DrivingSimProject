@@ -10,6 +10,7 @@ public class ControllerMap : MonoBehaviour {
 
     void Awake()
     {
+        Time.timeScale = 1f;
         selectTime = 0f;
         index = 0;
     }

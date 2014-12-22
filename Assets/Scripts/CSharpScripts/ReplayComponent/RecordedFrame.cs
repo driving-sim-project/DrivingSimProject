@@ -11,6 +11,7 @@ public class RecordedFrame {
     public float throttle;
     public float steering;
     public Vector3 position;
+    public float currentDistance;
     public Quaternion rotation;
     public Vector3[] wheelsPosition;
     public Quaternion[] wheelsRotation;
@@ -25,6 +26,7 @@ public class RecordedFrame {
 
     public RecordedFrame( CarController car )
     {
+        currentDistance = 0f;
         speed = car.speed;
         time = Time.time;
         position = car.transform.position;

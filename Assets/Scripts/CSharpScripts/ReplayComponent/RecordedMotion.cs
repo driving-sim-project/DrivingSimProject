@@ -16,20 +16,17 @@ public class RecordedMotion : ScriptableObject {
 
     public void Init(List<RecordedFrame> ftemp, int cfntemp)
     {
-        Vector3 posTemp;
         List<string> gazingNameListTemp = new List<string>();
         List<int> gazingPerListTemp = new List<int>();
         int gazingIndex = -1;
         frames = ftemp;
         currentFrameNumber = cfntemp;
-        posTemp = frames[0].position;
         foreach (RecordedFrame rm in frames)
         {
             avgSpeed += rm.speed;
             if(topSpeed < rm.speed) 
                 topSpeed = rm.speed;
-            distance += Vector3.Distance(posTemp, rm.position)/1000f;
-            posTemp = rm.position;
+            distance += rm.currentDistance;
             if (gazingNameListTemp.Contains(rm.gazingObjectName) == false)
             {
                 gazingNameListTemp.Add(rm.gazingObjectName);

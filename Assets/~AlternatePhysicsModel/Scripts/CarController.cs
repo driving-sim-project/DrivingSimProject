@@ -6,7 +6,6 @@ using System.Collections;
 [RequireComponent (typeof (Drivetrain))]
 public class CarController : MonoBehaviour {
 
-
     //Headlight & Taillight object
     public GameObject headlight;
     public GameObject taillight;
@@ -40,7 +39,8 @@ public class CarController : MonoBehaviour {
 		
 	// cached Drivetrain reference
 	Drivetrain drivetrain;
-	
+    AudioSource audio;
+
 	// How long the car takes to shift gears
 	public float shiftSpeed = 0.8f;
 	
@@ -104,15 +104,25 @@ public class CarController : MonoBehaviour {
 	// Initialize
 	void Start () 
 	{
-		if (centerOfMass != null)
-			rigidbody.centerOfMass = centerOfMass.localPosition;
-		rigidbody.inertiaTensor *= inertiaFactor;
-		drivetrain = GetComponent (typeof (Drivetrain)) as Drivetrain;
+        if (SceneManager.GoScene == "replay")
+        {
+            GetComponent<TrafficChecker>().enabled = false;
+            GetComponent<Drivetrain>().enabled = false;
+            GetComponent<ReplayRecord>().enabled = false;
+            GetComponent<ReplayPlayer>().enabled = true;
+        }
+        else
+        {
+            if (centerOfMass != null)
+                rigidbody.centerOfMass = centerOfMass.localPosition;
+            rigidbody.inertiaTensor *= inertiaFactor;
+            drivetrain = GetComponent(typeof(Drivetrain)) as Drivetrain;
+        }
 	}
 	
 	void Update () 
 	{
-        if (this.GetComponent<ReplayPlayer>() == null && TrafficChecker.isAccident != true)
+        if (GetComponent<ReplayPlayer>().enabled == false && TrafficChecker.isAccident == false)
         {
             // Steering
             Vector3 carDir = transform.forward;
@@ -217,7 +227,7 @@ public class CarController : MonoBehaviour {
             //throttleInput = throttleInput;
 
             // Handbrake
-            handbrake = Mathf.Clamp01(handbrake + (Input.GetKey(KeyCode.Space) ? Time.deltaTime : -Time.deltaTime));
+            //handbrake = Mathf.Clamp01(handbrake + (Input.GetKey(KeyCode.Space) ? Time.deltaTime : -Time.deltaTime));
 
             // Gear shifting
             float shiftThrottleFactor = Mathf.Clamp01((Time.time - lastShiftTime) / shiftSpeed);
@@ -261,23 +271,24 @@ public class CarController : MonoBehaviour {
                 sidelightLastInterval = Time.time;
             }
             //L
-            if(Input.GetButtonDown("R1"))
+            if (Input.GetButtonDown("R1"))
             {
                 sidelightSR = false;
                 sidelightSL = sidelightSL == true ? sidelightSL = false : sidelightSL = true;
                 sidelightLastInterval = Time.time;
             }
 
-            if (sidelightSL == true )
+            if (sidelightSL == true)
             {
-                if(Time.time <= sidelightLastInterval + sidelightInterval){
+                if (Time.time <= sidelightLastInterval + sidelightInterval)
+                {
                     sidelightL.SetActive(true);
                 }
                 else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
                 {
                     sidelightLastInterval = Time.time;
                 }
-                else if(Time.time >= sidelightLastInterval + sidelightInterval)
+                else if (Time.time >= sidelightLastInterval + sidelightInterval)
                 {
                     sidelightL.SetActive(false);
                 }
@@ -300,12 +311,13 @@ public class CarController : MonoBehaviour {
                     sidelightR.SetActive(false);
 
                 }
-                 
-            }else
+
+            }
+            else
                 sidelightR.SetActive(false);
 
             speed = (int)(rigidbody.velocity.magnitude * 3.6f);
-            
+
         }
 
 	}

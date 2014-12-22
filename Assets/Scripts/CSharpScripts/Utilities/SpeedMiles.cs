@@ -19,7 +19,7 @@ public class SpeedMiles : MonoBehaviour {
 	void Update () {
         speedAngle = ((-car.speed * 1f / maxSpeed) * 100f * maxAngle) / 100f - 1;
         //if (adjustDegree(needleAngle) == adjustDegree(speedAngle + originAngle))
-        transform.localEulerAngles = new Vector3(car.transform.rotation.x + 10, car.transform.rotation.y, speedAngle + originAngle );
+        transform.localEulerAngles = new Vector3(car.transform.rotation.x, car.transform.rotation.y, speedAngle + originAngle );
         //else if (adjustDegree(needleAngle) > adjustDegree(speedAngle + originAngle) && adjustDegree(needleAngle) != 1)
         //    transform.Rotate(0f, 0f, adjustDegree(needleAngle) - adjustDegree(speedAngle + originAngle));
         //else if (adjustDegree(needleAngle) < adjustDegree(speedAngle + originAngle) )
@@ -28,10 +28,10 @@ public class SpeedMiles : MonoBehaviour {
         //Debug.Log("Speed : " + adjustDegree(speedAngle + originAngle));
 	}
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + car.speed);
-    }
+    //void OnGUI()
+    //{
+    //    GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + car.speed);
+    //}
 
     int adjustDegree(float degree)
     {

@@ -26,6 +26,7 @@ public class TaskSel : MonoBehaviour
         Screen.lockCursor = true;
         selectedMenu = defaultMenu;
         selectTime = 0f;
+        Time.timeScale = 1f;
     }
 
     void Start()
@@ -65,6 +66,8 @@ public class TaskSel : MonoBehaviour
     {
 
         //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), titleBackground, ScaleMode.StretchToFill);
+        titleBox = GUI.skin.box;
+        titleBox.alignment = TextAnchor.MiddleCenter;
 
         if(Time.timeSinceLevelLoad > 1f && Input.GetAxis("Vertical") < -0.5f){
             GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 4, Screen.height / 4), "Exit", titleBox);
@@ -73,8 +76,6 @@ public class TaskSel : MonoBehaviour
 
         if (Time.timeSinceLevelLoad > 1f && Input.GetAxis("Vertical") > 0.5f)
         {
-            titleBox = GUI.skin.box;
-            titleBox.alignment = TextAnchor.MiddleCenter;
             if(selectedMenu == menuList.Length - 1){
                 GUI.Box(new Rect(guiPosition[0], guiPosition[1], guiPosition[0] * 2, guiPosition[1] * 2), "You have to pass pre-mission first.", titleBox);
             }
