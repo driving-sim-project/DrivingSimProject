@@ -54,11 +54,7 @@ public class RecordedFrame {
         wheelAngle = wheelAngleTemp.ToArray();
         steeringWheelRotation = car.steeringWheel.transform.localRotation;
         cameraRotaion = Camera.main.transform.rotation;
-        RaycastHit hit;
-        eyePosition = Input.mousePosition;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(eyePosition), out hit, 150f, 1 << 0))
-            gazingObjectName = hit.collider.tag;
-        else
-            gazingObjectName = "Forward";
+        eyePosition = Camera.main.GetComponent<GazeCamera>().screenPoint;
+        gazingObjectName = Camera.main.GetComponent<GazeCamera>().currentGaze;
     }
 }

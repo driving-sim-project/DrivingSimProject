@@ -12,7 +12,8 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     //public float panelSize = 0.5f;
     //public int gazeSpeed = 1;
 
-    public Collider currentHit;
+    public string currentGaze;
+    public Vector3 screenPoint;
 
     private GazeDataValidator gazeUtils;
     private Camera cam;
@@ -26,14 +27,22 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     {
         Screen.autorotateToPortrait = false;
         
-        gazeIndicator = cam.transform.GetChild(0);
+        //gazeIndicator = cam.transform.GetChild(0);
 
         gazeUtils = new GazeDataValidator(30);
+        GazeManager.Instance.Activate
+        (
+            GazeManager.ApiVersion.VERSION_1_0,
+            GazeManager.ClientMode.Push
+        );
+
         GazeManager.Instance.AddGazeListener(this);
     }
 
     void Awake()
     {
+        if (SceneManager.GoScene == "replay")
+            this.enabled = false;
         cam = GetComponent<Camera>();
         camPosition = cam.transform.localPosition;
     }
@@ -45,7 +54,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
 	// Update is called once per frame
 	void Update () {
-        Point2D userPos = gazeUtils.GetLastValidUserPosition();
+        Point2D userPos = gazeUtils.GetLastValidSmoothedGazeCoordinates();
 
         if (null != userPos)
         {
@@ -67,26 +76,24 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             //cam.transform.LookAt(Vector3.forward);
 
             //tilt cam according to eye angle
-            double angle = gazeUtils.GetLastValidEyesAngle();
-            cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, (float)angle, cam.transform.eulerAngles.z);
-        }
+            Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
+            double angle = (gp.X / Screen.width);
+            Debug.Log("Current angle : " + angle);
 
-        Point2D gazeCoords = gazeUtils.GetLastValidSmoothedGazeCoordinates();
+            if (angle < 0.1f)
+                cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, GetComponentInParent<CarController>().transform.eulerAngles.y - 30f , cam.transform.eulerAngles.z);
+            else if(angle > 0.9f)
+                cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, GetComponentInParent<CarController>().transform.eulerAngles.y + 10f, cam.transform.eulerAngles.z);
+            else if(angle > 0.3f && angle < 0.8f)
+                cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, GetComponentInParent<CarController>().transform.eulerAngles.y , cam.transform.eulerAngles.z);
 
-        if (null != gazeCoords)
-        {
-            //map gaze indicator
-            Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(gazeCoords);
 
-            Vector3 screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
 
-            Vector3 planeCoord = cam.ScreenToWorldPoint(screenPoint);
-            gazeIndicator.transform.position = planeCoord;
+            screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
 
             //handle collision detection
-            checkGazeCollision(screenPoint);
+            currentGaze = checkGazeCollision(screenPoint);
         }
-
 
 	}
 
@@ -97,7 +104,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         RaycastHit hit;
         if (Physics.Raycast(collisionRay, out hit, 150f, 1 << 0))
         {
-            if (null != hit.collider && currentHit != hit.collider)
+            if (null != hit.collider)
             {
                 gazingObjectName = hit.collider.tag;
             }
