@@ -14,6 +14,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
     public string currentGaze;
     public Vector3 screenPoint;
+    public float sensitivity = 0f;
 
     private GazeDataValidator gazeUtils;
     private Camera cam;
@@ -22,6 +23,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     private double eyesDistance;
     private double baseDist;
     private double depthMod;
+    private GazeData gazeDataTmp;
 
     void Start()
     {
@@ -45,11 +47,26 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             this.enabled = false;
         cam = GetComponent<Camera>();
         camPosition = cam.transform.localPosition;
+        gazeDataTmp = null;
     }
 
     public void OnGazeUpdate(GazeData gazeData)
     {
-        gazeUtils.Update(gazeData);
+        float lastDistance = 0f;
+        if(gazeDataTmp != null){
+            lastDistance = Vector2.Distance(
+            new Vector2((float)gazeData.SmoothedCoordinates.X, (float)gazeData.SmoothedCoordinates.Y),
+            new Vector2((float)gazeDataTmp.SmoothedCoordinates.X, (float)gazeDataTmp.SmoothedCoordinates.Y));
+        }
+        
+        Debug.Log(lastDistance);
+
+        if(lastDistance > sensitivity){
+            gazeUtils.Update(gazeData);
+        }
+
+        gazeDataTmp = gazeData;
+
     }
 
 	// Update is called once per frame
@@ -79,13 +96,6 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
             double angle = (gp.X / Screen.width);
             Debug.Log("Current angle : " + angle);
-
-            if (angle < 0.1f)
-                cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, GetComponentInParent<CarController>().transform.eulerAngles.y - 30f , cam.transform.eulerAngles.z);
-            else if(angle > 0.9f)
-                cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, GetComponentInParent<CarController>().transform.eulerAngles.y + 10f, cam.transform.eulerAngles.z);
-            else if(angle > 0.3f && angle < 0.8f)
-                cam.transform.eulerAngles = new Vector3(cam.transform.eulerAngles.x, GetComponentInParent<CarController>().transform.eulerAngles.y , cam.transform.eulerAngles.z);
 
 
 
