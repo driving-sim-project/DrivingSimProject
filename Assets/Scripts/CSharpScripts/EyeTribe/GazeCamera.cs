@@ -15,6 +15,8 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     public string currentGaze;
     public Vector3 screenPoint;
     public float sensitivity = 0f;
+    public int maxAngleView = 90;
+    public float gazeSpeed = 1f;
 
     private GazeDataValidator gazeUtils;
     private Camera cam;
@@ -59,7 +61,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             new Vector2((float)gazeDataTmp.SmoothedCoordinates.X, (float)gazeDataTmp.SmoothedCoordinates.Y));
         }
         
-        Debug.Log(lastDistance);
+        //Debug.Log(lastDistance);
 
         if(lastDistance > sensitivity){
             gazeUtils.Update(gazeData);
@@ -90,14 +92,16 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             cam.transform.localPosition = newPos;
 
             //camera 'look at' origo
-            //cam.transform.LookAt(Vector3.forward);
+            
 
             //tilt cam according to eye angle
             Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
             double angle = (gp.X / Screen.width);
-            Debug.Log("Current angle : " + angle);
-
-
+            angle *= maxAngleView;
+            angle -= maxAngleView / 2f;
+            Debug.Log("Current angle : " + cam.transform.rotation.y);
+            
+            cam.transform.Rotate(Vector3.up, (float)angle * gazeSpeed * Time.deltaTime);
 
             screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
 
