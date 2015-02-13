@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Calculate {
 
 
-    private List<float> speed;
+    private List<float> speed = new List<float>();
     private float topspeed;
     private float avgspeed;
     private List<float> distance;
@@ -14,16 +14,18 @@ public class Calculate {
     private int time;
     private List<int> throttle;
     private List<int> brake;
-    private List<string> lookat;
+    private List<string> lookat = new List<string>();
     private List<bool> lanetog;
-    private List<float> gazing;
-    private List<string> lane;
-    private string rulen = "";
+    private List<float> gazing = new List<float>();
+    private string lane;
+    private List<string> rulen = new List<string>();
     private List<string> rgw = new List<string>();
+    private List<int> score = new List<int>();
+    private float limsp = 80;
 
 
 
-    public void initialize( List<float> sp,float tsp,float avgsp,List<float> dis,List<bool> ll,List<bool> rl,int ti,List<int> thr,List<int> bra,List<string> la,List<bool> latg,List<float> gaz,List<string> lan)
+    public void initialize( List<float> sp,float tsp,float avgsp,List<float> dis,List<bool> ll,List<bool> rl,int ti,List<int> thr,List<int> bra,List<string> la,List<bool> latg,List<float> gaz,string lan)
     {
         this.speed = sp;
         this.topspeed = tsp;
@@ -42,13 +44,18 @@ public class Calculate {
 
     }
 
-    public string loadrulen()
+    public List<string> loadrulen()
     {
 
         return rulen;
     }
 
-    public int calc( Intugate intugate )
+    public List<int> loadescore()
+    {
+        return score;
+    }
+
+    public void calc( Intugate intugate , int start = 0 , int stop = 0 , int passed = 0)
     {
         int a = 100;
         int co = 0;
@@ -57,11 +64,9 @@ public class Calculate {
         int d = 0;
         int e = 0;
         
-        rulen = intugate.loadname();
+        rulen.Add(intugate.loadname());
         if(intugate.loadbo("sign"))
         {
-            if(intugate.loadbo("stop"))
-            {
                 if(intugate.loadbo("RGW"))
                 {
                     co = 1;
@@ -70,51 +75,73 @@ public class Calculate {
                 {
                     co = 2;
                 }
-            }
-            else
-            {
-                co = 3;
-            }
+            
         }
         else
         {
-                co = 4;
+                co = 3;
             
         }
         switch(co)
         {
             case 1:
-                for (int i = 0; i < rgw.Count; i++)
+                if (passed == 0)
                 {
-                    
+                    a -= 60;
                 }
-                return a;
+                else
+                {
+                    for (int i = start; i < stop; i++)
+                    {
+                        if ((lookat[i] != "traffic light" && gazing[i] < 50) && (i < start + 10))
+                        {
+                            a -= 5;
+                        }
+                    }
+
+                }
+
+                score.Add(a);
+                break;
+
 
             case 2:
+                if (passed == 0)
+                {
+                    a -= 60;
+                }
+                else
+                {
+                    for (int i = start; i < (start + 10); i++)
+                    {
+                        if (lookat[i] != "sign" && gazing[i] < 50)
+                        {
+                            a -= 5;
+                        }
+                    }
+                }
 
-                return a;
+                score.Add(a);
+                break;
 
             case 3:
-
-                return a;
-
-            case 4:
                 if(intugate.loadflo("speed")>0)
                 {
-                    if(avgspeed > intugate.loadflo("speed"))
+                    limsp = intugate.loadflo("speed");
+                    if(avgspeed > limsp)
                     {
                         a -= 50;
                     }
                     else
                     {
-                        if(topspeed > intugate.loadflo("speed"))
+                        if(topspeed > limsp)
                         {
                             a -= 30;
                         }
                     }
                     for (int i = 0; i < speed.Count; i++)
                     {
-                        if(speed[i]>intugate.loadflo("speed"))
+                        if(speed[i]>limsp)
                         {
                             a -= 1;
                         }
@@ -136,7 +163,10 @@ public class Calculate {
                                 {
                                     if((d+1)!=i)
                                     {
-                                        e = c;
+                                        if (c > e) {
+                                            e = c;
+                                        }
+                                        
                                         c = 0;
                                         d = i;
                                     }
@@ -160,16 +190,84 @@ public class Calculate {
                     }
                    
                 }
-                return a;
+                score.Add(a);
+                break;
 
             default :
 
-                return a;
+                score.Add(a);
+                break;
         }
 
         
     }
     
+    public int analy()
+    {
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        int d = 0;
+        int e = 0;
+        int f = 0;
+        int g = 0;
+        int h = 0;
+        int k = 0;
+        if(avgspeed > 60)
+        {
+        
+        }
+        
+        for (int i = 0; i < speed.Count; i++)
+        {
+            if (lanetog[i])
+            {
+                b += 1;                
+            }
+            if(speed[i]>limsp)
+            {
+                c += 1;
+            }
+            if(throttle[i]>70)
+            {
+                if (d != 0 && e > 0)
+                {
+                    if((d+1)!=i)
+                    {
+                        if (e > f) {
+
+                            f = e;
+                        }
+                        
+                        e = 0;
+                        d = i;
+                    }
+                    else
+                    {
+                        e++;
+                        d=i;
+                    }
+                }
+                else{
+                    d = i;
+                    e++;
+                }
+            }
+            else
+            {
+                if(brake[i]>70)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
+        return a;
+
+    }
 
 
 
