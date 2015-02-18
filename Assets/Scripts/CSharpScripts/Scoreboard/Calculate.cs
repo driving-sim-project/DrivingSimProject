@@ -20,184 +20,33 @@ public class Calculate {
     private string lane;
     private List<string> rulen = new List<string>();
     private List<string> rgw = new List<string>();
-    private List<int> score = new List<int>();
+    private List<float> score = new List<float>();
     private float limsp = 80;
+    private List<string> desc = new List<string>();
 
 
 
-    public void initialize( List<float> sp,float tsp,float avgsp,List<float> dis,List<bool> ll,List<bool> rl,int ti,List<int> thr,List<int> bra,List<string> la,List<bool> latg,List<float> gaz,string lan)
+    public void calc(List<int> sc)
     {
-        this.speed = sp;
-        this.topspeed = tsp;
-        this.avgspeed = avgsp;
-        this.distance = dis;
-        this.leftlight = ll ;
-        this.rightlight = rl;
-        this.time = ti;
-        this.throttle = thr;
-        this.brake = bra;
-        this.lookat = la;
-        this.lanetog = latg;
-        this.gazing = gaz;
-        this.lane = lan;
-        
+        int a = 0;
+        float b = 0;
+        float c = 0;
+        float d = 0;
 
-    }
-
-    public List<string> loadrulen()
-    {
-
-        return rulen;
-    }
-
-    public List<int> loadescore()
-    {
-        return score;
-    }
-
-    public void calc( Intugate intugate , int start = 0 , int stop = 0 , int passed = 0)
-    {
-        int a = 100;
-        int co = 0;
-        List<int> b = new List<int>();
-        int c = 0;
-        int d = 0;
-        int e = 0;
-        
-        rulen.Add(intugate.loadname());
-        if(intugate.loadbo("sign"))
+        foreach(int i in sc)
         {
-                if(intugate.loadbo("RGW"))
-                {
-                    co = 1;
-                }
-                else
-                {
-                    co = 2;
-                }
+            a += i;
+            c = i / 10;
+            d = i % 10;
+            if(d>4)
+            {
+                c += (d / 10); 
+            }
+            score.Add(c);
             
         }
-        else
-        {
-                co = 3;
-            
-        }
-        switch(co)
-        {
-            case 1:
-                if (passed == 0)
-                {
-                    a -= 60;
-                }
-                else
-                {
-                    for (int i = start; i < stop; i++)
-                    {
-                        if ((lookat[i] != "traffic light" && gazing[i] < 50) && (i < start + 10))
-                        {
-                            a -= 5;
-                        }
-                    }
-
-                }
-
-                score.Add(a);
-                break;
-
-
-            case 2:
-                if (passed == 0)
-                {
-                    a -= 60;
-                }
-                else
-                {
-                    for (int i = start; i < (start + 10); i++)
-                    {
-                        if (lookat[i] != "sign" && gazing[i] < 50)
-                        {
-                            a -= 5;
-                        }
-                    }
-                }
-
-                score.Add(a);
-                break;
-
-            case 3:
-                if(intugate.loadflo("speed")>0)
-                {
-                    limsp = intugate.loadflo("speed");
-                    if(avgspeed > limsp)
-                    {
-                        a -= 50;
-                    }
-                    else
-                    {
-                        if(topspeed > limsp)
-                        {
-                            a -= 30;
-                        }
-                    }
-                    for (int i = 0; i < speed.Count; i++)
-                    {
-                        if(speed[i]>limsp)
-                        {
-                            a -= 1;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < lanetog.Count; i++)
-                    {
-                        if(lanetog[i] && (leftlight[i] || rightlight[i]))
-                        {
-                            b.Add(i);
-                        }
-                        else
-                        {
-                            if(lanetog[i]){
-                                a -= 1;
-                                if(d!=0 && c>0)
-                                {
-                                    if((d+1)!=i)
-                                    {
-                                        if (c > e) {
-                                            e = c;
-                                        }
-                                        
-                                        c = 0;
-                                        d = i;
-                                    }
-                                    else
-                                    {
-                                        c++;
-                                        d=i;
-                                    }
-                                }
-                                else
-                                {
-                                    c++;
-                                    d = i;
-                                }
-                            }
-                        }
-                    }
-                    if(e>4)
-                    {
-                        a -= 25;
-                    }
-                   
-                }
-                score.Add(a);
-                break;
-
-            default :
-
-                score.Add(a);
-                break;
-        }
+        b = a / sc.Count;
+        score.Add(b);
 
         
     }
@@ -207,36 +56,42 @@ public class Calculate {
         int a = 0;
         int b = 0;
         int c = 0;
-        int d = 0;
+        int d= 0;
         int e = 0;
-        int f = 0;
+        List<int> f = new List<int>();
+        f.Add(0);
         int g = 0;
-        int h = 0;
-        int k = 0;
-        if(avgspeed > 60)
-        {
-        
-        }
-        
+        List<int> h = new List<int>();
+        h.Add(0);
+        int k = 0;        
+        int l = speed.Count / 20;
         for (int i = 0; i < speed.Count; i++)
         {
             if (lanetog[i])
             {
-                b += 1;                
+                if(!(leftlight[i] || rightlight[i]))
+                {
+                    b += 1;
+                }    
             }
             if(speed[i]>limsp)
             {
                 c += 1;
             }
-            if(throttle[i]>70)
+            if()
+            {
+
+            }
+            if(throttle[i]>80)
             {
                 if (d != 0 && e > 0)
                 {
                     if((d+1)!=i)
                     {
-                        if (e > f) {
+                        if (e > f[f.Count-1]) {
 
-                            f = e;
+                            f.Add(e);
+                            h.Add(i);
                         }
                         
                         e = 0;
@@ -255,9 +110,12 @@ public class Calculate {
             }
             else
             {
-                if(brake[i]>70)
+                if(brake[i]>80)
                 {
-
+                    if((d+1)==i)
+                    {
+                     
+                    }
                 }
                 else
                 {

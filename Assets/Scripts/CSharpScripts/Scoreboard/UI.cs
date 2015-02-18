@@ -25,6 +25,7 @@ public class UI : MonoBehaviour {
     private int scoreavg = 0;
     private int sc = 0;
     private int s = 1;
+    private List<string> desc = new List<string>();
     Calculate calc = new Calculate();
 
 	// Use this for initialization
@@ -40,6 +41,7 @@ public class UI : MonoBehaviour {
 	void Awake (){
         rulelis = calc.loadrulen();
         scoring = calc.loadescore();
+        desc = calc.loaddesc();
         for (int i = 0; i < rulelis.Count; i++)
         {
             scoreavg += scoring[i];
@@ -194,12 +196,10 @@ public class UI : MonoBehaviour {
         if (toolbarInt == 1)
         {
             
-            GUI.DrawTexture(new Rect(80, 80, 100, 100),rulepic[boon[bull]], ScaleMode.StretchToFill, true, 10.0F);
-            GUI.Label(new Rect(Screen.width / 2 - 50 , 100 , 100 , 20), rulelis[boon[bull]]);
-            GUI.Label(new Rect(Screen.width / 2 - 100, 225, 400, 400), "dukdik-hiend \n kimochi ne");
-            GUI.Label(new Rect(Screen.width / 4 - 75, Screen.height - 100, 100, 20), rulelis[0]);
-            GUI.Label(new Rect(Screen.width / 2 - 75, Screen.height - 100, 100, 20), rulelis[0]);
-            GUI.Label(new Rect(Screen.width - (Screen.width / 4) - 75, Screen.height - 100, 100, 20), rulelis[0]);
+            GUI.DrawTexture(new Rect(80, 80, 100, 100),rulepic[bull], ScaleMode.StretchToFill, true, 10.0F);
+            GUI.Label(new Rect(Screen.width / 2 - 50 , 100 , 100 , 20), rulelis[bull]);
+            GUI.Label(new Rect(Screen.width / 2 - 100, 225, 400, 400), desc[bull]);
+            GUI.Label(new Rect(Screen.width / 2 - 75, Screen.height - 100, 100, 20), grade[broo[bull]]);
             if (GUI.Button(new Rect(Screen.width - 115, Screen.height / 2, 80, 30), buttonpic[0]))
             {
                 if (bull < rulelis.Count)
@@ -228,21 +228,8 @@ public class UI : MonoBehaviour {
         }
         if (toolbarInt == 2)
         {
-            GUI.Label(new Rect(65, 75, 100, 20), "Overall", style);
-            for (int i = 0; i < rulelis.Count; i++)
-            {
-
-
-                GUI.Label(new Rect(75, 100 + (30 * (i + 1)), 100, 20), rulelis[i]);
-                GUI.Label(new Rect(Screen.width / 3, 100 + (30 * (i + 1)), 100, 20), rulelis[i]);
-                GUI.Label(new Rect(Screen.width - (Screen.width / 3), 100 + (30 * (i + 1)), 100, 20), rulelis[i]);
-                GUI.Label(new Rect(Screen.width - 100, 100 + (30 * (i + 1)), 100, 20), rulelis[i]);
-
-            }
-
-            GUI.Label(new Rect(Screen.width / 4 - 75, Screen.height - 100, 100, 20), rulelis[0]);
-            GUI.Label(new Rect(Screen.width / 2 - 75, Screen.height - 100, 100, 20), rulelis[0]);
-            GUI.Label(new Rect(Screen.width - (Screen.width / 4) - 75, Screen.height - 100, 100, 20), rulelis[0]);
+            GUI.Label(new Rect(Screen.width / 2 - 50, 100, 100, 20), "drunk");
+            GUI.Label(new Rect(Screen.width / 2 - 100, 225, 400, 400), "You are so very high risky driving");
 
 
 

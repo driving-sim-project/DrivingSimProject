@@ -17,26 +17,11 @@ public abstract class Intugate  {
     private bool turn = false;
     private bool RGW = false;
     private float disbe = 0;
+    
 
+    abstract public int score();
 
-    abstract public void get();
-
-    abstract public int loadin(string name);
-
-    abstract public string loadst(string name);
-
-    abstract public bool loadbo(string name);
-
-    abstract public float loadflo(string name);
 
     abstract public string loadname();
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
