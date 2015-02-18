@@ -19,8 +19,13 @@ class crosslane : Intugate
     private bool RGW = false;
     private float disbe = 0;
 
+    public override int score()
+    {
+        throw new System.NotImplementedException();
+    }
 
-    public override int score( RecordedFrame[] replayRange )
+
+    public int score( RecordedFrame[] replayRange )
     {
         int a = 100;
         List<int> b = new List<int>();

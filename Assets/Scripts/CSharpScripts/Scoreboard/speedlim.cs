@@ -19,7 +19,12 @@ class speedlim : Intugate
     private bool RGW = false;
     private float disbe = 0;
 
-    public override int score(RecordedMotion replayData)
+    public override int score()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public int score(RecordedMotion replayData)
     {
         int a = 100;
         if(replayData.avgSpeed>this.speed)

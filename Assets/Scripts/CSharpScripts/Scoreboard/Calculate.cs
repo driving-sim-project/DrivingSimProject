@@ -78,10 +78,10 @@ public class Calculate {
             {
                 c += 1;
             }
-            if()
-            {
+            //if()
+            //{
 
-            }
+            //}
             if(throttle[i]>80)
             {
                 if (d != 0 && e > 0)
@@ -126,18 +126,4 @@ public class Calculate {
         return a;
 
     }
-
-
-
-
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

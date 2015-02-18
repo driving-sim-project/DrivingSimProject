@@ -19,7 +19,12 @@ class noleft : Intugate
     private bool RGW = false;
     private float disbe = 0;
 
-    public override int score(RecordedFrame[] replayRange)
+    public override int score()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public int score(RecordedFrame[] replayRange)
     {
         int a = 100;
         a -= 50;

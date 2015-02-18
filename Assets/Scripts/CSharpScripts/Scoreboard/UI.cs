@@ -39,9 +39,9 @@ public class UI : MonoBehaviour {
 	}
 
 	void Awake (){
-        rulelis = calc.loadrulen();
-        scoring = calc.loadescore();
-        desc = calc.loaddesc();
+        //rulelis = calc.loadrulen();
+        //scoring = calc.loadescore();
+        //desc = calc.loaddesc();
         for (int i = 0; i < rulelis.Count; i++)
         {
             scoreavg += scoring[i];
