@@ -87,8 +87,8 @@ public class CarController : MonoBehaviour {
 
     public int speed = 0;
 
-    bool sidelightSR = false;
-    bool sidelightSL = false;
+    public bool sidelightSR = false;
+    public bool sidelightSL = false;
     float sidelightInterval = 0.5f;
     float sidelightLastInterval = 0f;
 
@@ -284,48 +284,50 @@ public class CarController : MonoBehaviour {
                 sidelightLastInterval = Time.time;
             }
 
-            if (sidelightSL == true)
-            {
-                if (Time.time <= sidelightLastInterval + sidelightInterval)
-                {
-                    sidelightL.SetActive(true);
-                }
-                else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
-                {
-                    sidelightLastInterval = Time.time;
-                }
-                else if (Time.time >= sidelightLastInterval + sidelightInterval)
-                {
-                    sidelightL.SetActive(false);
-                }
-            }
-            else
-                sidelightL.SetActive(false);
-
-            if (sidelightSR == true)
-            {
-                if (Time.time <= sidelightLastInterval + sidelightInterval)
-                {
-                    sidelightR.SetActive(true);
-                }
-                else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
-                {
-                    sidelightLastInterval = Time.time;
-                }
-                else if (Time.time >= sidelightLastInterval + sidelightInterval)
-                {
-                    sidelightR.SetActive(false);
-
-                }
-
-            }
-            else
-                sidelightR.SetActive(false);
+            
 
             speed = (int)(rigidbody.velocity.magnitude * 3.6f);
             audio.pitch = (drivetrain.rpm / drivetrain.maxRPM) + 0.2f;
         }
-        
+
+        if (sidelightSL == true)
+        {
+            if (Time.time <= sidelightLastInterval + sidelightInterval)
+            {
+                sidelightL.SetActive(true);
+            }
+            else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
+            {
+                sidelightLastInterval = Time.time;
+            }
+            else if (Time.time >= sidelightLastInterval + sidelightInterval)
+            {
+                sidelightL.SetActive(false);
+            }
+        }
+        else
+            sidelightL.SetActive(false);
+
+        if (sidelightSR == true)
+        {
+            if (Time.time <= sidelightLastInterval + sidelightInterval)
+            {
+                sidelightR.SetActive(true);
+            }
+            else if (Time.time >= sidelightLastInterval + (sidelightInterval * 2f))
+            {
+                sidelightLastInterval = Time.time;
+            }
+            else if (Time.time >= sidelightLastInterval + sidelightInterval)
+            {
+                sidelightR.SetActive(false);
+
+            }
+
+        }
+        else
+            sidelightR.SetActive(false);
+
 	}
 
 
