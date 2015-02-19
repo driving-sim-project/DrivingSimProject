@@ -15,4 +15,7 @@ public abstract class Intugate  {
 
     abstract public string loadname();
 
+    abstract public string loaddesc();
+
+
 }

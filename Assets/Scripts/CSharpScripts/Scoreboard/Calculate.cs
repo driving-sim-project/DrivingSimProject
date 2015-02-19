@@ -5,26 +5,17 @@ using System.Collections.Generic;
 public class Calculate {
 
 
-    private List<float> speed = new List<float>();
-    private float topspeed;
-    private float avgspeed;
-    private List<float> distance;
-    private List<bool> leftlight;
-    private List<bool> rightlight;
-    private int time;
-    private List<int> throttle;
-    private List<int> brake;
-    private List<string> lookat = new List<string>();
-    private List<bool> lanetog;
-    private List<float> gazing = new List<float>();
-    private string lane;
-    private List<string> rulen = new List<string>();
-    private List<string> rgw = new List<string>();
-    private List<float> score = new List<float>();
-    private float limsp = 80;
-    private List<string> desc = new List<string>();
+    private float score = 0; 
+    private List<int> gd = new List<int>();
 
-
+    public List<int> loadgrade()
+    {
+        return gd;
+    }
+    public float loadscore()
+    {
+        return score;
+    }
 
     public void calc(List<int> sco)
     {
@@ -32,26 +23,67 @@ public class Calculate {
         float b = 0;
         float c = 0;
         float d = 0;
+        int e = 0;
 
         foreach(int i in sco)
         {
             a += i;
             c = i / 10;
             d = i % 10;
-            if(d>4)
+            e = (int)c*2-9;
+            c += d;
+             if(d>4)
             {
-                c += (d / 10); 
+               if(c < 8 && c>4){
+                
+                e += 1;
+                    }
             }
-            score.Add(c);
+             if (c < 5)
+             {
+                 e = 0;
+             }
+           if (c>8)
+{
+    e = 7;
+}
+            gd.Add(e);
+            
+            
             
         }
         b = a / sco.Count;
-        score.Add(b);
+        d = a % sco.Count;
+        d += b;
+        e = (int)b * 2 - 9;
+        if (c < 8 && c > 4)
+        {
+
+            if (d > 4)
+            {
+                e += 1;
+                
+            }
+        }
+        else
+        {
+            if (c < 5)
+            {
+                e = 0;
+            }
+            else
+            {
+                e = 7;
+            }
+        }
+        score=b;
+        gd.Add(e);
 
         
     }
+
     
-    public int analy()
+    public int analy(RecordedMotion rm)
     {
         int a = 0;
         int b = 0;
@@ -63,27 +95,31 @@ public class Calculate {
         int g = 0;
         List<int> h = new List<int>();
         h.Add(0);
-        int k = 0;        
-        int l = speed.Count / 20;
-        for (int i = 0; i < speed.Count; i++)
+        int i = 0;
+        int j = 0;
+        float k = 0;        
+        int l = rm.frames.Count / 20;
+        int m = 0;
+        foreach (RecordedFrame rmm in rm.frames)
         {
-            if (lanetog[i])
+            if (rmm.isCrossing)
             {
-                if(!(leftlight[i] || rightlight[i]))
+                if(!(rmm.sidelightL || rmm.sidelightR))
                 {
                     b += 1;
                 }    
             }
-            if(speed[i]>limsp)
+            if(rmm.speed>80)
             {
                 c += 1;
             }
-            //if()
-            //{
-
-            //}
-            if(throttle[i]>80)
-            {
+            if(rmm.throttle>80)
+            {   
+                
+                if(k  < 1)
+                {
+                    j++;
+                }
                 if (d != 0 && e > 0)
                 {
                     if((d+1)!=i)
@@ -110,18 +146,13 @@ public class Calculate {
             }
             else
             {
-                if(brake[i]>80)
+                if(rmm.throttle<-79)
                 {
-                    if((d+1)==i)
-                    {
-                     
-                    }
-                }
-                else
-                {
-
+                    m++;
                 }
             }
+            k = rmm.throttle;
+            i++;
         }
         return a;
 

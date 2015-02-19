@@ -26,4 +26,9 @@ class noleft : Intugate
          return Rulename;
      }
 
+     public override string loaddesc()
+     {
+         return desc;
+     }
+
 }

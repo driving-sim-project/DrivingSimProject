@@ -22,11 +22,14 @@ public class UI : MonoBehaviour {
     private List<int> boon;
     private int bull = 0;
     private List<int> scoring = new List<int>();
+    private float score = 0;
     private int scoreavg = 0;
     private int sc = 0;
     private int s = 1;
     private List<string> desc = new List<string>();
     Calculate calc = new Calculate();
+    public static List<Intugate> intu =new List<Intugate>();
+    public static List<Intugate> inti = new List<Intugate>();
 
 	// Use this for initialization
 	void Start () {
@@ -42,122 +45,32 @@ public class UI : MonoBehaviour {
         //rulelis = calc.loadrulen();
         //scoring = calc.loadescore();
         //desc = calc.loaddesc();
-        for (int i = 0; i < rulelis.Count; i++)
+        foreach(Intugate i in intu)
         {
-            scoreavg += scoring[i];
-            
-            if (scoring[i] > 50)
+            rulelis.Add(i.loadname());
+            scoring.Add(i.score());
+            desc.Add(i.loaddesc());
+            if(i.score()>49)
             {
                 boo.Add(1);
-                if (scoring[i] < 55)
-                {
-                    broo.Add(1);
-                }
-                else
-                {
-                    if (scoring[i] < 60)
-                    {
-                        broo.Add(2);
-                    }
-                    else
-                    {
-                        if (scoring[i] < 65)
-                        {
-                            broo.Add(3);
-                        }
-                        else
-                        {
-
-                            if (scoring[i] < 70)
-                            {
-                                broo.Add(4);
-                            }
-                            else
-                            {
-                                if (scoring[i] < 75)
-                                {
-                                    broo.Add(5);
-                                }
-                                else
-                                {
-                                    if (scoring[i] < 80)
-                                    {
-                                        broo.Add(6);
-                                    }
-                                    else
-                                    {
-                                        if (scoring[i] <= 100)
-                                        {
-                                            broo.Add(7);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
             else
             {
                 boo.Add(0);
-                broo.Add(0);
             }
+            
         }
-
-        scoreavg = (scoreavg / rulelis.Count);
-            if (scoreavg < 55 && scoreavg >= 50)
-            {
-                sc= 1;
-            }
-            else
-            {
-                if (scoreavg < 60 && scoreavg >= 55)
-                {
-                    sc = 2;
-                }
-                else
-                {
-                    if (scoreavg < 65 && scoreavg >= 60)
-                    {
-                        sc = 3;
-                    }
-                    else
-                    {
-
-                        if (scoreavg < 70 && scoreavg >= 65)
-                        {
-                            sc = 4;
-                        }
-                        else
-                        {
-                            if (scoreavg < 75 && scoreavg >= 70)
-                            {
-                               sc = 5;
-                            }
-                            else
-                            {
-                                if (scoreavg < 80 && scoreavg >= 75)
-                                {
-                                    sc = 6;
-                                }
-                                else
-                                {
-                                    if (scoreavg <= 100 && scoreavg >= 80)
-                                    {
-                                        sc = 7;
-                                    }
-                                    else
-                                    {
-                                        sc = 0;
-                                        s = 0;
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        calc.calc(scoring);
+        score = calc.loadscore();
+        broo = calc.loadgrade();
+        if(score > 49)
+        {
+            s = 1;
+        }
+        else
+        {
+            s = 0;
+        }
         }
         
 
@@ -187,8 +100,8 @@ public class UI : MonoBehaviour {
             }
 
             GUI.Label(new Rect(Screen.width/4-75,Screen.height - 100, 100, 20),passed[s] );
-            GUI.Label(new Rect(Screen.width/2-75, Screen.height - 100, 100, 20),scoreavg + " %" );
-            GUI.Label(new Rect(Screen.width - (Screen.width / 4)-75, Screen.height - 100, 100, 20), grade[sc]);
+            GUI.Label(new Rect(Screen.width/2-75, Screen.height - 100, 100, 20),score + " %" );
+            GUI.Label(new Rect(Screen.width - (Screen.width / 4)-75, Screen.height - 100, 100, 20), grade[broo.Count-1]);
 
 
 

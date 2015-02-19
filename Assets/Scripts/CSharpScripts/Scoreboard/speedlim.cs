@@ -18,6 +18,7 @@ class speedlim : Intugate
     public void score(RecordedMotion replayData)
     {
         int a = 100;
+
         if(replayData.avgSpeed>80)
         {
             a -= 50;
@@ -25,6 +26,13 @@ class speedlim : Intugate
         if(replayData.topSpeed>80)
         {
             a -= 30;
+        }
+        for (int i = 0; i < replayData.frames.Count; i++)
+        {
+            if(replayData.frames[i].speed>80)
+            {
+                a -= 1;
+            }
         }
         sc = a;
     }
@@ -34,5 +42,10 @@ class speedlim : Intugate
     public override string loadname()
     {
         return Rulename;
+    }
+
+    public override string loaddesc()
+    {
+        return desc;
     }
 }

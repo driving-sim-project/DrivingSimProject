@@ -75,4 +75,9 @@ class crosslane : Intugate
         return Rulename;
     }
 
+    public override string loaddesc()
+    {
+        return desc;
+    }
+
 }
