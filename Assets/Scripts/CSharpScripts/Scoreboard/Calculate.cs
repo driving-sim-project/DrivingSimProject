@@ -26,14 +26,14 @@ public class Calculate {
 
 
 
-    public void calc(List<int> sc)
+    public void calc(List<int> sco)
     {
         int a = 0;
         float b = 0;
         float c = 0;
         float d = 0;
 
-        foreach(int i in sc)
+        foreach(int i in sco)
         {
             a += i;
             c = i / 10;
@@ -45,7 +45,7 @@ public class Calculate {
             score.Add(c);
             
         }
-        b = a / sc.Count;
+        b = a / sco.Count;
         score.Add(b);
 
         

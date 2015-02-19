@@ -6,6 +6,7 @@ public abstract class Intugate  {
 
     private string Rulename = "";
     private string desc = "";
+    private int sc = 0;
 
     
 

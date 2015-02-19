@@ -7,14 +7,15 @@ class crosslane : Intugate
 
     private string Rulename = "Cross Lane";
     private string desc = "ขับรถในลักษณะกีดขวางการจราจร \n\n ปรับตั้งแต่ 400 – 1,000 บาท";
+    private int sc = 0;
 
     public override int score()
     {
-        throw new System.NotImplementedException();
+        return sc;
     }
 
 
-    public int score( RecordedFrame[] replayRange )
+    public void score( RecordedFrame[] replayRange )
     {
         int a = 100;
         List<int> b = new List<int>();
@@ -66,7 +67,7 @@ class crosslane : Intugate
             a -= 25;
         }
 
-        return a;
+        sc = a;
     }
 
     public override string loadname()
