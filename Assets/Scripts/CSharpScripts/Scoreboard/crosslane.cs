@@ -25,13 +25,13 @@ class crosslane : Intugate
 
         foreach (RecordedFrame rm in replayRange)
         {
-            if (lanetog[i] && (rm.sidelightL || rm.sidelightR))
+            if (rm.isCrossing && (rm.sidelightL || rm.sidelightR))
             {
                 b.Add(f);
             }
             else
             {
-                if (lanetog[i])
+                if (rm.isCrossing)
                 {
                     a -= 1;
                     if (d != 0 && c > 0)

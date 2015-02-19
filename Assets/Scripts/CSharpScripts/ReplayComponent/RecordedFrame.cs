@@ -24,6 +24,7 @@ public class RecordedFrame {
     public int[] wheelAngle;
     public bool sidelightR;
     public bool sidelightL;
+    public bool isCrossing;
 
     public RecordedFrame( CarController car )
     {
@@ -35,8 +36,8 @@ public class RecordedFrame {
         rotation = car.transform.rotation;
         headlight = car.headlight.active;
         rearlight = car.rearlight.active;
-        sidelightL = car.sidelightL.active;
-        sidelightR = car.sidelightR.active;
+        sidelightL = car.sidelightSL;
+        sidelightR = car.sidelightSR;
         throttle = car.accelKey;
         steering = Input.GetAxis("Horizontal") * -450f;
         List<Vector3> wheelsPositionTemp = new List<Vector3>();
