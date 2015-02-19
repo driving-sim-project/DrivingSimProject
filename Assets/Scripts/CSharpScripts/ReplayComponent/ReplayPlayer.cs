@@ -60,8 +60,8 @@ public class ReplayPlayer : MonoBehaviour {
                     car.speed = recording.frames[fn].speed;
                     car.headlight.SetActive(recording.frames[fn].headlight);
                     car.rearlight.SetActive(recording.frames[fn].rearlight);
-                    car.sidelightL.SetActive(recording.frames[fn].sidelightL);
-                    car.sidelightR.SetActive(recording.frames[fn].sidelightR);
+                    car.sidelightSL = recording.frames[fn].sidelightL;
+                    car.sidelightSR = recording.frames[fn].sidelightR;
                     car.taillight.SetActive(recording.frames[fn].throttle > 0? false:true);
                     for (int i = 0; i < wheelsModel.Length; i++)
                     {

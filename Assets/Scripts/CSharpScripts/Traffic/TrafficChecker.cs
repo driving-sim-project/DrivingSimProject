@@ -12,6 +12,7 @@ public class TrafficChecker : MonoBehaviour {
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
     public bool isOffTrack = false;
+    public bool isCrossingLane = false;
 
     bool loading = false;
     float cpDistance = 0f;
@@ -62,6 +63,7 @@ public class TrafficChecker : MonoBehaviour {
             }
             if (Other.tag == "TrafficLine")
             {
+                isCrossingLane = true;
                 if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == false)
                 {
                     Debug.Log("You're Hitting " + Other.transform.parent.GetInstanceID());
@@ -106,6 +108,7 @@ public class TrafficChecker : MonoBehaviour {
                     }
                 }
             }
+            replayFrameTmp.isCrossing = isCrossingLane;
         }
     }
 
@@ -114,6 +117,7 @@ public class TrafficChecker : MonoBehaviour {
         if(SceneManager.GoScene != "replay"){
             if (Other.tag == "TrafficLine")
             {
+                isCrossingLane = false;
                 if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == true)
                 {
                     colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).LeaveTime(Time.time);
