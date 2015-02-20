@@ -18,9 +18,9 @@ public class UI : MonoBehaviour {
 
 	private int toolbarInt = 0;
     private List<string> rulelis = new List<string>();
-    private List<int> boo;
-    private List<int> broo;
-    private List<int> boon;
+    private List<int> boo = new List<int>();
+    private List<int> broo = new List<int>();
+    private List<int> boon = new List<int>();
     private int bull = 0;
     private List<int> scoring = new List<int>();
     private float score = 0;
@@ -29,7 +29,7 @@ public class UI : MonoBehaviour {
     private int s = 1;
     private List<string> desc = new List<string>();
     Calculate calc = new Calculate();
-    public static List<Intugate> intu =new List<Intugate>();
+    public static List<Intugate> intu = new List<Intugate>();
     public static List<Intugate> inti = new List<Intugate>();
 
 	// Use this for initialization

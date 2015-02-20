@@ -29,6 +29,14 @@ public class TrafficChecker : MonoBehaviour {
 
     void Awake()
     {
+        UI.inti = new List<Intugate>();
+        UI.inti.Add(new crosslane());
+        UI.inti.Add(new noleft());
+        UI.inti.Add(new speedlim());
+        UI.intu = new List<Intugate>();
+        UI.intu.Add(new crosslane());
+        UI.intu.Add(new noleft());
+        UI.intu.Add(new speedlim());
         isAccident = false;
         isFinish = false;
         Time.timeScale = 1f;
@@ -167,7 +175,7 @@ public class TrafficChecker : MonoBehaviour {
     void ToMainMenu()
     {
         replayRec.Save();
-        Application.LoadLevel(0);
+        Application.LoadLevel("scoreboard");
     }
 
 }
