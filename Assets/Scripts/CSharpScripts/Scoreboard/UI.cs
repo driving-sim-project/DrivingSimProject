@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ public class UI : MonoBehaviour {
 	public Texture[] Toggler;
 	public Texture2D[] canvasList;
     public Texture[] grade;
-    public Texture[] rulepic;
+    public List<Texture> rulepic;
     public Texture[] buttonpic;
     public Texture[] passed;
     public Font font;
@@ -50,6 +51,7 @@ public class UI : MonoBehaviour {
             rulelis.Add(i.loadname());
             scoring.Add(i.score());
             desc.Add(i.loaddesc());
+            rulepic.Add(Resources.Load<Texture>("rule/" + i.loadname()));
             if(i.score()>49)
             {
                 boo.Add(1);
