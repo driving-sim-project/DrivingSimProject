@@ -131,7 +131,7 @@ public class Calculate {
                             f.Add(e);
                             h.Add(i);
                             if(e>l){
-
+                                n++;
                             }
                         }
                         
