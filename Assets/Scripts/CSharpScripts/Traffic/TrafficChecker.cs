@@ -34,7 +34,7 @@ public class TrafficChecker : MonoBehaviour {
         UI.inti.Add(new noleft());
         UI.inti.Add(new speedlim());
         UI.intu = new List<Intugate>();
-        UI.intu.Add(new crosslane());
+        UI.intu.Add(new crosslane(  ));
         UI.intu.Add(new noleft());
         UI.intu.Add(new speedlim());
         isAccident = false;
@@ -58,6 +58,16 @@ public class TrafficChecker : MonoBehaviour {
                 ToMainMenu();
             }
         }
+        
+        if(colliderList.Count > 0){
+            isCrossingLane = true;
+        }
+        else
+        {
+            isCrossingLane = false;
+        }
+
+        Debug.Log("is Crossing : " + isCrossingLane + "Hitting : " + colliderList.Count);
 	}
 
 
@@ -71,11 +81,10 @@ public class TrafficChecker : MonoBehaviour {
             }
             if (Other.tag == "TrafficLine")
             {
-                isCrossingLane = true;
-                if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == false)
+                if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == false)
                 {
-                    Debug.Log("You're Hitting " + Other.transform.parent.GetInstanceID());
-                    colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.transform.parent.GetInstanceID(), Time.time));
+                    Debug.Log("You're Hitting " + Other.GetInstanceID());
+                    colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.GetInstanceID()));
                 }
             }
             else if (Other.tag == "SignDetectionLine")
@@ -125,12 +134,11 @@ public class TrafficChecker : MonoBehaviour {
         if(SceneManager.GoScene != "replay"){
             if (Other.tag == "TrafficLine")
             {
-                isCrossingLane = false;
-                if (colliderList.Exists(x => x.colliderID == Other.transform.parent.GetInstanceID()) == true)
+                if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == true)
                 {
-                    colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).LeaveTime(Time.time);
+                    colliderList.Remove(colliderList.Find(x => x.colliderID == Other.GetInstanceID()));
                 }
-                Debug.Log("You're Leaving " + Other.transform.parent.GetInstanceID() + " from " + colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).collisionTime + " at " + colliderList.Find(x => x.colliderID == Other.transform.parent.GetInstanceID()).leaveTime);
+                Debug.Log("You're Leaving " + Other.GetInstanceID());
             }
         }
         
