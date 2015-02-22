@@ -6,19 +6,11 @@ public class CollisionData {
 
     public string colliderTag;
     public int colliderID;
-    public float collisionTime;
-    public float leaveTime;
 
-    public CollisionData(string Tag, int ID, float Time)
+    public CollisionData(string Tag, int ID)
     {
         colliderTag = Tag;
         colliderID = ID;
-        collisionTime = Time;
-    }
-
-    public void LeaveTime( float Time )
-    {
-        leaveTime = Time;
     }
 
 }

@@ -147,9 +147,6 @@ public class UI : MonoBehaviour {
         {
             GUI.Label(new Rect(Screen.width / 2 - 50, 100, 100, 20), "drunk");
             GUI.Label(new Rect(Screen.width / 2 - 100, 225, 400, 400), "You are so very high risky driving");
-
-
-
         }
 	}
 
