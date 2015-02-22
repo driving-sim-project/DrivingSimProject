@@ -6,12 +6,23 @@ class crosslane : Intugate
 {
 
     private string Rulename = "Cross Lane";
+    private string picname = "";
     private string desc = "ขับรถในลักษณะกีดขวางการจราจร \n\n ปรับตั้งแต่ 400 – 1,000 บาท";
     private int sc = 0;
 
     public override int score()
     {
         return sc;
+    }
+
+    public override string loadpic()
+    {
+        return picname;
+    }
+
+   public bool iscross
+    {
+
     }
 
 

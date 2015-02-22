@@ -6,10 +6,15 @@ class speedlim : Intugate
 {
 
     private string Rulename = "Speedlimit";
+    private string picname = "";
     private string desc = "ขับรถเร็วเกินอัตรากำหนด \n \n ปรับตั้งแต่ 200 - 500 บาท";
     private int sc = 0;
 
 
+    public override string loadpic()
+    {
+        return picname;
+    }
     public override int score()
     {
         return sc;

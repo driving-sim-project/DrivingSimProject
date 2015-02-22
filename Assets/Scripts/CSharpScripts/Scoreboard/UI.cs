@@ -48,10 +48,11 @@ public class UI : MonoBehaviour {
         //desc = calc.loaddesc();
         foreach(Intugate i in intu)
         {
+            i.score();
             rulelis.Add(i.loadname());
             scoring.Add(i.score());
             desc.Add(i.loaddesc());
-            rulepic.Add(Resources.Load<Texture>("rule/" + i.loadname()));
+            rulepic.Add(Resources.Load<Texture>("rule/" + i.loadpic()));
             if(i.score()>49)
             {
                 boo.Add(1);
@@ -81,6 +82,7 @@ public class UI : MonoBehaviour {
 		GUIStyle style = GUI.skin.GetStyle ("label");
         GUIStyle style1 = new GUIStyle();
 		style.font = font;
+        guiText.fontSize = Screen.height/20;
 		toolbarInt = GUI.Toolbar (new Rect (60, 40, 250, 30), toolbarInt, canvasList, style1);
         Debug.Log(rulelis.Count);
 		if (GUI.changed) {
@@ -94,7 +96,7 @@ public class UI : MonoBehaviour {
             {
                 
 
-                GUI.Label(new Rect(75, 110 + (30 * (i + 1)), 100, 20), Toggler[boo[i]]);
+                GUI.Label(new Rect(75, 110 + (30 * (i + 1)), Screen.width/20, Screen.height/20), Toggler[boo[i]]);
                 GUI.Label(new Rect(Screen.width/3, 110 + (30 * (i + 1)), 100, 20), rulelis[i]);
                 GUI.Label(new Rect(Screen.width - (Screen.width / 3), 110 + (30 * (i + 1)), 100, 20), scoring[i]+" %");
                 GUI.Label(new Rect(Screen.width - 115, 110 + (30 * (i + 1)), 100, 20), grade[broo[i]]);
@@ -134,7 +136,7 @@ public class UI : MonoBehaviour {
                 }
                 else
                 {
-                    bull = rulelis.Count;
+                    bull = rulelis.Count-1;
                 }
             }
 
