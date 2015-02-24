@@ -8,6 +8,7 @@ public class TrafficChecker : MonoBehaviour {
 
     private List<CollisionData> colliderList = new List<CollisionData>();
     public Collider[] checkpointList;
+    public string[] trafficList;
     public bool isAccident { get; private set; }
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
@@ -34,9 +35,6 @@ public class TrafficChecker : MonoBehaviour {
         UI.inti.Add(new noleft());
         UI.inti.Add(new speedlim());
         UI.intu = new List<Intugate>();
-        UI.intu.Add(new crosslane(  ));
-        UI.intu.Add(new noleft());
-        UI.intu.Add(new speedlim());
         isAccident = false;
         isFinish = false;
         Time.timeScale = 1f;
@@ -67,7 +65,7 @@ public class TrafficChecker : MonoBehaviour {
             isCrossingLane = false;
         }
 
-        Debug.Log("is Crossing : " + isCrossingLane + "Hitting : " + colliderList.Count);
+        //Debug.Log("is Crossing : " + isCrossingLane + "Hitting : " + colliderList.Count);
 	}
 
 
@@ -83,7 +81,7 @@ public class TrafficChecker : MonoBehaviour {
             {
                 if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == false)
                 {
-                    Debug.Log("You're Hitting " + Other.GetInstanceID());
+                    //Debug.Log("You're Hitting " + Other.GetInstanceID());
                     colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.GetInstanceID()));
                 }
             }
@@ -116,6 +114,20 @@ public class TrafficChecker : MonoBehaviour {
                             isFinish = true;
                             //Debug.Log("Finish!!");
                         }
+
+                        //foreach(string name in trafficList[cpCounter]){
+                        foreach (string name in trafficList)
+                        {
+                            foreach(Intugate rule in UI.inti){
+                                if (name == rule.loadname())
+                                {
+                                    if(UI.intu.Exists( x => x.loadname() == name ) == false){
+                                        UI.intu.Add(rule);
+                                        Debug.Log(name + " is added to scorelist.");
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -138,7 +150,7 @@ public class TrafficChecker : MonoBehaviour {
                 {
                     colliderList.Remove(colliderList.Find(x => x.colliderID == Other.GetInstanceID()));
                 }
-                Debug.Log("You're Leaving " + Other.GetInstanceID());
+                //Debug.Log("You're Leaving " + Other.GetInstanceID());
             }
         }
         
