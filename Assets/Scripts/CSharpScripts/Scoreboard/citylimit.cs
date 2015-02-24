@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-class speedlim : Intugate
+class Citylimit : Intugate
 {
 
-    private string Rulename = "Speedlimit";
-    private string picname = "";
+    private string Rulename = "City Limit Speed";
+    private string picname = "citylimit";
     private string desc = "ขับรถเร็วเกินอัตรากำหนด \n \n ปรับตั้งแต่ 200 - 500 บาท";
     private float avgsp;
     private float topsp;
@@ -28,11 +28,11 @@ class speedlim : Intugate
     }
     public float topspeed
     {
-        set{topsp = value;}
+        set { topsp = value; }
     }
     public List<float> speed
     {
-        set{sp = value;}
+        set { sp = value; }
     }
 
     public override void score()
@@ -42,17 +42,17 @@ class speedlim : Intugate
         Debug.Log(topsp);
         int a = 100;
 
-        if(avgsp>80)
+        if (avgsp > 50)
         {
             a -= 50;
         }
-        if(topsp>80)
+        if (topsp > 50)
         {
             a -= 30;
         }
         foreach (float i in sp)
         {
-            if(i>80)
+            if (i > 50)
             {
                 a -= 1;
             }
@@ -60,7 +60,7 @@ class speedlim : Intugate
         sc = a;
     }
 
-   
+
 
     public override string loadname()
     {

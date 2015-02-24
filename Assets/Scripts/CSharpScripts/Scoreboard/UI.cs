@@ -50,10 +50,10 @@ public class UI : MonoBehaviour {
         {
             i.score();
             rulelis.Add(i.loadname());
-            scoring.Add(i.score());
+            scoring.Add(i.getscore());
             desc.Add(i.loaddesc());
             rulepic.Add(Resources.Load<Texture>("rule/" + i.loadpic()));
-            if(i.score()>49)
+            if(i.getscore()>49)
             {
                 boo.Add(1);
             }

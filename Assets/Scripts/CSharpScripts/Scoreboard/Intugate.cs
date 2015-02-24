@@ -11,7 +11,9 @@ public abstract class Intugate  {
 
     
 
-    abstract public int score();
+    abstract public int getscore();
+
+    abstract public void score();
 
     abstract public string loadname();
 

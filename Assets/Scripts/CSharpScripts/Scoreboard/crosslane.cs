@@ -8,9 +8,12 @@ class crosslane : Intugate
     private string Rulename = "Cross Lane";
     private string picname = "";
     private string desc = "ขับรถในลักษณะกีดขวางการจราจร \n\n ปรับตั้งแต่ 400 – 1,000 บาท";
+    private List<bool> iscrossing;
+    private List<bool> Leftlight;
+    private List<bool> rightlight;
     private int sc = 0;
 
-    public override int score()
+    public override int getscore()
     {
         return sc;
     }
@@ -20,14 +23,29 @@ class crosslane : Intugate
         return picname;
     }
 
-   public bool iscross
+   public List<bool> iscross
     {
+        set { iscrossing = value; }
+    }
+    
+    public List<bool> sidelightL
+   {
+       set { Leftlight = value; }
+   }
 
+    public List<bool> sidelightR
+    {
+        set { rightlight = value; }
     }
 
+    
 
-    public void score( RecordedFrame[] replayRange )
+    public override void score(  )
     {
+        Debug.Log(iscrossing);
+        Debug.Log(Leftlight);
+        Debug.Log(rightlight);
+
         int a = 100;
         List<int> b = new List<int>();
         int c = 0;
@@ -35,20 +53,20 @@ class crosslane : Intugate
         int e = 0;
         int f = 0;
 
-        foreach (RecordedFrame rm in replayRange)
+        for (int i = 0; i < iscrossing.Count;i++ )
         {
-            if (rm.isCrossing && (rm.sidelightL || rm.sidelightR))
+            if (iscrossing[i] && (Leftlight[i] || rightlight[i]))
             {
                 b.Add(f);
             }
             else
             {
-                if (rm.isCrossing)
+                if (iscrossing[i])
                 {
                     a -= 1;
                     if (d != 0 && c > 0)
                     {
-                        if ((d + 1) != f)
+                        if ((d + 1) != i)
                         {
                             if (c > e)
                             {
@@ -56,22 +74,22 @@ class crosslane : Intugate
                             }
 
                             c = 0;
-                            d = f;
+                            d = i;
                         }
                         else
                         {
                             c++;
-                            d = f;
+                            d = i;
                         }
                     }
                     else
                     {
                         c++;
-                        d = f;
+                        d = i;
                     }
                 }
             }
-            f++;
+          
         }
         if (e > 4)
         {
