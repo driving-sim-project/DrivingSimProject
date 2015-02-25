@@ -158,6 +158,14 @@ public class Calculate {
             }
             k = rmm.throttle;
             i++;
+            if(rmm.gazingObjectName=="sign")
+            {
+                o++;
+            }
+            if(rmm.steering)
+            {
+
+            }
         }
         return a;
 
