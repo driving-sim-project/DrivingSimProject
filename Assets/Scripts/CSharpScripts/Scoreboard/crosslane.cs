@@ -42,9 +42,7 @@ class crosslane : Intugate
 
     public override void score(  )
     {
-        Debug.Log(iscrossing);
-        Debug.Log(Leftlight);
-        Debug.Log(rightlight);
+  
 
         int a = 100;
         List<int> b = new List<int>();
@@ -55,14 +53,18 @@ class crosslane : Intugate
 
         for (int i = 0; i < iscrossing.Count;i++ )
         {
+            Debug.Log(i);
+            Debug.Log(iscrossing[i]);
             if (iscrossing[i] && (Leftlight[i] || rightlight[i]))
             {
+                Debug.Log("light : "+ iscrossing[i]);
                 b.Add(f);
             }
             else
             {
-                if (iscrossing[i])
+                if (iscrossing[i]==true)
                 {
+                    Debug.Log(iscrossing[i]);
                     a -= 1;
                     if (d != 0 && c > 0)
                     {
@@ -84,6 +86,7 @@ class crosslane : Intugate
                     }
                     else
                     {
+                        Debug.Log("no : "+iscrossing[i]);
                         c++;
                         d = i;
                     }

@@ -37,9 +37,6 @@ class speedlim : Intugate
 
     public override void score()
     {
-        Debug.Log(sp);
-        Debug.Log(avgsp);
-        Debug.Log(topsp);
         int a = 100;
 
         if(avgsp>80)

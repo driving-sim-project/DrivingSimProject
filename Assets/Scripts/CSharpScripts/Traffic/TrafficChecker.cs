@@ -95,7 +95,8 @@ public class TrafficChecker : MonoBehaviour {
                     }
                     else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
                     {
-                        Debug.Log(Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance));
+                        ((noleft)UI.inti.Find(x => x.loadname()  == "No Left Turn")).failed = 
+                        Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance);
                     }
                 }
                 replayFrameTmp = replayRec.currentFrame;
