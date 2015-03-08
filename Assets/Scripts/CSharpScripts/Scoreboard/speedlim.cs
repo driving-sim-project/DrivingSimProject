@@ -6,30 +6,50 @@ class speedlim : Intugate
 {
 
     private string Rulename = "Speedlimit";
+    private string picname = "";
     private string desc = "ขับรถเร็วเกินอัตรากำหนด \n \n ปรับตั้งแต่ 200 - 500 บาท";
+    private float avgsp;
+    private float topsp;
+    private List<float> sp;
     private int sc = 0;
 
 
-    public override int score()
+    public override string loadpic()
+    {
+        return picname;
+    }
+    public override int getscore()
     {
         return sc;
     }
+    public float avgspeed
+    {
+        set { avgsp = value; }
+    }
+    public float topspeed
+    {
+        set{topsp = value;}
+    }
+    public List<float> speed
+    {
+        set{sp = value;}
+    }
 
-    public void score(RecordedMotion replayData)
+    public override void score()
     {
         int a = 100;
 
-        if(replayData.avgSpeed>80)
+        if(avgsp>80)
         {
             a -= 50;
         }
-        if(replayData.topSpeed>80)
+        if(topsp>80)
         {
             a -= 30;
         }
-        for (int i = 0; i < replayData.frames.Count; i++)
+        foreach (float i in sp)
         {
-            if(replayData.frames[i].speed>80)
+            if(i>80)
             {
                 a -= 1;
             }

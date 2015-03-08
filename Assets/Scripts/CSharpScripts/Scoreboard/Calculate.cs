@@ -24,6 +24,8 @@ public class Calculate {
         float c = 0;
         float d = 0;
         int e = 0;
+        float f = 0;
+        int g = 0;
 
         foreach(int i in sco)
         {
@@ -31,7 +33,6 @@ public class Calculate {
             c = i / 10;
             d = i % 10;
             e = (int)c*2-9;
-            c += d;
              if(d>4)
             {
                if(c < 8 && c>4){
@@ -53,31 +54,29 @@ public class Calculate {
             
         }
         b = a / sco.Count;
-        d = a % sco.Count;
-        d += b;
-        e = (int)b * 2 - 9;
-        if (c < 8 && c > 4)
+        f = b / 10;
+        d = b % 10;
+        g = (int)f * 2 - 9;
+       
+        if (d > 4)
         {
 
-            if (d > 4)
+            if (f < 8 && f > 4)
             {
-                e += 1;
+                g += 1;
                 
             }
         }
-        else
-        {
-            if (c < 5)
+            if (f < 5)
             {
-                e = 0;
+                g = 0;
             }
-            else
+            if(f>8)
             {
-                e = 7;
+                g = 7;
             }
-        }
         score=b;
-        gd.Add(e);
+        gd.Add(g);
 
         
     }
@@ -102,6 +101,7 @@ public class Calculate {
         int m = 0;
         int n = 0;
         int o = 0;
+        int p = 0;
         foreach (RecordedFrame rmm in rm.frames)
         {
             if (rmm.isCrossing)
@@ -158,6 +158,14 @@ public class Calculate {
             }
             k = rmm.throttle;
             i++;
+            if(rmm.gazingObjectName=="sign")
+            {
+                o++;
+            }
+            if(rmm.gazingObjectName=="road")
+            {
+                p++;
+            }
         }
         return a;
 

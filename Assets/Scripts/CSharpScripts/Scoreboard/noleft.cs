@@ -5,20 +5,41 @@ using System.Collections.Generic;
 class noleft : Intugate
 {
 
-    private string Rulename = "No Left Turn";
+    private string Rulename = "No Left Turn" ;
+    private string picname = "noleft";
     private string desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
     private int sc = 0;
+    private bool fa = false;
 
-    public override int score()
+    
+
+    public override int getscore()
     {
         return sc;
     }
 
-    public void score(RecordedFrame[] replayRange)
+    public bool failed
+    {
+        set { fa = value;}
+    }
+
+    public override void score()
     {
         int a = 100;
-        a -= 50;
+
+        if (fa)
+        {
+            
+            a -= 99;
+            
+        }
+
         this.sc = a;
+    }
+    
+    public override string loadpic()
+    {
+        return picname;
     }
 
      public override string loadname()

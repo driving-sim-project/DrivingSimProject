@@ -6,17 +6,44 @@ class crosslane : Intugate
 {
 
     private string Rulename = "Cross Lane";
+    private string picname = "";
     private string desc = "ขับรถในลักษณะกีดขวางการจราจร \n\n ปรับตั้งแต่ 400 – 1,000 บาท";
+    private List<bool> iscrossing;
+    private List<bool> Leftlight;
+    private List<bool> rightlight;
     private int sc = 0;
 
-    public override int score()
+    public override int getscore()
     {
         return sc;
     }
 
-
-    public void score( RecordedFrame[] replayRange )
+    public override string loadpic()
     {
+        return picname;
+    }
+
+   public List<bool> iscross
+    {
+        set { iscrossing = value; }
+    }
+    
+    public List<bool> sidelightL
+   {
+       set { Leftlight = value; }
+   }
+
+    public List<bool> sidelightR
+    {
+        set { rightlight = value; }
+    }
+
+    
+
+    public override void score(  )
+    {
+  
+
         int a = 100;
         List<int> b = new List<int>();
         int c = 0;
@@ -24,20 +51,24 @@ class crosslane : Intugate
         int e = 0;
         int f = 0;
 
-        foreach (RecordedFrame rm in replayRange)
+        for (int i = 0; i < iscrossing.Count;i++ )
         {
-            if (rm.isCrossing && (rm.sidelightL || rm.sidelightR))
+            Debug.Log(i);
+            Debug.Log(iscrossing[i]);
+            if (iscrossing[i] && (Leftlight[i] || rightlight[i]))
             {
+                Debug.Log("light : "+ iscrossing[i]);
                 b.Add(f);
             }
             else
             {
-                if (rm.isCrossing)
+                if (iscrossing[i]==true)
                 {
+                    Debug.Log(iscrossing[i]);
                     a -= 1;
                     if (d != 0 && c > 0)
                     {
-                        if ((d + 1) != f)
+                        if ((d + 1) != i)
                         {
                             if (c > e)
                             {
@@ -45,22 +76,23 @@ class crosslane : Intugate
                             }
 
                             c = 0;
-                            d = f;
+                            d = i;
                         }
                         else
                         {
                             c++;
-                            d = f;
+                            d = i;
                         }
                     }
                     else
                     {
+                        Debug.Log("no : "+iscrossing[i]);
                         c++;
-                        d = f;
+                        d = i;
                     }
                 }
             }
-            f++;
+          
         }
         if (e > 4)
         {
