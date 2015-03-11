@@ -14,7 +14,6 @@ public class TrafficChecker : MonoBehaviour {
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
     public bool isOffTrack = false;
-    public bool[] wheelsOnLine;
 
     bool isCrossingLane = false;
     bool loading = false;
@@ -49,7 +48,11 @@ public class TrafficChecker : MonoBehaviour {
     {
         replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
         car = GetComponent(typeof(CarController)) as CarController;
-        wheelsOnLine = new bool[car.wheels.Length];
+    }
+
+    void FixedUpdate()
+    {
+        isCrossingLane = false;
     }
 
 	// Update is called once per frame
@@ -63,26 +66,21 @@ public class TrafficChecker : MonoBehaviour {
             }
         }
 
-        isCrossingLane = false;
-
-        replayFrameTmp = replayRec.currentFrame;
-
         for (int i = 0; i < car.wheels.Length; i++ )
         {
-            wheelsOnLine[i] = false;
+            replayRec.currentFrame.wheelsOnLine[i] = car.wheels[i].onTag;
             if(car.wheels[i].onTag == "TrafficLine"){
-                wheelsOnLine[i] = true;
-            }
-        }
-
-        foreach(bool state in wheelsOnLine){
-            if(state == true){
                 isCrossingLane = true;
-                break;
+            }
+            else if(car.wheels[i].onTag == "Field")
+            {
+                isOffTrack = true;
             }
         }
 
-        replayFrameTmp.isCrossing = isCrossingLane;
+        replayRec.currentFrame.isCrossing = isCrossingLane;
+
+        replayFrameTmp = replayRec.currentFrame;
 
         //if(colliderList.Count > 0){
         //    isCrossingLane = true;
@@ -95,6 +93,13 @@ public class TrafficChecker : MonoBehaviour {
         //Debug.Log("is Crossing : " + isCrossingLane + "Hitting : " + colliderList.Count);
 	}
 
+    void OnTriggerStay( Collider Other )
+    {
+        if (Other.tag == "TrafficLine")
+        {
+            isCrossingLane = true;
+        }
+    }
 
     void OnTriggerEnter( Collider Other )
     {

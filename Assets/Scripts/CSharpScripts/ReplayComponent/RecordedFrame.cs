@@ -25,7 +25,7 @@ public class RecordedFrame {
     public bool sidelightR;
     public bool sidelightL;
     public bool isCrossing;
-    public bool[] wheelsOnLine;
+    public string[] wheelsOnLine;
 
     public RecordedFrame( CarController car )
     {
@@ -54,6 +54,7 @@ public class RecordedFrame {
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();
         wheelAngle = wheelAngleTemp.ToArray();
+        wheelsOnLine = new string[car.wheels.Length];
         steeringWheelRotation = car.steeringWheel.transform.localRotation;
         cameraRotaion = Camera.main.transform.rotation;
         eyePosition = Camera.main.GetComponent<GazeCamera>().screenPoint;
