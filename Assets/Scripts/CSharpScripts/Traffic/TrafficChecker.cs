@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 [System.Serializable]
 [RequireComponent(typeof(ReplayRecord))]
+[RequireComponent(typeof(CarController))]
 public class TrafficChecker : MonoBehaviour {
 
     private List<CollisionData> colliderList = new List<CollisionData>();
@@ -13,13 +14,16 @@ public class TrafficChecker : MonoBehaviour {
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
     public bool isOffTrack = false;
-    public bool isCrossingLane = false;
+    public bool[] wheelsOnLine;
 
+    bool isCrossingLane = false;
     bool loading = false;
     float cpDistance = 0f;
 
     ReplayRecord replayRec;
     RecordedFrame replayFrameTmp;
+
+    CarController car;
 
     public AudioClip accidentSFX;
     public Sprite accident;
@@ -44,6 +48,8 @@ public class TrafficChecker : MonoBehaviour {
     void Start()
     {
         replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
+        car = GetComponent(typeof(CarController)) as CarController;
+        wheelsOnLine = new bool[car.wheels.Length];
     }
 
 	// Update is called once per frame
@@ -56,14 +62,35 @@ public class TrafficChecker : MonoBehaviour {
                 ToMainMenu();
             }
         }
-        
-        if(colliderList.Count > 0){
-            isCrossingLane = true;
-        }
-        else
+
+        isCrossingLane = false;
+
+        replayFrameTmp = replayRec.currentFrame;
+
+        for (int i = 0; i < car.wheels.Length; i++ )
         {
-            isCrossingLane = false;
+            wheelsOnLine[i] = false;
+            if(car.wheels[i].onTag == "TrafficLine"){
+                wheelsOnLine[i] = true;
+            }
         }
+
+        foreach(bool state in wheelsOnLine){
+            if(state == true){
+                isCrossingLane = true;
+                break;
+            }
+        }
+
+        replayFrameTmp.isCrossing = isCrossingLane;
+
+        //if(colliderList.Count > 0){
+        //    isCrossingLane = true;
+        //}
+        //else
+        //{
+        //    isCrossingLane = false;
+        //}
 
         //Debug.Log("is Crossing : " + isCrossingLane + "Hitting : " + colliderList.Count);
 	}
@@ -73,19 +100,16 @@ public class TrafficChecker : MonoBehaviour {
     {
         if (SceneManager.GoScene != "replay")
         {
-            if (replayFrameTmp == null)
-            {
-                replayFrameTmp = replayRec.currentFrame;
-            }
-            if (Other.tag == "TrafficLine")
-            {
-                if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == false)
-                {
-                    //Debug.Log("You're Hitting " + Other.GetInstanceID());
-                    colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.GetInstanceID()));
-                }
-            }
-            else if (Other.tag == "SignDetectionLine")
+            //if (Other.tag == "TrafficLine")
+            //{
+            //    if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == false)
+            //    {
+            //        //Debug.Log("You're Hitting " + Other.GetInstanceID());
+            //        colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.GetInstanceID()));
+            //    }
+            //}
+            //else 
+            if (Other.tag == "SignDetectionLine")
             {
                 if (replayRec.currentFrame.currentDistance - replayFrameTmp.currentDistance > 2f)
                 {
@@ -99,7 +123,6 @@ public class TrafficChecker : MonoBehaviour {
                         Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance);
                     }
                 }
-                replayFrameTmp = replayRec.currentFrame;
             }
             else if(Other.tag == "Checkpoint")
             {
@@ -138,24 +161,23 @@ public class TrafficChecker : MonoBehaviour {
                     }
                 }
             }
-            replayFrameTmp.isCrossing = isCrossingLane;
         }
     }
 
-    void OnTriggerExit( Collider Other )
-    {
-        if(SceneManager.GoScene != "replay"){
-            if (Other.tag == "TrafficLine")
-            {
-                if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == true)
-                {
-                    colliderList.Remove(colliderList.Find(x => x.colliderID == Other.GetInstanceID()));
-                }
-                //Debug.Log("You're Leaving " + Other.GetInstanceID());
-            }
-        }
+    //void OnTriggerExit( Collider Other )
+    //{
+    //    if(SceneManager.GoScene != "replay"){
+    //        if (Other.tag == "TrafficLine")
+    //        {
+    //            if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == true)
+    //            {
+    //                colliderList.Remove(colliderList.Find(x => x.colliderID == Other.GetInstanceID()));
+    //            }
+    //            //Debug.Log("You're Leaving " + Other.GetInstanceID());
+    //        }
+    //    }
         
-    }
+    //}
 
     void OnCollisionEnter( Collision collision )
     {

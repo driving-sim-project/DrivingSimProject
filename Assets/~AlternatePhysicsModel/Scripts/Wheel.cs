@@ -55,6 +55,7 @@ public class Wheel : MonoBehaviour {
 	public float slipRatio;
 	public float slipVelo;
 	public float compression;
+    public string onTag;
 	
 	// state
 	float fullCompressionSpringForce;
@@ -267,11 +268,8 @@ public class Wheel : MonoBehaviour {
 		RaycastHit hit;
 		bool onGround = Physics.Raycast( pos, -up, out hit, suspensionTravel + radius);
         if (hit.collider != null)
-        {
-            if (hit.collider.gameObject.name == "Terrain")
-            {
-                transform.parent.GetComponent<TrafficChecker>().isOffTrack = true;
-            }
+        {   
+            onTag = hit.collider.gameObject.tag;
         }
         
 		if (onGround && hit.collider.isTrigger)

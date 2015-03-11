@@ -25,6 +25,7 @@ public class RecordedFrame {
     public bool sidelightR;
     public bool sidelightL;
     public bool isCrossing;
+    public bool[] wheelsOnLine;
 
     public RecordedFrame( CarController car )
     {
