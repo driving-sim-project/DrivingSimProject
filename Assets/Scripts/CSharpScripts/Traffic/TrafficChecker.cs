@@ -34,12 +34,19 @@ public class TrafficChecker : MonoBehaviour {
     void Awake()
     {
         UI.inti = new List<Intugate>();
-        UI.inti.Add(new crosslane());
-        UI.inti.Add(new noleft());
-        UI.inti.Add(new speedlim());
+        foreach (string rulesList in trafficList)
+        {
+            foreach (string rule in rulesList.Split(','))
+            {
+                if(rule != ""){
+                    UI.inti.Add((Intugate)System.Activator.CreateInstance(System.Type.GetType(rule)));
+                }
+            }
+        }
         UI.intu = new List<Intugate>();
         isAccident = false;
         isFinish = false;
+
         Time.timeScale = 1f;
     }
 
@@ -136,33 +143,32 @@ public class TrafficChecker : MonoBehaviour {
                     if (checkpointList[cpCounter] == Other)
                     {
                         cpDistance = replayRec.currentFrame.currentDistance;
-                        cpCounter += 1;
-                        //Debug.Log("Checkpoint" + cpCounter);
-                        if (cpCounter == checkpointList.Length)
-                        {
-                            isFinish = true;
-                            //Debug.Log("Finish!!");
-                        }
 
-                        //foreach(string name in trafficList[cpCounter]){
-                        foreach (string name in trafficList)
+                        string[] trafficListTmp = trafficList[cpCounter].Split(',');
+
+                        foreach (string name in trafficListTmp)
                         {
                             foreach(Intugate rule in UI.inti){
-                                if (name == rule.loadname())
+                                if (name == rule.GetType().ToString())
                                 {
-                                    if(UI.intu.Exists( x => x.loadname() == name ) == false){
+                                    if(UI.intu.Exists( x => x.GetType().ToString() == name ) == false){
                                         UI.intu.Add(rule);
-                                        Debug.Log(name + " is added to scorelist.");
                                     }
                                 }
                             }
                         }
+
+                        cpCounter += 1;
+                        if (cpCounter == checkpointList.Length)
+                        {
+                            isFinish = true;
+                        }
+
                     }
                     else
                     {
                         cpDistance = 0;
                         cpCounter = 1;
-                        //Debug.Log("Checkpoint reset");
                     }
                 }
             }
