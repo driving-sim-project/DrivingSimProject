@@ -47,10 +47,7 @@ public class TrafficChecker : MonoBehaviour {
                 if (cpRule.ruleName != "")
                 {
                     UI.inti.Add((Intugate)System.Activator.CreateInstance(System.Type.GetType(cpRule.ruleName)));
-                    if (cpRule.RefObj != null)
-                    {
-                        UI.inti.FindLast(x => x.GetType().ToString() == cpRule.ruleName).setRefObj = cpRule.RefObj;
-                    }
+                    UI.inti.FindLast(x => x.GetType().ToString() == cpRule.ruleName).setRefObj = cpRule.RefObj;
                 }
             }
         }
