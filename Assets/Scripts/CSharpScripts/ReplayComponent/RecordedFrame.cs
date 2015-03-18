@@ -44,17 +44,20 @@ public class RecordedFrame {
         List<Vector3> wheelsPositionTemp = new List<Vector3>();
         List<Quaternion> wheelsRotationTemp = new List<Quaternion>();
         List<int> wheelAngleTemp = new List<int>();
+        List<string> wheelTagTemp = new List<string>();
         foreach(Wheel w in car.wheels){
             wheelsPositionTemp.Add(w.model.transform.localPosition);
             wheelsRotationTemp.Add(w.model.transform.localRotation);
             wheelAngleTemp.Add((int)((w.model.transform.localRotation.eulerAngles.y % 180) > 90 ? 
                 180 - (w.model.transform.localRotation.eulerAngles.y % 180):
                 w.model.transform.localRotation.eulerAngles.y % 180));
+            wheelTagTemp.Add(w.onTag);
+
         }
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();
         wheelAngle = wheelAngleTemp.ToArray();
-        wheelsOnLine = new string[car.wheels.Length];
+        wheelsOnLine = wheelTagTemp.ToArray();
         steeringWheelRotation = car.steeringWheel.transform.localRotation;
         cameraRotaion = Camera.main.transform.rotation;
         eyePosition = Camera.main.GetComponent<GazeCamera>().screenPoint;

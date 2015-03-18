@@ -11,7 +11,7 @@ public class ReplayRecord : MonoBehaviour {
     public RecordedFrame currentFrame { get; private set; }
     RecordedFrame tmpFrame;
 
-    void Start()
+    void Awake()
     {
         car = GetComponent(typeof(CarController)) as CarController;
     }

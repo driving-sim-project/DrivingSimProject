@@ -7,9 +7,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CarController))]
 public class TrafficChecker : MonoBehaviour {
 
-    private List<CollisionData> colliderList = new List<CollisionData>();
-    public Collider[] checkpointList;
-    public string[] trafficList;
+    public Checkpoint[] checkpointList;
     public bool isAccident { get; private set; }
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
@@ -20,9 +18,6 @@ public class TrafficChecker : MonoBehaviour {
     float cpDistance = 0f;
 
     ReplayRecord replayRec;
-    RecordedFrame replayFrameTmp;
-
-    CarController car;
 
     public AudioClip accidentSFX;
     public Sprite accident;
@@ -34,19 +29,35 @@ public class TrafficChecker : MonoBehaviour {
     void Awake()
     {
         UI.inti = new List<Intugate>();
-        foreach (string rulesList in trafficList)
+
+        List<Checkpoint> checkpointListTmp = new List<Checkpoint>();
+
+        foreach (Checkpoint cpListTmp in checkpointList)
         {
-            foreach (string rule in rulesList.Split(','))
+            if (checkpointListTmp.Exists(x => x == cpListTmp) == false)
             {
-                if(rule != ""){
-                    UI.inti.Add((Intugate)System.Activator.CreateInstance(System.Type.GetType(rule)));
+                checkpointListTmp.Add(cpListTmp);
+            }
+        }
+        
+        foreach (Checkpoint cpList in checkpointListTmp)
+        {
+            foreach (Checkpoint.rulesList cpRule in cpList.cpRulesList)
+            {
+                if (cpRule.ruleName != "")
+                {
+                    UI.inti.Add((Intugate)System.Activator.CreateInstance(System.Type.GetType(cpRule.ruleName)));
+                    if (cpRule.RefObj != null)
+                    {
+                        UI.inti.FindLast(x => x.GetType().ToString() == cpRule.ruleName).setRefObj = cpRule.RefObj;
+                    }
                 }
             }
         }
         UI.intu = new List<Intugate>();
         isAccident = false;
         isFinish = false;
-
+        loading = false;
         Time.timeScale = 1f;
     }
 
@@ -54,7 +65,6 @@ public class TrafficChecker : MonoBehaviour {
     void Start()
     {
         replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
-        car = GetComponent(typeof(CarController)) as CarController;
     }
 
     void FixedUpdate()
@@ -64,6 +74,7 @@ public class TrafficChecker : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
         if (isAccident == true || isOffTrack == true || isFinish == true)
         {
             if (Input.GetButtonDown("Enter"))
@@ -73,31 +84,25 @@ public class TrafficChecker : MonoBehaviour {
             }
         }
 
-        for (int i = 0; i < car.wheels.Length; i++ )
+        if (replayRec.currentFrame != null)
         {
-            replayRec.currentFrame.wheelsOnLine[i] = car.wheels[i].onTag;
-            if(car.wheels[i].onTag == "TrafficLine"){
-                isCrossingLane = true;
-            }
-            else if(car.wheels[i].onTag == "Field")
+            foreach (string tag in replayRec.currentFrame.wheelsOnLine)
             {
-                isOffTrack = true;
+                if (tag == "TrafficLine")
+                {
+                    isCrossingLane = true;
+                }
+                else if (tag == "Field")
+                {
+                    isOffTrack = true;
+                }
             }
+            replayRec.currentFrame.isCrossing = isCrossingLane;
+
         }
+        else
+            Debug.Log("Initializing");
 
-        replayRec.currentFrame.isCrossing = isCrossingLane;
-
-        replayFrameTmp = replayRec.currentFrame;
-
-        //if(colliderList.Count > 0){
-        //    isCrossingLane = true;
-        //}
-        //else
-        //{
-        //    isCrossingLane = false;
-        //}
-
-        //Debug.Log("is Crossing : " + isCrossingLane + "Hitting : " + colliderList.Count);
 	}
 
     void OnTriggerStay( Collider Other )
@@ -112,27 +117,17 @@ public class TrafficChecker : MonoBehaviour {
     {
         if (SceneManager.GoScene != "replay")
         {
-            //if (Other.tag == "TrafficLine")
-            //{
-            //    if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == false)
-            //    {
-            //        //Debug.Log("You're Hitting " + Other.GetInstanceID());
-            //        colliderList.Add(new CollisionData(Other.transform.parent.tag, Other.GetInstanceID()));
-            //    }
-            //}
-            //else 
             if (Other.tag == "SignDetectionLine")
             {
-                if (replayRec.currentFrame.currentDistance - replayFrameTmp.currentDistance > 2f)
+                if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint.GetInstanceID() == Other.GetInstanceID())
                 {
-                    if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint.GetInstanceID() == Other.GetInstanceID())
+                    Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(replayRec.currentFrame.currentDistance);
+                }
+                else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
+                {
+                    if (Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance) == true)
                     {
-                        Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(replayRec.currentFrame.currentDistance);
-                    }
-                    else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
-                    {
-                        ((noleft)UI.inti.Find(x => x.loadname()  == "No Left Turn")).failed = 
-                        Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance);
+                        UI.intu.Find(x => x.setRefObj == Other.transform.parent.GetInstanceID()).failed = true;
                     }
                 }
             }
@@ -140,21 +135,21 @@ public class TrafficChecker : MonoBehaviour {
             {
                 if (replayRec.currentFrame.currentDistance > cpDistance + 10f)
                 {
-                    if (checkpointList[cpCounter] == Other)
+                    if (checkpointList[cpCounter].collider == Other)
                     {
                         cpDistance = replayRec.currentFrame.currentDistance;
 
-                        string[] trafficListTmp = trafficList[cpCounter].Split(',');
-
-                        foreach (string name in trafficListTmp)
+                        foreach (Checkpoint.rulesList cp in checkpointList[cpCounter].cpRulesList)
                         {
                             foreach(Intugate rule in UI.inti){
-                                if (name == rule.GetType().ToString())
+                                if (cp.ruleName == rule.GetType().ToString() && cp.RefObj == rule.setRefObj)
                                 {
-                                    if(UI.intu.Exists( x => x.GetType().ToString() == name ) == false){
+                                    if (UI.intu.Exists(x => (x.GetType().ToString() == rule.GetType().ToString()) && (x.setRefObj == rule.setRefObj)) == false)
+                                    {
                                         UI.intu.Add(rule);
+                                        Debug.Log(rule.loadname() + rule.setRefObj);
                                     }
-                                }
+                                }   
                             }
                         }
 
@@ -174,21 +169,6 @@ public class TrafficChecker : MonoBehaviour {
             }
         }
     }
-
-    //void OnTriggerExit( Collider Other )
-    //{
-    //    if(SceneManager.GoScene != "replay"){
-    //        if (Other.tag == "TrafficLine")
-    //        {
-    //            if (colliderList.Exists(x => x.colliderID == Other.GetInstanceID()) == true)
-    //            {
-    //                colliderList.Remove(colliderList.Find(x => x.colliderID == Other.GetInstanceID()));
-    //            }
-    //            //Debug.Log("You're Leaving " + Other.GetInstanceID());
-    //        }
-    //    }
-        
-    //}
 
     void OnCollisionEnter( Collision collision )
     {

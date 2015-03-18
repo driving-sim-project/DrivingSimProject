@@ -55,7 +55,7 @@ public class Wheel : MonoBehaviour {
 	public float slipRatio;
 	public float slipVelo;
 	public float compression;
-    public string onTag;
+    public string onTag = "Road";
 	
 	// state
 	float fullCompressionSpringForce;

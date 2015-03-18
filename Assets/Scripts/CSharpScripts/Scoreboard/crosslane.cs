@@ -38,8 +38,6 @@ class crosslane : Intugate
         set { rightlight = value; }
     }
 
-    
-
     public override void score(  )
     {
   
