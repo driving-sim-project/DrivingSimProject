@@ -87,7 +87,6 @@ public class TrafficChecker : MonoBehaviour {
                 }
             }
             replayRec.currentFrame.isCrossing = isCrossingLane;
-
         }
         else
             Debug.Log("Initializing");
