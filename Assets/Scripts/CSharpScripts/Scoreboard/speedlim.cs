@@ -5,14 +5,17 @@ using System.Collections.Generic;
 class speedlim : Intugate
 {
 
-    private string Rulename = "Speedlimit";
-    private string picname = "";
-    private string desc = "ขับรถเร็วเกินอัตรากำหนด \n \n ปรับตั้งแต่ 200 - 500 บาท";
     private float avgsp;
     private float topsp;
     private List<float> sp;
-    private int sc = 0;
 
+    public speedlim()
+    {
+        Rulename = "Speedlimit";
+        picname = "";
+        desc = "ขับรถเร็วเกินอัตรากำหนด \n \n ปรับตั้งแต่ 200 - 500 บาท";
+        sc = 0;
+    }
 
     public override string loadpic()
     {

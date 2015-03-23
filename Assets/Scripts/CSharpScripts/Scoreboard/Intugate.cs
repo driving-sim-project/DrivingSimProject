@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class Intugate  {
+public abstract class Intugate : MonoBehaviour  {
 
     protected string Rulename = "";
     protected string picname = "";
     protected string desc = "";
     protected int sc = 0;
     protected bool fa = false;
-    protected int objID = 0;
+    public Transform setRefObj;
 
     abstract public int getscore();
 
@@ -27,9 +27,4 @@ public abstract class Intugate  {
         get { return fa; }
     }
 
-    public int setRefObj
-    {
-        set { objID = value; }
-        get { return objID; }
-    }
 }

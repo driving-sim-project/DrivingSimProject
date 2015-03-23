@@ -5,13 +5,17 @@ using System.Collections.Generic;
 class crosslane : Intugate
 {
 
-    private string Rulename = "Cross Lane";
-    private string picname = "";
-    private string desc = "ขับรถในลักษณะกีดขวางการจราจร \n\n ปรับตั้งแต่ 400 – 1,000 บาท";
     private List<bool> iscrossing;
     private List<bool> Leftlight;
     private List<bool> rightlight;
-    private int sc = 0;
+
+    public crosslane()
+    {
+        Rulename = "Cross Lane";
+        picname = "";
+        desc = "ขับรถในลักษณะกีดขวางการจราจร \n\n ปรับตั้งแต่ 400 – 1,000 บาท";
+        sc = 0;
+    }
 
     public override int getscore()
     {

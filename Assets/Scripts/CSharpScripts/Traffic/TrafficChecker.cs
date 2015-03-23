@@ -26,10 +26,10 @@ public class TrafficChecker : MonoBehaviour {
     public Sprite finish;
     int cpCounter = 0;
 
-    void Awake()
+    void Start()
     {
+        replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
         UI.inti = new List<Intugate>();
-
         List<Checkpoint> checkpointListTmp = new List<Checkpoint>();
 
         foreach (Checkpoint cpListTmp in checkpointList)
@@ -39,29 +39,21 @@ public class TrafficChecker : MonoBehaviour {
                 checkpointListTmp.Add(cpListTmp);
             }
         }
-        
+
         foreach (Checkpoint cpList in checkpointListTmp)
         {
-            foreach (Checkpoint.rulesList cpRule in cpList.cpRulesList)
+            foreach (Intugate cpRule in cpList.rules)
             {
-                if (cpRule.ruleName != "")
-                {
-                    UI.inti.Add((Intugate)System.Activator.CreateInstance(System.Type.GetType(cpRule.ruleName)));
-                    UI.inti.FindLast(x => x.GetType().ToString() == cpRule.ruleName).setRefObj = cpRule.RefObj;
-                }
+                UI.inti.Add(cpRule);
+                Debug.Log(cpRule.loadname() + " Added.");
             }
         }
+
         UI.intu = new List<Intugate>();
         isAccident = false;
         isFinish = false;
         loading = false;
         Time.timeScale = 1f;
-    }
-
-
-    void Start()
-    {
-        replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
     }
 
     void FixedUpdate()
@@ -124,7 +116,7 @@ public class TrafficChecker : MonoBehaviour {
                 {
                     if (Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance) == true)
                     {
-                        UI.intu.Find(x => x.setRefObj == Other.transform.parent.GetInstanceID()).failed = true;
+                        UI.intu.Find(x => x.setRefObj == Other.transform.parent).failed = true;
                     }
                 }
             }
@@ -136,15 +128,15 @@ public class TrafficChecker : MonoBehaviour {
                     {
                         cpDistance = replayRec.currentFrame.currentDistance;
 
-                        foreach (Checkpoint.rulesList cp in checkpointList[cpCounter].cpRulesList)
+                        foreach (Intugate cp in checkpointList[cpCounter].rules)
                         {
                             foreach(Intugate rule in UI.inti){
-                                if (cp.ruleName == rule.GetType().ToString() && cp.RefObj == rule.setRefObj)
+                                if (cp.loadname() == rule.loadname() && cp.setRefObj == rule.setRefObj)
                                 {
-                                    if (UI.intu.Exists(x => (x.GetType().ToString() == rule.GetType().ToString()) && (x.setRefObj == rule.setRefObj)) == false)
+                                    if (UI.intu.Exists(x => (x.loadname() == rule.loadname()) && (x.setRefObj == rule.setRefObj)) == false)
                                     {
                                         UI.intu.Add(rule);
-                                        Debug.Log(rule.loadname() + rule.setRefObj);
+                                        Debug.Log("Checkpoint" + rule.loadname() +" "+ rule.setRefObj + " Added.");
                                     }
                                 }   
                             }
