@@ -5,7 +5,6 @@ public class TurnSignChecker : MonoBehaviour {
 
     public Collider startPoint;
     public Collider endPoint;
-    public string ruleText;
     float maxDistance;
     float cornerAngle;
     float firstEnter = 0f;

@@ -50,6 +50,15 @@ public class TrafficChecker : MonoBehaviour {
         }
 
         UI.intu = new List<Intugate>();
+
+        if(checkpointList.Length > 0){
+            foreach (Intugate rule in checkpointList[0].rules)
+            {
+                UI.intu.Add(rule);
+                Debug.Log("Checkpoint" + rule.loadname() + " " + rule.setRefObj + " Added.");
+            }
+        }
+
         isAccident = false;
         isFinish = false;
         loading = false;
