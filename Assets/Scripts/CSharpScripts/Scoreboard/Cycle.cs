@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 class Cycle : Intugate
 {
-
-    private string Rulename = "Cycle Post";
-    private string picname = "cycle";
-    private string desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
-    private int sc = 0;
-
+    public Cycle() { 
+        Rulename = "Cycle Post";
+        picname = "cycle";
+        desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
+        sc = 0;
+    }   
 
 
     public override int getscore()

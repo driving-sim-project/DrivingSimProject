@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 class Nostraight : Intugate
 {
-
-    private string Rulename = "Can't Straight Post";
-    private string picname = "nosta";
-    private string desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
-    private int sc = 0;
-    private List<string> on;
+    public Nostraight()
+    {
+        Rulename = "Can't Straight Post";
+        picname = "nosta";
+        desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
+        sc = 0;
+    }
 
 
 

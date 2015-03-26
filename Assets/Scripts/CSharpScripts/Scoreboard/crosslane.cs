@@ -67,7 +67,6 @@ class crosslane : Intugate
                 if (iscrossing[i]==true)
                 {
                     Debug.Log(iscrossing[i]);
-                    a -= 1;
                     if (d != 0 && c > 0)
                     {
                         if ((d + 1) != i)

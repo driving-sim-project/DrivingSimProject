@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 class Pause : Intugate
 {
-
-    private string Rulename = "Can't Pause Post";
-    private string picname = "pause";
-    private string desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
-    private int sc = 0;
-    private List<string> on;
+    public Pause()
+    {
+        Rulename = "Can't Pause Post";
+        picname = "pause";
+        desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
+        sc = 0;
+    }
 
 
 

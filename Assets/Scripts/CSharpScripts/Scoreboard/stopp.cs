@@ -5,10 +5,13 @@ using System.Collections.Generic;
 class Stopp : Intugate
 {
 
-    private string Rulename = "Stop Post";
-    private string picname = "stopp";
-    private string desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
-    private int sc = 0;
+    public Stopp()
+    {
+        Rulename = "Stop Post";
+        picname = "stopp";
+        desc = "ขับรถไม่ปฏิบัติตามสัญญาณจราจร \n หรือเครื่องหมายจราจรที่ได้ติดตั้งไว้หรือทำให้ปรากฏ \n ในทางหรือที่พนักงานเจ้าหน้าที่แสดงให้ทราบ \n \n ปรับไม่เกิน 1,000 บาท";
+        sc = 0;
+    }
 
 
 

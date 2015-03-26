@@ -69,6 +69,9 @@ public class UI : MonoBehaviour {
         {
             if (inti.Exists(x => x.loadname() == "Speedlimit"))
                 spdTemp.Add(frame.speed);
+            if (inti.Exists(x => x.loadname() == "City Limit Speed"))
+                spdTemp.Add(frame.speed);
+
             if (inti.Exists(x => x.loadname() == "Cross Lane"))
             {
                 iscrossing.Add(frame.isCrossing);
@@ -83,6 +86,12 @@ public class UI : MonoBehaviour {
             ((speedlim)inti.Find(x => x.loadname() == "Speedlimit")).topspeed = record.topSpeed;
             ((speedlim)inti.Find(x => x.loadname() == "Speedlimit")).avgspeed = record.avgSpeed;
             ((speedlim)inti.Find(x => x.loadname() == "Speedlimit")).speed = spdTemp;
+        }
+        if (inti.Exists(x => x.loadname() == "City Limit Speed"))
+        {
+            ((Citylimit)inti.Find(x => x.loadname() == "City Limit Speed")).topspeed = record.topSpeed;
+            ((Citylimit)inti.Find(x => x.loadname() == "City Limit Speed")).avgspeed = record.avgSpeed;
+            ((Citylimit)inti.Find(x => x.loadname() == "City Limit Speed")).speed = spdTemp;
         }
         if (inti.Exists(x => x.loadname() == "Cross Lane"))
         {

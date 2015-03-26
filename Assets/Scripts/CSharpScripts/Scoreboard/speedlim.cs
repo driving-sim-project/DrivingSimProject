@@ -44,18 +44,11 @@ class speedlim : Intugate
 
         if(avgsp>80)
         {
-            a -= 50;
+            a -= 25;
         }
         if(topsp>80)
         {
-            a -= 30;
-        }
-        foreach (float i in sp)
-        {
-            if(i>80)
-            {
-                a -= 1;
-            }
+            a -= 25;
         }
         sc = a;
     }

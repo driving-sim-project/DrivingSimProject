@@ -38,7 +38,7 @@ public class Calculate {
                if(c < 8 && c>4){
                 
                 e += 1;
-                    }
+                    }   
             }
              if (c < 5)
              {
