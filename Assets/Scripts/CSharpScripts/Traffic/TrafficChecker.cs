@@ -24,7 +24,9 @@ public class TrafficChecker : MonoBehaviour {
     public Sprite nowloading;
     public Sprite offtrack;
     public Sprite finish;
+    public GUIStyle directionBoxStyle = new GUIStyle(GUI.skin.box);
     int cpCounter = 0;
+    int currentCp = -1;
 
     void Start()
     {
@@ -178,6 +180,7 @@ public class TrafficChecker : MonoBehaviour {
     void OnGUI()
     {
         if(SceneManager.GoScene != "replay"){
+
             if (isFinish == true)
             {
                 if (loading == true)
@@ -198,6 +201,20 @@ public class TrafficChecker : MonoBehaviour {
                     GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), nowloading.texture, ScaleMode.StretchToFill);
                 else
                     GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), offtrack.texture, ScaleMode.StretchToFill);
+            }
+            else
+            {
+                if (currentCp != cpCounter - 1)
+                {
+                    currentCp = cpCounter - 1;
+                }
+
+                if (currentCp > -1)
+                {
+                    directionBoxStyle.fontSize = (int)(Screen.height * 0.05f);
+                    Rect directionBox = new Rect(Screen.width / 4f, Screen.height / 4f, Screen.width / 2f, GUI.skin.box.CalcHeight(new GUIContent(checkpointList[currentCp].direction), Screen.width / 2f));
+                    GUI.Box(directionBox, checkpointList[currentCp].direction, directionBoxStyle);
+                }
             }
         }
         

@@ -85,26 +85,32 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             eyesDistance = gazeUtils.GetLastValidUserDistance();
             depthMod = 0.1f * eyesDistance;
 
-            Vector3 newPos = new Vector3(
-                (float)(camPosition.x),
-                (float)(camPosition.y),
-                (float)(camPosition.z + depthMod));
-            cam.transform.localPosition = newPos;
+            //Vector3 newPos = new Vector3(
+            //    (float)(camPosition.x),
+            //    (float)(camPosition.y),
+            //    (float)(camPosition.z + depthMod));
+            //cam.transform.localPosition = newPos;
 
             //camera 'look at' origo
             
 
             //tilt cam according to eye angle
             Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
-            double angle = (gp.X / Screen.width);
-            angle *= maxAngleView;
-            angle -= maxAngleView / 2f;
-            Debug.Log("Current angle : " + cam.transform.rotation.y);
-            
-            cam.transform.Rotate(Vector3.up, (float)angle * gazeSpeed * Time.deltaTime);
+            if (gp.X <= Screen.width || gp.X >= 0)
+            {
+                double angle = (gp.X / Screen.width);
+                angle *= maxAngleView;
+                angle -= maxAngleView / 2f;
+                
+                if (angle * gazeSpeed * Time.deltaTime < maxAngleView / 2f && angle * gazeSpeed * Time.deltaTime > -maxAngleView / 2f)
+                {
+                    cam.transform.Rotate(Vector3.up, (float)angle * gazeSpeed * Time.deltaTime);
+                }
 
+                Debug.Log("Current angle : " + cam.transform.rotation.y);
+                
+            }
             screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
-
             //handle collision detection
             currentGaze = checkGazeCollision(screenPoint);
         }
