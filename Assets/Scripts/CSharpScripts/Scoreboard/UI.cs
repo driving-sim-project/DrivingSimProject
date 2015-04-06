@@ -38,6 +38,37 @@ public class UI : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
+       
+    }
+
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetButtonDown("Enter"))
+            Application.LoadLevel("StartMenu");
+	}
+
+	void Awake (){
+        //rulelis = calc.loadrulen();
+        //scoring = calc.loadescore();
+        //desc = calc.loaddesc();
+
+        if (Directory.Exists(Application.dataPath + "/Replays/") == true)
+        {
+            for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i-- )
+            {
+                string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
+                if (!pathname.Contains(".meta"))
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    FileStream file = File.Open(pathname, FileMode.Open);
+                    Debug.Log(pathname);
+                    record = (RecordedMotion)bf.Deserialize(file);
+                    file.Close();
+                    break;
+                }
+            }
+        }
+
         analystatus = calc.analy(record);
 
         List<float> spdTemp = new List<float>();
@@ -122,35 +153,6 @@ public class UI : MonoBehaviour {
         else
         {
             s = 0;
-        }
-    }
-
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetButtonDown("Enter"))
-            Application.LoadLevel("StartMenu");
-	}
-
-	void Awake (){
-        //rulelis = calc.loadrulen();
-        //scoring = calc.loadescore();
-        //desc = calc.loaddesc();
-
-        if (Directory.Exists(Application.dataPath + "/Replays/") == true)
-        {
-            for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i-- )
-            {
-                string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
-                if (!pathname.Contains(".meta"))
-                {
-                    BinaryFormatter bf = new BinaryFormatter();
-                    FileStream file = File.Open(pathname, FileMode.Open);
-                    Debug.Log(pathname);
-                    record = (RecordedMotion)bf.Deserialize(file);
-                    file.Close();
-                    break;
-                }
-            }
         }
     }
 
