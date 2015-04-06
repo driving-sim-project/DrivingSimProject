@@ -57,7 +57,7 @@ public class UI : MonoBehaviour {
             for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i-- )
             {
                 string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
-                if (!pathname.Contains(".meta"))
+                if (pathname.Contains(".meta") == false)
                 {
                     BinaryFormatter bf = new BinaryFormatter();
                     FileStream file = File.Open(pathname, FileMode.Open);

@@ -30,7 +30,7 @@ public class ReplayPlayer : MonoBehaviour {
         {
             foreach (string pathname in Directory.GetFiles(Application.dataPath + "/Replays/"))
             {
-                if (pathname.Contains(Application.loadedLevelName) && !pathname.Contains(".meta"))
+                if (pathname.Contains(Application.loadedLevelName) == true && pathname.Contains(".meta") == false)
                 {
                     BinaryFormatter bf = new BinaryFormatter();
                     FileStream file = File.Open(pathname, FileMode.Open);
