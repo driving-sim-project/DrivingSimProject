@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 
 [RequireComponent(typeof(CarController))]
@@ -22,18 +24,24 @@ public class ReplayPlayer : MonoBehaviour {
     CarController car;
     bool playing = false;
 
-    void Awake()
-    {
-        foreach (RecordedMotion file in Resources.LoadAll<RecordedMotion>("Replays/"))
-        {
-            if(file.name.Contains(Application.loadedLevelName))
-                recordList.Add(file);
-        }
-        audio = GetComponent<AudioSource>();
-    }
-
 	// Use this for initialization
 	void Start () {
+        if (Directory.Exists(Application.dataPath + "/Replays/") == true)
+        {
+            foreach (string pathname in Directory.GetFiles(Application.dataPath + "/Replays/"))
+            {
+                if (pathname.Contains(Application.loadedLevelName) && !pathname.Contains(".meta"))
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    FileStream file = File.Open(pathname, FileMode.Open);
+                    Debug.Log(pathname);
+                    recordList.Add((RecordedMotion)bf.Deserialize(file));
+                    file.Close();
+                }
+
+            }
+        }
+        audio = GetComponent<AudioSource>();
         car = GetComponent(typeof(CarController)) as CarController;
         recording = recordList[recordList.Count - 1];
         ReplaySetup();
@@ -55,8 +63,8 @@ public class ReplayPlayer : MonoBehaviour {
             {
                 if(Time.time + startTime > recording.frames[fn].time){
                     fn++;
-                    transform.position = recording.frames[fn].position;
-                    transform.rotation = recording.frames[fn].rotation;
+                    transform.position = Converter.ConvertVector3( recording.frames[fn].position );
+                    transform.rotation = Converter.ConvertQuaternion( recording.frames[fn].rotation );
                     car.speed = recording.frames[fn].speed;
                     car.headlight.SetActive(recording.frames[fn].headlight);
                     car.rearlight.SetActive(recording.frames[fn].rearlight);
@@ -65,10 +73,10 @@ public class ReplayPlayer : MonoBehaviour {
                     car.taillight.SetActive(recording.frames[fn].throttle > 0? false:true);
                     for (int i = 0; i < wheelsModel.Length; i++)
                     {
-                        wheelsModel[i].transform.localPosition = recording.frames[fn].wheelsPosition[i];
-                        wheelsModel[i].transform.localRotation = recording.frames[fn].wheelsRotation[i];
+                        wheelsModel[i].transform.localPosition = Converter.ConvertVector3( recording.frames[fn].wheelsPosition[i] );
+                        wheelsModel[i].transform.localRotation = Converter.ConvertQuaternion( recording.frames[fn].wheelsRotation[i] );
                     }
-                    car.steeringWheel.transform.localRotation = recording.frames[fn].steeringWheelRotation;
+                    car.steeringWheel.transform.localRotation = Converter.ConvertQuaternion( recording.frames[fn].steeringWheelRotation );
                     audio.pitch = recording.frames[fn].rpm + 0.2f;
                     //Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
                 }
@@ -117,10 +125,10 @@ public class ReplayPlayer : MonoBehaviour {
         else
         {
             GUI.Box(new Rect(10, 10, 300, 300), "Replay Data List", box);
-            for (int i = 0; i < recordList.Count; i++)
-            {
-                GUI.Label(new Rect(20, 30 + 20 * i, 300, 30), recordList[i].name);
-            }
+            //for (int i = 0; i < recordList.Count; i++)
+            //{
+            //    GUI.Label(new Rect(20, 30 + 20 * i, 300, 30), recordList[i]);
+            //}
 
         }
 

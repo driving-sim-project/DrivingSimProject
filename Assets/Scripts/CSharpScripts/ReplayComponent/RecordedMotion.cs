@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class RecordedMotion : ScriptableObject {
+public class RecordedMotion {
 
     public List<RecordedFrame> frames;
     public int avgSpeed = 0;
@@ -12,6 +12,9 @@ public class RecordedMotion : ScriptableObject {
     public int currentFrameNumber;
     public string[] gazingNameList;
     public int[] gazingPerList;
+    public bool isAccident;
+    public bool isOffTrack;
+    public bool isFinish;
 
 
     public void Init(List<RecordedFrame> ftemp, int cfntemp)

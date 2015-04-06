@@ -4,9 +4,9 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class UI : MonoBehaviour {
-
 
 	public Texture[] Toggler;
 	public Texture2D[] canvasList;
@@ -36,28 +36,8 @@ public class UI : MonoBehaviour {
     public static List<Intugate> inti = new List<Intugate>();
 
 	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetButtonDown("Enter"))
-            Application.LoadLevel("StartMenu");
-	}
-
-	void Awake (){
-        //rulelis = calc.loadrulen();
-        //scoring = calc.loadescore();
-        //desc = calc.loaddesc();
-
-        int tmpleght = 0;
-
-        tmpleght = Resources.LoadAll<RecordedMotion>("Replays/").Length;
-        record = Resources.LoadAll<RecordedMotion>("Replays/")[tmpleght - 1];
-
-
-
+    void Start()
+    {
         analystatus = calc.analy(record);
 
         List<float> spdTemp = new List<float>();
@@ -100,14 +80,14 @@ public class UI : MonoBehaviour {
             ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).sidelightR = rightlight;
         }
 
-        foreach(Intugate i in intu)
+        foreach (Intugate i in intu)
         {
             i.score();
             rulelis.Add(i.loadname());
             scoring.Add(i.getscore());
             desc.Add(i.loaddesc());
             rulepic.Add(Resources.Load<Texture>("rule/" + i.loadpic()));
-            if(i.getscore()>49)
+            if (i.getscore() > 49)
             {
                 boo.Add(1);
             }
@@ -115,11 +95,11 @@ public class UI : MonoBehaviour {
             {
                 boo.Add(0);
             }
-            
+
         }
-        if(inti.Count>intu.Count)
+        if (inti.Count > intu.Count)
         {
-            for (int i = 0; i < inti.Count - 1;i++ )
+            for (int i = 0; i < inti.Count - 1; i++)
             {
                 if (rulelis.Contains(inti[i].loadname()) == false)
                 {
@@ -135,7 +115,7 @@ public class UI : MonoBehaviour {
         calc.calc(scoring);
         score = calc.loadscore();
         broo = calc.loadgrade();
-        if(score > 49)
+        if (score > 49)
         {
             s = 1;
         }
@@ -143,8 +123,36 @@ public class UI : MonoBehaviour {
         {
             s = 0;
         }
+    }
+
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetButtonDown("Enter"))
+            Application.LoadLevel("StartMenu");
+	}
+
+	void Awake (){
+        //rulelis = calc.loadrulen();
+        //scoring = calc.loadescore();
+        //desc = calc.loaddesc();
+
+        if (Directory.Exists(Application.dataPath + "/Replays/") == true)
+        {
+            for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i-- )
+            {
+                string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
+                if (!pathname.Contains(".meta"))
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    FileStream file = File.Open(pathname, FileMode.Open);
+                    Debug.Log(pathname);
+                    record = (RecordedMotion)bf.Deserialize(file);
+                    file.Close();
+                    break;
+                }
+            }
         }
-        
+    }
 
 	void OnGUI(){
 
