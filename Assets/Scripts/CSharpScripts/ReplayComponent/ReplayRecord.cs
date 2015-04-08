@@ -35,15 +35,16 @@ public class ReplayRecord : MonoBehaviour
 
     public void Save()
     {
+        if (Directory.Exists(Application.dataPath + "/Replays/") == false)
+            Directory.CreateDirectory(Application.dataPath + "/Replays/");
         RecordedMotion motion = new RecordedMotion();
         motion.Init(frames, 1);
         motion.isAccident = trafficChecker.isAccident;
         motion.isOffTrack = trafficChecker.isOffTrack;
         motion.isFinish = trafficChecker.isFinish;
+        
         BinaryFormatter bf = new BinaryFormatter();
         //Application.persistentDataPath is a string, so if you wanted you can put that into debug.log if you want to know where save games are located
-        if (Directory.Exists(Application.dataPath + "/Replays/") == false)
-            Directory.CreateDirectory(Application.dataPath + "/Replays/");
         FileStream file = File.Create(Application.dataPath + "/Replays/" + Application.loadedLevelName + System.DateTime.Now.ToString("_yyyy-MM-dd_HH-mm") + ".dtss"); //you can call it anything you want
         bf.Serialize(file, motion);
         file.Close();

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CarController))]
 public class TrafficChecker : MonoBehaviour {
 
+    public TrafficLightController[] trafficLightList;
     public Checkpoint[] checkpointList;
     public bool isAccident { get; private set; }
     public bool isFinish { get; private set; }
@@ -129,6 +130,19 @@ public class TrafficChecker : MonoBehaviour {
                         UI.intu.Find(x => x.setRefObj == Other.transform.parent).failed = true;
                     }
                 }
+            }
+            else if(Other.tag == "Stopline")
+            {
+                Debug.Log("Stop Line");
+                foreach(TrafficLightController TrafficLightTmp in trafficLightList){
+                    foreach( TrafficLight lightTmp in TrafficLightTmp.trafficLightList ){
+                        if(Other == lightTmp.stopLine && lightTmp.isRed == true){
+                            Debug.Log("Red Light!!");
+                            UI.intu.Find(x => x.setRefObj == TrafficLightTmp.transform).failed = true;
+                        }
+                    }
+                }
+                
             }
             else if(Other.tag == "Checkpoint")
             {

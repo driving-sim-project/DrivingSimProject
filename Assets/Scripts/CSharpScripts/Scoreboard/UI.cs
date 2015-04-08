@@ -38,25 +38,13 @@ public class UI : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
-       
-    }
-
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetButtonDown("Enter"))
-            Application.LoadLevel("StartMenu");
-	}
-
-	void Awake (){
-        //rulelis = calc.loadrulen();
-        //scoring = calc.loadescore();
-        //desc = calc.loaddesc();
-
-        if (Directory.Exists(Application.dataPath + "/Replays/") == true)
+        if (Directory.Exists(Application.dataPath + "/Replays/") == true && Directory.GetFiles(Application.dataPath + "/Replays/").Length > 0)
         {
-            for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i-- )
+            for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i--)
             {
+
                 string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
+                Debug.Log(pathname);
                 if (pathname.Contains(".meta") == false)
                 {
                     BinaryFormatter bf = new BinaryFormatter();
@@ -154,6 +142,20 @@ public class UI : MonoBehaviour {
         {
             s = 0;
         }
+    }
+
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetButtonDown("Enter"))
+            Application.LoadLevel("StartMenu");
+	}
+
+	void Awake (){
+        //rulelis = calc.loadrulen();
+        //scoring = calc.loadescore();
+        //desc = calc.loaddesc();
+
+        
     }
 
 	void OnGUI(){
