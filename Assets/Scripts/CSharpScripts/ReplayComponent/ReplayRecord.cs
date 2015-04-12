@@ -23,12 +23,14 @@ public class ReplayRecord : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         currentFrame = new RecordedFrame(car);
-        if (tmpFrame == null)
+        if (tmpFrame == null){
             currentFrame.currentDistance = 0f;
+        }
         else
-            currentFrame.currentDistance = Vector3.Distance(Converter.ConvertVector3(tmpFrame.position), Converter.ConvertVector3 (currentFrame.position));
-        if(tmpFrame != null)
+        {
+            currentFrame.currentDistance = Vector3.Distance(Converter.ConvertVector3(tmpFrame.position), Converter.ConvertVector3(currentFrame.position));
             currentFrame.currentDistance += tmpFrame.currentDistance;
+        }
         frames.Add(currentFrame);
         tmpFrame = currentFrame;
 	}

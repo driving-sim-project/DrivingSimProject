@@ -122,7 +122,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         string gazingObjectName = "Forward";
         Ray collisionRay = cam.ScreenPointToRay(screenPoint);
         RaycastHit hit;
-        if (Physics.Raycast(collisionRay, out hit, 150f, 1 << 0))
+        if (Physics.SphereCast(collisionRay, 1f, out hit,150f, 1 << 0))
         {
             if (null != hit.collider)
             {
