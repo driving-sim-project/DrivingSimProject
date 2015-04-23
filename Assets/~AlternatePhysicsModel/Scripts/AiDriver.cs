@@ -12,6 +12,7 @@ public class AiDriver : MonoBehaviour {
     public int speedLimit = 60;
     public Waypoint waypoint;
     public float frontDistance = 10f;
+    public bool loopRun = false;
     int waypointCounter = 0;
 
 	// Use this for initialization
@@ -27,6 +28,8 @@ public class AiDriver : MonoBehaviour {
         front.Set(front.x, 0f, front.z);
         RaycastHit hit;
         Debug.DrawRay(frontSensor.transform.position, front * frontDistance, Color.red);
+        if (loopRun == true)
+            waypointCounter %= waypoint.waypoints.Length;
         if (waypointCounter < waypoint.waypoints.Length)
             frontSensor.transform.LookAt(waypoint.waypoints[waypointCounter].transform);
         float angleTmp = Vector3.Angle(car.transform.forward, frontSensor.transform.forward);
@@ -46,8 +49,8 @@ public class AiDriver : MonoBehaviour {
             steeringAngle = 1f;
         }
 
-        if (Mathf.Abs(angleTmp) < car.wheels[0].maxSteeringAngle / 2)
-            steeringAngle *= 0.66f;
+        //if (Mathf.Abs(angleTmp) < car.wheels[0].maxSteeringAngle / 2)
+        //    steeringAngle *= 0.66f;
         steeringAngle *= Mathf.Clamp(Mathf.Abs(angleTmp), 0f, car.wheels[0].maxSteeringAngle) / car.wheels[0].maxSteeringAngle;
 
         if (waypointCounter == waypoint.waypoints.Length)
@@ -57,15 +60,20 @@ public class AiDriver : MonoBehaviour {
         else if(Mathf.Abs(angleTmp) > 30f){
             if (Mathf.Abs(angleTmp) > 60f)
                     car.accelKey = -1f;
-            else
-                car.accelKey = -throttle * 1.5f;
             if (car.speed < 5)
                 car.accelKey = throttle;
         }
         else if (car.speed < speedLimit)
         {
-            if (car.speed < speedLimit / 2)
+            if (car.speed < 30)
                 car.accelKey = throttle * 1.5f;
+            else if (Mathf.Abs(steeringAngle) >= 0.1f)
+            {
+                if(car.speed > 60)
+                    car.accelKey = -throttle;
+                if (car.speed < 60)
+                    car.accelKey = throttle * 0.3f;
+            }
             else
                 car.accelKey = throttle;
         }
