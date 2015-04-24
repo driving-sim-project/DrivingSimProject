@@ -13,7 +13,9 @@ public class AiDriver : MonoBehaviour {
     public Waypoint waypoint;
     public float frontDistance = 10f;
     public bool loopRun = false;
-    int waypointCounter = 0;
+    public int waypointCounter = 0;
+
+    bool decelerate = false;
 
 	// Use this for initialization
 	void Start () {
@@ -62,12 +64,23 @@ public class AiDriver : MonoBehaviour {
                     car.accelKey = -1f;
             if (car.speed < 5)
                 car.accelKey = throttle;
+        }else if(decelerate == true){
+            if(car.speed > speedLimit / 2){
+                if (car.speed < speedLimit * 1.2f / 2)
+                    car.accelKey = 0f;
+                else
+                    car.accelKey = -throttle * 0.5f;
+            }
+            else
+            {
+                car.accelKey = throttle;
+            }
         }
         else if (car.speed < speedLimit)
         {
             if (car.speed < 30)
                 car.accelKey = throttle * 1.5f;
-            else if (Mathf.Abs(steeringAngle) >= 0.1f)
+            else if (Mathf.Abs(steeringAngle) >= 0.15f)
             {
                 if(car.speed > 60)
                     car.accelKey = -throttle;
@@ -86,14 +99,19 @@ public class AiDriver : MonoBehaviour {
         Debug.DrawRay(frontSensor.transform.position, carDirection * frontDistance, Color.blue);
         if (Physics.SphereCast(frontSensor.transform.position, 0.2f, carDirection, out hit, frontDistance))
         {
-            Debug.Log(hit.transform.tag);
-            car.accelKey = -throttle;
+            //Debug.Log(hit.transform.tag);
+            if (hit.transform.tag.Contains("Car") == true)
+            {
+                car.accelKey = -throttle;
+            }
             //if (hit.transform.collider == waypoint.waypoints[waypointCounter])
             //{
             //    car.steering = 0f;
             //}
         }
-        
+
+        if (Mathf.Abs(steeringAngle) < 0.05f)
+            steeringAngle = 0f;
         car.steering = steeringAngle;
 
         if(car.drivetrain.drivenGear == 0 ){
@@ -108,8 +126,13 @@ public class AiDriver : MonoBehaviour {
         {
             if (Other == waypoint.waypoints[waypointCounter])
             {
+                AiNode nodeTmp = Other.GetComponent<AiNode>();
+                car.sidelightSL = nodeTmp.sidelightL;
+                car.sidelightSR = nodeTmp.sidelightR;
+                car.headlight.SetActive(nodeTmp.headlight);
+                decelerate = nodeTmp.decelerate;
                 waypointCounter++;
-                Debug.Log("Waypoint Counter : " + waypointCounter);
+                //Debug.Log("Waypoint Counter : " + waypointCounter);
             }
         }
     }

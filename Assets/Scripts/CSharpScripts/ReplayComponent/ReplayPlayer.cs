@@ -16,7 +16,6 @@ public class ReplayPlayer : MonoBehaviour {
 
     List<RecordedMotion> recordList = new List<RecordedMotion>();
     RecordedMotion recording;
-    AudioSource audio;
 
     bool gui = true;
     float startTime;
@@ -41,7 +40,6 @@ public class ReplayPlayer : MonoBehaviour {
 
             }
         }
-        audio = GetComponent<AudioSource>();
         car = GetComponent(typeof(CarController)) as CarController;
         recording = recordList[recordList.Count - 1];
         ReplaySetup();
@@ -77,7 +75,6 @@ public class ReplayPlayer : MonoBehaviour {
                         wheelsModel[i].transform.localRotation = Converter.ConvertQuaternion( recording.frames[fn].wheelsRotation[i] );
                     }
                     car.steeringWheel.transform.localRotation = Converter.ConvertQuaternion( recording.frames[fn].steeringWheelRotation );
-                    audio.pitch = recording.frames[fn].rpm + 0.2f;
                     //Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
                 }
             }

@@ -4,7 +4,6 @@ using System.Collections;
 // This class is repsonsible for controlling inputs to the car.
 // Change this code to implement other input types, such as support for analogue input, or AI cars.
 [RequireComponent(typeof (Drivetrain))]
-[RequireComponent(typeof(AudioSource))]
 public class CarController : MonoBehaviour {
 
     //Headlight & Taillight object
@@ -40,7 +39,6 @@ public class CarController : MonoBehaviour {
 		
 	// cached Drivetrain reference
 	public Drivetrain drivetrain;
-    AudioSource audio;
 
 	// How long the car takes to shift gears
 	public float shiftSpeed = 0.8f;
@@ -106,28 +104,31 @@ public class CarController : MonoBehaviour {
 
     void Awake()
     {
-        if (SceneManager.GoScene == "replay")
-        {
-            GetComponent<Drivetrain>().enabled = false;
-            GetComponent<ReplayRecord>().enabled = false;
-            GetComponent<ReplayPlayer>().enabled = true;
-            replayer = true;
-        }
         if (GetComponent<AiDriver>() != null)
             ai = true;
-        audio = GetComponent<AudioSource>() as AudioSource;
+        else
+        {
+            if (SceneManager.GoScene == "replay")
+            {
+                GetComponent<Drivetrain>().enabled = false;
+                GetComponent<ReplayRecord>().enabled = false;
+                GetComponent<ReplayPlayer>().enabled = true;
+                replayer = true;
+            }
+        }        
     }
 
 	// Initialize
 	void Start () 
 	{
-        if (SceneManager.GoScene != "replay")
-        {
-            if (centerOfMass != null)
-                rigidbody.centerOfMass = centerOfMass.localPosition;
-            rigidbody.inertiaTensor *= inertiaFactor;
-            drivetrain = GetComponent(typeof(Drivetrain)) as Drivetrain;
-        }
+        //if (SceneManager.GoScene != "replay")
+        //{
+            
+        //}
+        if (centerOfMass != null)
+            rigidbody.centerOfMass = centerOfMass.localPosition;
+        rigidbody.inertiaTensor *= inertiaFactor;
+        drivetrain = GetComponent(typeof(Drivetrain)) as Drivetrain;
 	}
 	
 	void Update () 
@@ -291,7 +292,6 @@ public class CarController : MonoBehaviour {
             
 
             speed = (int)(rigidbody.velocity.magnitude * 3.6f);
-            audio.pitch = (drivetrain.rpm / drivetrain.maxRPM) + 0.2f;
         }else if(ai == true){
             // Steering
             //Vector3 carDir = transform.forward;
@@ -444,7 +444,6 @@ public class CarController : MonoBehaviour {
             //}
 
             speed = (int)(rigidbody.velocity.magnitude * 3.6f);
-            audio.pitch = (drivetrain.rpm / drivetrain.maxRPM) + 0.2f;
         }
 
         if (sidelightSL == true)

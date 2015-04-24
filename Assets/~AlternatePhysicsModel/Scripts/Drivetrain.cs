@@ -3,10 +3,7 @@ using System.Collections;
 
 // This class simulates a car's engine and drivetrain, generating
 // torque, and applying the torque to the wheels.
-[RequireComponent(typeof(AudioSource))]
 public class Drivetrain : MonoBehaviour {
-
-    AudioSource audio;
 
 	// All the wheels the drivetrain should power
 	public Wheel[] poweredWheels;
