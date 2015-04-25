@@ -60,20 +60,24 @@ public class AiDriver : MonoBehaviour {
             car.accelKey = -1f;
         }
         else if(Mathf.Abs(angleTmp) > 30f){
-            if (Mathf.Abs(angleTmp) > 60f)
+            if (Mathf.Abs(angleTmp) > 60f && car.speed > 10)
                     car.accelKey = -1f;
-            if (car.speed < 5)
+            if (car.speed < 10)
                 car.accelKey = throttle;
+            else
+                car.accelKey = throttle * 0.5f;
         }else if(decelerate == true){
             if(car.speed > speedLimit / 2){
                 if (car.speed < speedLimit * 1.2f / 2)
                     car.accelKey = 0f;
+                else if (car.speed < speedLimit / 3)
+                    car.accelKey = throttle;
                 else
                     car.accelKey = -throttle * 0.5f;
             }
             else
             {
-                car.accelKey = throttle;
+                car.accelKey = throttle * 0.5f;
             }
         }
         else if (car.speed < speedLimit)
