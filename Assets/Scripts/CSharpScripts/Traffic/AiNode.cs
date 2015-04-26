@@ -7,5 +7,6 @@ public class AiNode : MonoBehaviour {
     public bool sidelightL = false;
     public bool headlight = false;
     public bool decelerate = false;
+    public int speed = 0;
 
 }
