@@ -8,6 +8,8 @@ class crosslane : Intugate
     private List<bool> iscrossing;
     private List<bool> Leftlight;
     private List<bool> rightlight;
+    bool wheelon = false;
+    List<float> speed;
 
     public crosslane()
     {
@@ -41,6 +43,15 @@ class crosslane : Intugate
     {
         set { rightlight = value; }
     }
+    public bool online
+    {
+        set { wheelon = value; }
+    }
+    public List<float> sp
+    {
+        set { speed = value; }
+    }
+    
 
     public override void score(  )
     {
@@ -52,6 +63,8 @@ class crosslane : Intugate
         int d = 0;
         int e = 0;
         int f = 0;
+        int g = 0;
+        int h = 0;
 
         for (int i = 0; i < iscrossing.Count;i++ )
         {
@@ -66,7 +79,7 @@ class crosslane : Intugate
             {
                 if (iscrossing[i]==true)
                 {
-                    Debug.Log(iscrossing[i]);
+                    
                     if (d != 0 && c > 0)
                     {
                         if ((d + 1) != i)
@@ -75,7 +88,6 @@ class crosslane : Intugate
                             {
                                 e = c;
                             }
-
                             c = 0;
                             d = i;
                         }
@@ -87,15 +99,46 @@ class crosslane : Intugate
                     }
                     else
                     {
-                        Debug.Log("no : "+iscrossing[i]);
                         c++;
                         d = i;
                     }
+                    if (g != 0 && f > 0 && speed[i] < 20 )
+                    {
+                        if ((g + 1) != i)
+                        {
+                            if (f > h)
+                            {
+                                h = f;
+                            }
+                            f = 0;
+                            g = i;
+                        }
+                        else
+                        {
+                            f++;
+                            g = i;
+                        }
+                    }
+                    else
+                    {
+                        c++;
+                        d = i;
+                    }
+                    
+                    
                 }
             }
           
         }
+        if(wheelon == true)
+        {
+            a -= 25;
+        }
         if (e > 4)
+        {
+            a -= 25;
+        }
+        if (h > 4)
         {
             a -= 25;
         }

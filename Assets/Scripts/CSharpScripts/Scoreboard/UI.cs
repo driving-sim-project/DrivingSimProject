@@ -28,6 +28,7 @@ public class UI : MonoBehaviour {
     private int sc = 0;
     private int s = 1;
     int analystatus = 0;
+    int failed = 0;
     private List<string> desc = new List<string>();
     Calculate calc = new Calculate();
     RecordedMotion record = null;
@@ -113,6 +114,7 @@ public class UI : MonoBehaviour {
             else
             {
                 boo.Add(0);
+                failed = 1;
             }
 
         }
@@ -134,13 +136,27 @@ public class UI : MonoBehaviour {
         calc.calc(scoring);
         score = calc.loadscore();
         broo = calc.loadgrade();
-        if (score > 49)
+        if (score > 49 && failed == 0 && record.isFinish == true)
         {
             s = 1;
         }
         else
         {
-            s = 0;
+            if(record.isAccident == true)
+            {
+                s = 2;
+            }
+            else
+            {
+                if(record.isOffTrack == true)
+                {
+                    s = 3;
+                }
+                else
+                {
+                    s = 0;
+                }
+            }
         }
     }
 
