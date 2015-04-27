@@ -64,6 +64,7 @@ public class UI : MonoBehaviour {
         List<bool> iscrossing = new List<bool>();
         List<bool> Leftlight = new List<bool>();
         List<bool> rightlight = new List<bool>();
+        List<bool> wheeOnLine = new List<bool>();
 
         foreach (RecordedFrame frame in record.frames)
         {
@@ -77,6 +78,10 @@ public class UI : MonoBehaviour {
                 iscrossing.Add(frame.isCrossing);
                 Leftlight.Add(frame.sidelightL);
                 rightlight.Add(frame.sidelightR);
+                foreach(string wheelText in frame.wheelsOnLine){
+                    if(wheelText == "TrafficLine")
+                        ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).online = true;
+                }
             }
 
         }
@@ -99,7 +104,7 @@ public class UI : MonoBehaviour {
             ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).sidelightL = Leftlight;
             ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).sidelightR = rightlight;
         }
-
+        
         foreach (Intugate i in intu)
         {
             i.score();

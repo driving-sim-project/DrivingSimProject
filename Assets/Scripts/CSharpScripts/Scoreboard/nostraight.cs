@@ -24,7 +24,8 @@ class nostraight : Intugate
     {
         
         int a = 100;
-        a -= 50;
+        if(failed == true)
+            a -= 50;
         this.sc = a;
     }
 
