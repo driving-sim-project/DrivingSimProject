@@ -27,9 +27,9 @@ class trafficlight : Intugate
         return picname;
     }
 
-    public bool infringe
+    public bool failed
     {
-        set { lightinfringe = value; } // infringe red light
+        set { fa = value; }
     }
     public bool yellows
     {
@@ -41,22 +41,19 @@ class trafficlight : Intugate
 
 
         int a = 100;
-        List<int> b = new List<int>();
-        int c = 0;
-        int d = 0;
-        int e = 0;
-        int f = 0;
+        
 
 
 
        
-            if (lightinfringe == true)
-            {
-                a = 0;
-            }
+            
             if (yellowshould == false)
             {
                 a -= 25;
+            }
+            if (fa == true)
+            {
+                a = 0;
             }
 
 

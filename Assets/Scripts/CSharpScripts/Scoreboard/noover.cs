@@ -20,14 +20,25 @@ class Noover : Intugate
         return sc;
     }
 
-
+    public bool failed
+    {
+        set { fa = value; }
+    }
 
     public override void score()
     {
         int a = 100;
-        a -= 50;
+
+        if (fa)
+        {
+
+            a -= 100;
+
+        }
+
         this.sc = a;
     }
+    
 
     public override string loadpic()
     {
