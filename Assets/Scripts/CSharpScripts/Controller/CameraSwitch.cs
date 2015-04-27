@@ -6,6 +6,15 @@ public class CameraSwitch : MonoBehaviour
     public GameObject[] camerasList;
     public string[] shortcuts;
     public bool changeAudioListener = true;
+
+    void Start()
+    {
+        if (SceneManager.GoScene != "replay")
+        {
+            enabled = false;
+        }
+    }
+
     void Update()
     {
         int i = 0;

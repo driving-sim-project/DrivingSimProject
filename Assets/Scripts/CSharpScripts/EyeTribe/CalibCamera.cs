@@ -240,9 +240,9 @@ public class CalibCamera : MonoBehaviour, IGazeListener, ICalibrationProcessHand
         btnWidth = 160;
         btnHeight = 40;
 
-        if (GUI.Button(new Rect(padding, padding, btnWidth, btnHeight), "Press to Exit"))
+        if (GUI.Button(new Rect(padding, padding, btnWidth, btnHeight), "Proceed without eye tracking"))
         {
-            Application.Quit();
+            Application.LoadLevel(SceneManager.GoScene);
         }
     }
 
