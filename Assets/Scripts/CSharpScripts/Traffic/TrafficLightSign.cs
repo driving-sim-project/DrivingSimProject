@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrafficLight : MonoBehaviour {
+public class TrafficLightSign : MonoBehaviour {
 
     public GameObject[] redLightObject;
     public GameObject[] yellowLightObject;
@@ -16,6 +16,7 @@ public class TrafficLight : MonoBehaviour {
     void setRedLight()
     {
         isRed = true;
+        stopLine.enabled = true;
         foreach (GameObject g in redLightObject)
         {
             g.SetActive(true);
@@ -35,6 +36,7 @@ public class TrafficLight : MonoBehaviour {
     void setYellowLight()
     {
         isRed = false;
+        stopLine.enabled = false;
         foreach (GameObject g in redLightObject)
         {
             g.SetActive(false);
@@ -53,6 +55,8 @@ public class TrafficLight : MonoBehaviour {
 
     void setGreenLight()
     {
+        isRed = false;
+        stopLine.enabled = false;
         foreach (GameObject g in redLightObject)
         {
             g.SetActive(false);

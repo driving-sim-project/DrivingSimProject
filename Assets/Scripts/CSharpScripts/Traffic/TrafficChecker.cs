@@ -133,11 +133,9 @@ public class TrafficChecker : MonoBehaviour {
             }
             else if(Other.tag == "Stopline")
             {
-                Debug.Log("Stop Line");
                 foreach(TrafficLightController TrafficLightTmp in trafficLightList){
-                    foreach( TrafficLight lightTmp in TrafficLightTmp.trafficLightList ){
-                        if(Other == lightTmp.stopLine && lightTmp.isRed == true){
-                            Debug.Log("Red Light!!");
+                    foreach( TrafficLightSign lightTmp in TrafficLightTmp.trafficLightList ){
+                        if(Other == lightTmp.stopLine){
                             UI.intu.Find(x => x.setRefObj == TrafficLightTmp.transform).failed = true;
                         }
                     }

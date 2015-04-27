@@ -108,7 +108,19 @@ public class AiDriver : MonoBehaviour {
 
         Vector3 carDirection = new Vector3(car.transform.forward.x, 0f, car.transform.forward.z);
         Debug.DrawRay(frontSensor.transform.position, carDirection * frontDistance, Color.blue);
-        
+
+        if (Physics.Raycast(frontSensor.transform.position, carDirection, out hit, frontDistance))
+        {
+            if (hit.transform.tag.Contains("Car") == true)
+            {
+                car.accelKey = -throttle;
+            }
+            else if (hit.transform.tag == "Stopline")
+            {
+                car.accelKey = -1f;
+            }
+        }
+
         Vector3[] left = new Vector3[2];
         left[0] = leftSensor[0].transform.forward;
         left[1] = leftSensor[1].transform.forward;
@@ -119,13 +131,7 @@ public class AiDriver : MonoBehaviour {
         right[1] = rightSensor[1].transform.forward;
         right[0].Set(right[0].x, 0f, right[0].z);
         right[1].Set(right[1].x, 0f, right[1].z);
-        if (Physics.Raycast(frontSensor.transform.position, carDirection, out hit, frontDistance))
-        {
-            if (hit.transform.tag.Contains("Car") == true)
-            {
-                car.accelKey = -throttle;
-            }
-        }
+        
 
         if (Physics.Raycast(leftSensor[0].transform.position, carDirection, out hit, frontDistance * 0.5f))
         {
@@ -172,14 +178,12 @@ public class AiDriver : MonoBehaviour {
             Debug.DrawRay(rightSensor[1].transform.position, carDirection * frontDistance * 0.5f, Color.green);
         }
 
-
         if (Mathf.Abs(steeringAngle) < 0.05f)
             steeringAngle = 0f;
         car.steering = steeringAngle;
 
-        if(car.drivetrain.drivenGear == 0 ){
+        if(car.drivetrain.drivenGear == 0 )
             car.drivetrain.drivenGear = 1;
-        }
         
 	}
 

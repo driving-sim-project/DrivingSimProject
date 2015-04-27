@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TrafficLightController : MonoBehaviour {
 
-    public TrafficLight[] trafficLightList;
+    public TrafficLightSign[] trafficLightList;
     int trafficLightIndicator = 0;
     float lastTrafficLightSignal = 0;
 
@@ -25,7 +25,7 @@ public class TrafficLightController : MonoBehaviour {
     void trafficLightSetup()
     {
         lastTrafficLightSignal = Time.time;
-        foreach (TrafficLight tl in trafficLightList)
+        foreach (TrafficLightSign tl in trafficLightList)
         {
             if (tl == trafficLightList[trafficLightIndicator]){
                 StartCoroutine(tl.GreenLight());
