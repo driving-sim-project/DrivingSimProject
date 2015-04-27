@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-class Nostraight : Intugate
+class nostraight : Intugate
 {
-    public Nostraight()
+    public nostraight()
     {
         Rulename = "Can't Straight Post";
         picname = "nosta";
