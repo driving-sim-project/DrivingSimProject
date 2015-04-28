@@ -13,12 +13,13 @@ public class AiDriver : MonoBehaviour {
     public float throttle = 0.5f;
     public int speedLimit = 60;
     public Waypoint waypoint;
-    public float frontDistance = 10f;
+    float frontDistance = 5f;
     public bool loopRun = false;
     public int waypointCounter = 0;
 
     bool decelerate = false;
     int nodeSpeed = 0;
+    float calDistance;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +33,7 @@ public class AiDriver : MonoBehaviour {
         Vector3 front = frontSensor.transform.forward;
         front.Set(front.x, 0f, front.z);
         RaycastHit hit;
-        Debug.DrawRay(frontSensor.transform.position, front * frontDistance, Color.red);
+        Debug.DrawRay(frontSensor.transform.position, front * calDistance, Color.red);
         if (loopRun == true)
             waypointCounter %= waypoint.waypoints.Length;
         if (waypointCounter < waypoint.waypoints.Length)
@@ -76,30 +77,30 @@ public class AiDriver : MonoBehaviour {
             }
         }
         else if(decelerate == true){
-            if(car.speed > nodeSpeed){
-                if (car.speed < speedLimit / 3)
-                    car.accelKey = throttle;
-                else
-                    car.accelKey = -throttle * 0.5f;
-            }
+            if(car.speed > nodeSpeed)
+                car.accelKey = -throttle * 0.5f;
+            else if (car.speed < speedLimit / 2)
+                car.accelKey = throttle;
             else
-            {
                 car.accelKey = throttle * 0.5f;
-            }
         }
         else if (car.speed < speedLimit)
         {
-            if (car.speed < 30)
-                car.accelKey = throttle;
-            else if (Mathf.Abs(steeringAngle) >= 0.15f)
+            if (Mathf.Abs(steeringAngle) >= 0.15f)
             {
                 if(car.speed > 60)
                     car.accelKey = -throttle;
                 if (car.speed < 60)
-                    car.accelKey = throttle * 0.3f;
+                    car.accelKey = throttle;
             }
             else
-                car.accelKey = throttle;
+            {
+                if(car.speed < 20)
+                    car.accelKey = throttle * 1.75f;
+                else
+                    car.accelKey = throttle;
+            }
+
         }
         else
         {
@@ -107,9 +108,18 @@ public class AiDriver : MonoBehaviour {
         }
 
         Vector3 carDirection = new Vector3(car.transform.forward.x, 0f, car.transform.forward.z);
-        Debug.DrawRay(frontSensor.transform.position, carDirection * frontDistance, Color.blue);
 
-        if (Physics.Raycast(frontSensor.transform.position, carDirection, out hit, frontDistance))
+        if (car.speed > 100)
+            calDistance = frontDistance * 5f;
+        else if (car.speed > 70)
+            calDistance = frontDistance * 3f;
+        else
+            calDistance = frontDistance;
+
+
+        Debug.DrawRay(frontSensor.transform.position, carDirection * calDistance, Color.blue);
+
+        if (Physics.Raycast(frontSensor.transform.position, carDirection, out hit, calDistance))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
@@ -133,49 +143,49 @@ public class AiDriver : MonoBehaviour {
         right[1].Set(right[1].x, 0f, right[1].z);
         
 
-        if (Physics.Raycast(leftSensor[0].transform.position, carDirection, out hit, frontDistance * 0.5f))
+        if (Physics.Raycast(leftSensor[0].transform.position, carDirection, out hit, 5f))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
                 car.accelKey = -throttle;
             }
         }
-        Debug.DrawRay(leftSensor[0].transform.position, carDirection * frontDistance * 0.5f, Color.blue);
+        Debug.DrawRay(leftSensor[0].transform.position, frontSensor.transform.forward * 5f, Color.blue);
 
-        if (Physics.Raycast(rightSensor[0].transform.position, carDirection, out hit, frontDistance * 0.5f))
+        if (Physics.Raycast(rightSensor[0].transform.position, carDirection, out hit, 5f))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
                 car.accelKey = -throttle;
             }
         }
-        Debug.DrawRay(rightSensor[0].transform.position, carDirection * frontDistance * 0.5f, Color.blue);
+        Debug.DrawRay(rightSensor[0].transform.position, frontSensor.transform.forward * 5f, Color.blue);
 
 
         if (car.sidelightSL == true)
         {
             carDirection = new Vector3(-car.transform.right.x, 0f, -car.transform.right.z);
-            if (Physics.Raycast(leftSensor[1].transform.position, carDirection, out hit, frontDistance * 0.5f))
+            if (Physics.Raycast(leftSensor[1].transform.position, carDirection, out hit, 2.5f))
             {
                 if (hit.transform.tag.Contains("Car") == true)
                 {
                     car.accelKey = -throttle * 0.5f;
                 }
             }
-            Debug.DrawRay(leftSensor[1].transform.position, carDirection * frontDistance * 0.5f, Color.green);
+            Debug.DrawRay(leftSensor[1].transform.position, carDirection * 2.5f, Color.green);
         }
 
         if (car.sidelightSR == true)
         {
             carDirection = new Vector3(car.transform.right.x, 0f, car.transform.right.z);
-            if (Physics.Raycast(rightSensor[1].transform.position, carDirection, out hit, frontDistance * 0.5f))
+            if (Physics.Raycast(rightSensor[1].transform.position, carDirection, out hit, 2.5f))
             {
                 if (hit.transform.tag.Contains("Car") == true)
                 {
                     car.accelKey = -throttle * 0.5f;
                 }
             }
-            Debug.DrawRay(rightSensor[1].transform.position, carDirection * frontDistance * 0.5f, Color.green);
+            Debug.DrawRay(rightSensor[1].transform.position, carDirection * 2.5f, Color.green);
         }
 
         if (Mathf.Abs(steeringAngle) < 0.05f)
