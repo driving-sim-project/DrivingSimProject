@@ -14,9 +14,10 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
     public string currentGaze;
     public Vector3 screenPoint;
-    public float sensitivity = 0f;
-    public int maxAngleView = 90;
+    public float sensitivity = 1f;
     public float gazeSpeed = 1f;
+    public GameObject leftMirror;
+    public GameObject rightMirror;
 
     private GazeDataValidator gazeUtils;
     private Camera cam;
@@ -26,6 +27,8 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     private double baseDist;
     private double depthMod;
     private GazeData gazeDataTmp;
+
+
 
     void Start()
     {
@@ -96,38 +99,46 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
             //tilt cam according to eye angle
             Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
-            if (gp.X <= Screen.width || gp.X >= 0)
-            {
-                double angle = (gp.X / Screen.width);
-                angle *= maxAngleView;
-                angle -= maxAngleView / 2f;
-                
-                if (angle * gazeSpeed * Time.deltaTime < maxAngleView / 2f && angle * gazeSpeed * Time.deltaTime > -maxAngleView / 2f)
+            if( gp.X > 0f && gp.X < Screen.width && gp.Y > 0f && gp.Y < Screen.height){
+                if (screenPoint == null)
                 {
-                    cam.transform.Rotate(Vector3.up, (float)angle * gazeSpeed * Time.deltaTime);
+                    screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
                 }
-
-                Debug.Log("Current angle : " + cam.transform.rotation.y);
-                
+                else
+                {
+                    if (Vector3.Distance(screenPoint, new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f)) > sensitivity)
+                    {
+                        screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
+                    }
+                }
+                if (screenPoint.x < Screen.width * 0.2f)
+                    cam.transform.LookAt(leftMirror.transform);
+                else if (screenPoint.x > Screen.width * 0.8f)
+                    cam.transform.LookAt(rightMirror.transform);
+                else
+                    cam.transform.LookAt(new Vector3(0f, 0f, 0f));
+                //handle collision detection
+                currentGaze = checkGazeCollision(screenPoint);
             }
-            screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
-            //handle collision detection
-            currentGaze = checkGazeCollision(screenPoint);
         }
 
 	}
 
     private string checkGazeCollision(Vector3 screenPoint)
     {
-        string gazingObjectName = "Forward";
+        string gazingObjectName = "";
         Ray collisionRay = cam.ScreenPointToRay(screenPoint);
         RaycastHit hit;
-        if (Physics.SphereCast(collisionRay, 1f, out hit,150f, 1 << 0))
+        if (Physics.SphereCast(collisionRay, 1f, out hit, 150f, 1 << 0))
         {
             if (null != hit.collider)
             {
                 gazingObjectName = hit.collider.tag;
             }
+        }
+        else
+        {
+            gazingObjectName = "Forward";
         }
         return gazingObjectName;
     }
