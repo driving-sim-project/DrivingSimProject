@@ -237,5 +237,4 @@ public class TrafficChecker : MonoBehaviour {
         replayRec.Save();
         Application.LoadLevel("scoreboard");
     }
-
 }

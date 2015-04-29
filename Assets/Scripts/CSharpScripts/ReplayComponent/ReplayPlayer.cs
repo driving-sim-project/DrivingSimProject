@@ -111,8 +111,8 @@ public class ReplayPlayer : MonoBehaviour {
             GUI.Label(new Rect(20, 280, 300, 30), "L Turn Light : " + (recording.frames[fn].sidelightL == true ? "On" : "Off"));
 
 
-            GUI.Box(new Rect(Screen.width - 320, 10, 300, 20 + 30 * recording.gazingNameList.Length), "Gazing Statistics", box);
-            for (int i = 0; i < recording.gazingNameList.Length; i++)
+            GUI.Box(new Rect(Screen.width - 320, 10, 300, 20 + 30 * recording.gazingNameList.Count), "Gazing Statistics", box);
+            for (int i = 0; i < recording.gazingNameList.Count; i++)
                 GUI.Label(new Rect(Screen.width - 320, 30 + 20 * i, 300, 30),
                     recording.gazingNameList[i] + " : " + (recording.gazingPerList[i] * 100f) / recording.frames.Count + "%");
             GUI.DrawTexture(new Rect(recording.frames[fn].eyePosition.x, Screen.height - recording.frames[fn].eyePosition.y, cursorWidth, cursorHeight), cursorImage);
@@ -140,5 +140,6 @@ public class ReplayPlayer : MonoBehaviour {
             fn = recording.currentFrameNumber;
         }
         playing = true;
+        UI.record = recording;
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [System.Serializable]
 public class RecordedFrame {
-
+    
     public float rpm;
     public int speed;
     public float time;
@@ -26,6 +26,11 @@ public class RecordedFrame {
     public bool sidelightL;
     public bool isCrossing;
     public string[] wheelsOnLine;
+
+    public RecordedFrame()
+    {
+
+    }
 
     public RecordedFrame( CarController car )
     {
@@ -52,7 +57,6 @@ public class RecordedFrame {
                 180 - (w.model.transform.localRotation.eulerAngles.y % 180):
                 w.model.transform.localRotation.eulerAngles.y % 180));
             wheelTagTemp.Add(w.onTag);
-
         }
         wheelsPosition = wheelsPositionTemp.ToArray();
         wheelsRotation = wheelsRotationTemp.ToArray();

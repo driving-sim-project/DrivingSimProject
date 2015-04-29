@@ -31,34 +31,34 @@ public class UI : MonoBehaviour {
     int failed = 0;
     private List<string> desc = new List<string>();
     Calculate calc = new Calculate();
-    RecordedMotion record = null;
 
+    public static RecordedMotion record = null;
     public static List<Intugate> intu = new List<Intugate>();
     public static List<Intugate> inti = new List<Intugate>();
 
 	// Use this for initialization
     void Start()
     {
-        if (Directory.Exists(Application.dataPath + "/Replays/") == true && Directory.GetFiles(Application.dataPath + "/Replays/").Length > 0)
-        {
-            for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i--)
-            {
+        //if (Directory.Exists(Application.dataPath + "/Replays/") == true && Directory.GetFiles(Application.dataPath + "/Replays/").Length > 0)
+        //{
+        //    for (int i = Directory.GetFiles(Application.dataPath + "/Replays/").Length - 1; i > 0; i--)
+        //    {
 
-                string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
-                Debug.Log(pathname);
-                if (pathname.Contains(".meta") == false)
-                {
-                    BinaryFormatter bf = new BinaryFormatter();
-                    FileStream file = File.Open(pathname, FileMode.Open);
-                    Debug.Log(pathname);
-                    record = (RecordedMotion)bf.Deserialize(file);
-                    file.Close();
-                    break;
-                }
-            }
-        }
+        //        string pathname = Directory.GetFiles(Application.dataPath + "/Replays/")[i];
+        //        Debug.Log(pathname);
+        //        if (pathname.Contains(".meta") == false)
+        //        {
+        //            BinaryFormatter bf = new BinaryFormatter();
+        //            FileStream file = File.Open(pathname, FileMode.Open);
+        //            Debug.Log(pathname);
+        //            record = (RecordedMotion)bf.Deserialize(file);
+        //            file.Close();
+        //            break;
+        //        }
+        //    }
+        //}
 
-        analystatus = calc.analy(record);
+        //analystatus = calc.analy(record);
 
         List<float> spdTemp = new List<float>();
         List<bool> iscrossing = new List<bool>();
@@ -79,8 +79,11 @@ public class UI : MonoBehaviour {
                 Leftlight.Add(frame.sidelightL);
                 rightlight.Add(frame.sidelightR);
                 foreach(string wheelText in frame.wheelsOnLine){
-                    if(wheelText == "TrafficLine")
+                    if (wheelText == "TrafficLine")
+                    {
                         ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).online = true;
+                        break;
+                    }
                 }
             }
 
@@ -112,7 +115,7 @@ public class UI : MonoBehaviour {
             scoring.Add(i.getscore());
             desc.Add(i.loaddesc());
             rulepic.Add(Resources.Load<Texture>("rule/" + i.loadpic()));
-            if (i.getscore() > 49)
+            if (i.getscore() > 50)
             {
                 boo.Add(1);
             }

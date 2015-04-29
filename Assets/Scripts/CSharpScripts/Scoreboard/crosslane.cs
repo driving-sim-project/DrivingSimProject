@@ -68,11 +68,11 @@ class crosslane : Intugate
 
         for (int i = 0; i < iscrossing.Count;i++ )
         {
-            Debug.Log(i);
-            Debug.Log(iscrossing[i]);
+            //Debug.Log(i);
+            //Debug.Log(iscrossing[i]);
             if (iscrossing[i] && (Leftlight[i] || rightlight[i]))
             {
-                Debug.Log("light : "+ iscrossing[i]);
+                //Debug.Log("light : "+ iscrossing[i]);
                 b.Add(f);
             }
             else
@@ -124,11 +124,8 @@ class crosslane : Intugate
                         c++;
                         d = i;
                     }
-                    
-                    
                 }
             }
-          
         }
         if(wheelon == true)
         {
