@@ -10,6 +10,7 @@ public abstract class Intugate : MonoBehaviour  {
     protected int sc = 0;
     protected bool fa = false;
     public Transform setRefObj;
+    public Texture rulePic;
 
     abstract public int getscore();
 
