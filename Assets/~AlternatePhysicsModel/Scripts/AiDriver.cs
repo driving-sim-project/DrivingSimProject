@@ -31,9 +31,6 @@ public class AiDriver : MonoBehaviour {
 	void Update () {
 
         Vector3 front = frontSensor.transform.forward;
-        front.Set(front.x, 0f, front.z);
-        RaycastHit hit;
-        Debug.DrawRay(frontSensor.transform.position, front * calDistance, Color.red);
         if (loopRun == true)
             waypointCounter %= waypoint.waypoints.Length;
         if (waypointCounter < waypoint.waypoints.Length)
@@ -42,6 +39,9 @@ public class AiDriver : MonoBehaviour {
         if (Vector3.Cross(car.transform.forward, frontSensor.transform.forward).y < 0)
             angleTmp *= -1;
         float steeringAngle = 0f;
+        front.Set(front.x, 0f, front.z);
+        RaycastHit hit;
+        Debug.DrawRay(frontSensor.transform.position, front * calDistance, Color.red);
         if (angleTmp == 0)
         {
             steeringAngle = 0f;
@@ -135,23 +135,23 @@ public class AiDriver : MonoBehaviour {
         right[1].Set(right[1].x, 0f, right[1].z);
 
 
-        if (Physics.Raycast(leftSensor[0].transform.position, frontSensor.transform.forward, out hit, calDistance * 0.5f))
+        if (Physics.Raycast(leftSensor[0].transform.position, front, out hit, calDistance * 0.5f))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
                 car.accelKey = -throttle;
             }
         }
-        Debug.DrawRay(leftSensor[0].transform.position, frontSensor.transform.forward * calDistance * 0.5f, Color.blue);
+        Debug.DrawRay(leftSensor[0].transform.position, front * calDistance * 0.5f, Color.blue);
 
-        if (Physics.Raycast(rightSensor[0].transform.position, frontSensor.transform.forward, out hit, calDistance * 0.5f))
+        if (Physics.Raycast(rightSensor[0].transform.position, front, out hit, calDistance * 0.5f))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
                 car.accelKey = -throttle;
             }
         }
-        Debug.DrawRay(rightSensor[0].transform.position, frontSensor.transform.forward * calDistance * 0.5f, Color.blue);
+        Debug.DrawRay(rightSensor[0].transform.position, front * calDistance * 0.5f, Color.blue);
 
 
         if (car.sidelightSL == true)
