@@ -16,8 +16,6 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     public Vector3 screenPoint;
     public float sensitivity = 1f;
     public float gazeSpeed = 1f;
-    public GameObject leftMirror;
-    public GameObject rightMirror;
 
     private GazeDataValidator gazeUtils;
     private Camera cam;
@@ -77,49 +75,56 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 	// Update is called once per frame
 	void Update () {
         Point2D userPos = gazeUtils.GetLastValidSmoothedGazeCoordinates();
-
-        if (null != userPos)
+        eyesDistance = gazeUtils.GetLastValidUserDistance();
+        if (null == userPos)
         {
-            //mapping cam panning to 3:2 aspect ratio
-            //double tx = (userPos.X * 5) - 2.5f;
-            //double ty = (userPos.Y * 3) - 1.5f;
-
-            //position camera X-Y plane and adjust distance
-            eyesDistance = gazeUtils.GetLastValidUserDistance();
-            depthMod = 0.1f * eyesDistance;
-
-            //Vector3 newPos = new Vector3(
-            //    (float)(camPosition.x),
-            //    (float)(camPosition.y),
-            //    (float)(camPosition.z + depthMod));
-            //cam.transform.localPosition = newPos;
-
-            //camera 'look at' origo
+            userPos = new Point2D(Input.mousePosition.x, Input.mousePosition.y);
+            eyesDistance = 1;
+        }
             
 
-            //tilt cam according to eye angle
-            Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
-            if( gp.X > 0f && gp.X < Screen.width && gp.Y > 0f && gp.Y < Screen.height){
-                if (screenPoint == null)
-                {
-                    screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
-                }
-                else
-                {
-                    if (Vector3.Distance(screenPoint, new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f)) > sensitivity)
-                    {
-                        screenPoint = new Vector3((float)gp.X, (float)gp.Y, cam.nearClipPlane + .1f);
-                    }
-                }
-                if (screenPoint.x < Screen.width * 0.2f)
-                    cam.transform.LookAt(leftMirror.transform);
-                else if (screenPoint.x > Screen.width * 0.8f)
-                    cam.transform.LookAt(rightMirror.transform);
-                else
-                    cam.transform.LookAt(new Vector3(0f, 0f, 0f));
-                //handle collision detection
-                currentGaze = checkGazeCollision(screenPoint);
+        //mapping cam panning to 3:2 aspect ratio
+        //double tx = (userPos.X * 5) - 2.5f;
+        //double ty = (userPos.Y * 3) - 1.5f;
+
+        //position camera X-Y plane and adjust distance
+        
+        depthMod = 0.1f * eyesDistance;
+
+        //Vector3 newPos = new Vector3(
+        //    (float)(camPosition.x),
+        //    (float)(camPosition.y),
+        //    (float)(camPosition.z + depthMod));
+        //cam.transform.localPosition = newPos;
+
+        //camera 'look at' origo
+
+
+        //tilt cam according to eye angle
+        //Point2D gp = UnityGazeUtils.getGazeCoordsToUnityWindowCoords(userPos);
+        //Debug.Log(userPos.X);
+        if (userPos.X > 0f && userPos.X < Screen.width && userPos.Y > 0f && userPos.Y < Screen.height)
+        {
+            if (screenPoint == null)
+            {
+                screenPoint = new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f);
             }
+            else
+            {
+                if (Vector3.Distance(screenPoint, new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f)) > sensitivity)
+                {
+                    screenPoint = new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f);
+                }
+            }
+            
+            if (screenPoint.x < Screen.width * 0.2f)
+                cam.transform.localRotation = Quaternion.Euler(0f, -30f, 0f);
+            else if (screenPoint.x > Screen.width * 0.8f)
+                cam.transform.localRotation = Quaternion.Euler(0f, 15f, 0f);
+            else
+                cam.transform.localRotation = Quaternion.identity;
+            //handle collision detection
+            currentGaze = checkGazeCollision(screenPoint);
         }
 
 	}
@@ -129,7 +134,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         string gazingObjectName = "";
         Ray collisionRay = cam.ScreenPointToRay(screenPoint);
         RaycastHit hit;
-        if (Physics.SphereCast(collisionRay, 1f, out hit, 150f, 1 << 0))
+        if (Physics.SphereCast(collisionRay, sensitivity, out hit, 150f, 1 << 0))
         {
             if (null != hit.collider)
             {

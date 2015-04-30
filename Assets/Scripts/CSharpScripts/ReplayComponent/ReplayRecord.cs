@@ -13,16 +13,18 @@ public class ReplayRecord : MonoBehaviour
     RecordedFrame tmpFrame;
     FileStream file;
     BinaryFormatter bf;
+    string recordFile;
 
     void Awake()
     {
+        recordFile = Application.dataPath + "/Replays/" + Application.loadedLevelName + System.DateTime.Now.ToString("_yyyy-MM-dd_HH-mm") + ".dtss";
         car = GetComponent(typeof(CarController)) as CarController;
         trafficChecker = GetComponent(typeof(TrafficChecker)) as TrafficChecker;
         if (Directory.Exists(Application.dataPath + "/Replays/") == false)
             Directory.CreateDirectory(Application.dataPath + "/Replays/");
         UI.record = new RecordedMotion();
         //Application.persistentDataPath is a string, so if you wanted you can put that into debug.log if you want to know where save games are located
-        file = new FileStream(Application.dataPath + "/Replays/" + Application.loadedLevelName + System.DateTime.Now.ToString("_yyyy-MM-dd_HH-mm") + ".xml", FileMode.Append); //you can call it anything you want
+        file = new FileStream(recordFile, FileMode.Append); //you can call it anything you want
         bf = new BinaryFormatter();
     }
 
@@ -39,16 +41,18 @@ public class ReplayRecord : MonoBehaviour
         }
         UI.record.AddFrame(currentFrame);
         bf.Serialize(file, currentFrame);
+        file.Flush();
         tmpFrame = currentFrame;
+
 	}
 
     public void Save()
     {
+        file.Flush();
         UI.record.Finalize();
         UI.record.isAccident = trafficChecker.isAccident;
         UI.record.isOffTrack = trafficChecker.isOffTrack;
         UI.record.isFinish = trafficChecker.isFinish;
-        file.Flush();
         file.Close();
     }
 }

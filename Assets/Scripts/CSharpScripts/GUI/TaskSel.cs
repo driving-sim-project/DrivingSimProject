@@ -23,7 +23,7 @@ public class TaskSel : MonoBehaviour
     {
         guiPosition[0] = Screen.width / 2f - 320;
         guiPosition[1] = Screen.height / 2f - 240;
-        Screen.lockCursor = true;
+        //Screen.lockCursor = true;
         selectedMenu = defaultMenu;
         selectTime = 0f;
         Time.timeScale = 1f;
