@@ -110,9 +110,6 @@ public class CarController : MonoBehaviour {
         {
             if (SceneManager.GoScene == "replay")
             {
-                GetComponent<Drivetrain>().enabled = false;
-                GetComponent<ReplayRecord>().enabled = false;
-                GetComponent<ReplayPlayer>().enabled = true;
                 replayer = true;
             }
         }        

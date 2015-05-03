@@ -32,6 +32,7 @@ public class UI : MonoBehaviour {
     private List<string> desc = new List<string>();
     Calculate calc = new Calculate();
 
+    public static List<PlayerFrame> frames = new List<PlayerFrame>();
     public static RecordedMotion record = null;
     public static List<Intugate> intu = new List<Intugate>();
     public static List<Intugate> inti = new List<Intugate>();
@@ -66,7 +67,7 @@ public class UI : MonoBehaviour {
         List<bool> rightlight = new List<bool>();
         List<bool> wheeOnLine = new List<bool>();
 
-        foreach (RecordedFrame frame in record.frames)
+        foreach (PlayerFrame frame in UI.frames)
         {
             if (inti.Exists(x => x.loadname() == "Speedlimit"))
                 spdTemp.Add(frame.speed);

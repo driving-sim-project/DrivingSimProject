@@ -23,6 +23,8 @@ public class AiDriver : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (SceneManager.GoScene == "replay")
+            Destroy(this);
         car = GetComponent<CarController>();
         car.headlight.SetActive(headlight);
 	}

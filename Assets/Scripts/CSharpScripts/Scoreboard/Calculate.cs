@@ -97,12 +97,12 @@ public class Calculate {
         int i = 0;
         int j = 0;
         float k = 0;        
-        int l = rm.frames.Count / 20;
+        int l = UI.frames.Count / 20;
         int m = 0;
         int n = 0;
         int o = 0;
         int p = 0;
-        foreach (RecordedFrame rmm in rm.frames)
+        foreach (PlayerFrame rmm in UI.frames)
         {
             if (rmm.isCrossing)
             {

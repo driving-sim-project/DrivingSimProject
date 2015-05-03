@@ -30,6 +30,11 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
     void Start()
     {
+        if (SceneManager.GoScene == "replay")
+            Destroy(this);
+        cam = GetComponent<Camera>();
+        camPosition = cam.transform.localPosition;
+        gazeDataTmp = null;
         Screen.autorotateToPortrait = false;
         
         //gazeIndicator = cam.transform.GetChild(0);
@@ -42,15 +47,6 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         );
 
         GazeManager.Instance.AddGazeListener(this);
-    }
-
-    void Awake()
-    {
-        if (SceneManager.GoScene == "replay")
-            this.enabled = false;
-        cam = GetComponent<Camera>();
-        camPosition = cam.transform.localPosition;
-        gazeDataTmp = null;
     }
 
     public void OnGazeUpdate(GazeData gazeData)
@@ -105,16 +101,9 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         //Debug.Log(userPos.X);
         if (userPos.X > 0f && userPos.X < Screen.width && userPos.Y > 0f && userPos.Y < Screen.height)
         {
-            if (screenPoint == null)
+            if (Vector3.Distance(screenPoint, new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f)) > sensitivity)
             {
                 screenPoint = new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f);
-            }
-            else
-            {
-                if (Vector3.Distance(screenPoint, new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f)) > sensitivity)
-                {
-                    screenPoint = new Vector3((float)userPos.X, (float)userPos.Y, cam.nearClipPlane + .1f);
-                }
             }
             
             if (screenPoint.x < Screen.width * 0.2f)

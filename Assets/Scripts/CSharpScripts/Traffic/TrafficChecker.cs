@@ -14,6 +14,7 @@ public class TrafficChecker : MonoBehaviour {
     public int trafficRulesViolentNums = 0;
     public bool isOffTrack = false;
 
+    PlayerFrame currentFrame;
     bool isCrossingLane = false;
     bool loading = false;
     float cpDistance = 0f;
@@ -31,41 +32,45 @@ public class TrafficChecker : MonoBehaviour {
 
     void Start()
     {
-        replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
-        UI.inti = new List<Intugate>();
-        List<Checkpoint> checkpointListTmp = new List<Checkpoint>();
-
-        foreach (Checkpoint cpListTmp in checkpointList)
+        if (SceneManager.GoScene != "replay")
         {
-            if (checkpointListTmp.Exists(x => x == cpListTmp) == false)
+            replayRec = GetComponent(typeof(ReplayRecord)) as ReplayRecord;
+            UI.inti = new List<Intugate>();
+            List<Checkpoint> checkpointListTmp = new List<Checkpoint>();
+
+            foreach (Checkpoint cpListTmp in checkpointList)
             {
-                checkpointListTmp.Add(cpListTmp);
+                if (checkpointListTmp.Exists(x => x == cpListTmp) == false)
+                {
+                    checkpointListTmp.Add(cpListTmp);
+                }
             }
-        }
 
-        foreach (Checkpoint cpList in checkpointListTmp)
-        {
-            foreach (Intugate cpRule in cpList.rules)
+            foreach (Checkpoint cpList in checkpointListTmp)
             {
-                UI.inti.Add(cpRule);
-                Debug.Log(cpRule.loadname() + " Added.");
+                foreach (Intugate cpRule in cpList.rules)
+                {
+                    UI.inti.Add(cpRule);
+                    Debug.Log(cpRule.loadname() + " Added.");
+                }
             }
-        }
 
-        UI.intu = new List<Intugate>();
+            UI.intu = new List<Intugate>();
 
-        if(checkpointList.Length > 0){
-            foreach (Intugate rule in checkpointList[0].rules)
+            if (checkpointList.Length > 0)
             {
-                UI.intu.Add(rule);
-                Debug.Log("Checkpoint" + rule.loadname() + " " + rule.setRefObj + " Added.");
+                foreach (Intugate rule in checkpointList[0].rules)
+                {
+                    UI.intu.Add(rule);
+                    Debug.Log("Checkpoint" + rule.loadname() + " " + rule.setRefObj + " Added.");
+                }
             }
-        }
 
-        isAccident = false;
-        isFinish = false;
-        loading = false;
-        Time.timeScale = 1f;
+            isAccident = false;
+            isFinish = false;
+            loading = false;
+            Time.timeScale = 1f;
+        }
     }
 
     void FixedUpdate()
@@ -75,7 +80,6 @@ public class TrafficChecker : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
         if (isAccident == true || isOffTrack == true || isFinish == true)
         {
             if (Input.GetButtonDown("Enter"))
@@ -87,7 +91,8 @@ public class TrafficChecker : MonoBehaviour {
 
         if (replayRec.currentFrame != null)
         {
-            foreach (string tag in replayRec.currentFrame.wheelsOnLine)
+            currentFrame = (PlayerFrame)replayRec.currentFrame;
+            foreach (string tag in currentFrame.wheelsOnLine)
             {
                 if (tag == "TrafficLine")
                 {
@@ -98,7 +103,7 @@ public class TrafficChecker : MonoBehaviour {
                     isOffTrack = true;
                 }
             }
-            replayRec.currentFrame.isCrossing = isCrossingLane;
+            currentFrame.isCrossing = isCrossingLane;
         }
         else
             Debug.Log("Initializing");
@@ -121,11 +126,11 @@ public class TrafficChecker : MonoBehaviour {
             {
                 if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint.GetInstanceID() == Other.GetInstanceID())
                 {
-                    Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(replayRec.currentFrame.currentDistance);
+                    Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(currentFrame.currentDistance);
                 }
                 else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
                 {
-                    if (Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(replayRec.currentFrame.currentDistance) == true)
+                    if (Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(currentFrame.currentDistance) == true)
                     {
                         UI.intu.Find(x => x.setRefObj == Other.transform.parent).failed = true;
                     }
@@ -144,11 +149,11 @@ public class TrafficChecker : MonoBehaviour {
             }
             else if(Other.tag == "Checkpoint")
             {
-                if (replayRec.currentFrame.currentDistance > cpDistance + 10f)
+                if (currentFrame.currentDistance > cpDistance + 10f)
                 {
                     if (checkpointList[cpCounter].collider == Other)
                     {
-                        cpDistance = replayRec.currentFrame.currentDistance;
+                        cpDistance = currentFrame.currentDistance;
 
                         foreach (Intugate cp in checkpointList[cpCounter].rules)
                         {
@@ -234,7 +239,10 @@ public class TrafficChecker : MonoBehaviour {
 
     void ToMainMenu()
     {
-        replayRec.Save();
+        foreach (ReplayRecord rec in FindObjectsOfType<ReplayRecord>())
+        {
+            rec.Save();
+        }
         Application.LoadLevel("scoreboard");
     }
 }

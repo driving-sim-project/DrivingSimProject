@@ -89,6 +89,12 @@ public class Drivetrain : MonoBehaviour {
 		return result;
 	}
 
+    void Start()
+    {
+        if (SceneManager.GoScene == "replay")
+            this.enabled = false;
+    }
+
     void Update ()
     {
         if (Input.GetButtonDown("ShiftUp"))

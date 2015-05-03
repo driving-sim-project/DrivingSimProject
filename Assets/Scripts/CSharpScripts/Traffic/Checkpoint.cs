@@ -10,7 +10,6 @@ public class Checkpoint : MonoBehaviour {
     void Awake()
     {
         GetComponents<Intugate>(rules);
-        Debug.Log(rules.Count);
     }
 
 }
