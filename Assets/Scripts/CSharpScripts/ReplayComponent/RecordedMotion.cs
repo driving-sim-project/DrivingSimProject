@@ -64,7 +64,7 @@ public class RecordedMotion {
             else
             {
                 gazingIndex = gazingNameList.IndexOf(rm.gazingObjectName);
-                gazingNameList[gazingIndex] += 1;
+                gazingPerList[gazingIndex] += 1;
             }
             distance = rm.currentDistance;
         }

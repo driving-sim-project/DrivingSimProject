@@ -27,10 +27,6 @@ class trafficlight : Intugate
         return picname;
     }
 
-    public bool failed
-    {
-        set { fa = value; }
-    }
     public bool yellows
     {
         set { yellowshould = value; } // keep accel when yellow before the line 50m

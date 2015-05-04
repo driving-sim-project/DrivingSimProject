@@ -7,7 +7,6 @@ public class ReplayRecord : MonoBehaviour
 {
     public RecordedFrame currentFrame { get; private set; }
 
-    List<RecordedFrame> frames = new List<RecordedFrame>();
     RecordedMotion record = null;
     CarController car;
     TrafficChecker trafficChecker;
@@ -37,7 +36,7 @@ public class ReplayRecord : MonoBehaviour
 	void Update () {
         if (null != tmpFrame)
         {
-            if (Time.time > tmpFrame.time + 0.1f)
+            if (Time.time > tmpFrame.time + 0.02f)
                 RecordFrame();
         }
         else

@@ -145,7 +145,7 @@ public class ReplayPlayer : MonoBehaviour {
 
     void OnGUI()
     {
-        if (recording.isAi == null)
+        if (recording.isAi == false)
         {
             PlayerFrame tmpFrame = ((PlayerFrame)frame);
             GUIStyle box = GUI.skin.box;
