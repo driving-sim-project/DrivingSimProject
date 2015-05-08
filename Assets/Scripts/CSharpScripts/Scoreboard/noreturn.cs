@@ -48,4 +48,8 @@ class Noreturn : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
 }

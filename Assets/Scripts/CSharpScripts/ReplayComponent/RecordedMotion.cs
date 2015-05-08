@@ -83,7 +83,7 @@ public class RecordedMotion {
         }
     }
 
-    public void Finalize()
+    public void FinalizeMotion()
     {
         final = true;
         avgSpeed = (int)(avgSpeed / UI.frames.Count);

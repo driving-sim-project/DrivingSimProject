@@ -7,7 +7,7 @@ class speedlim : Intugate
 
     private float avgsp;
     private float topsp;
-    private List<float> sp;
+    //private List<float> sp;
 
     public speedlim()
     {
@@ -33,10 +33,10 @@ class speedlim : Intugate
     {
         set{topsp = value;}
     }
-    public List<float> speed
-    {
-        set{sp = value;}
-    }
+    //public List<float> speed
+    //{
+    //    set{sp = value;}
+    //}
 
     public override void score()
     {
@@ -52,9 +52,7 @@ class speedlim : Intugate
         }
         sc = a;
     }
-
-   
-
+  
     public override string loadname()
     {
         return Rulename;
@@ -64,4 +62,10 @@ class speedlim : Intugate
     {
         return desc;
     }
+    public override void GetData()
+    {
+        topspeed = UI.record.topSpeed;
+        avgspeed = UI.record.avgSpeed;
+    }
+
 }

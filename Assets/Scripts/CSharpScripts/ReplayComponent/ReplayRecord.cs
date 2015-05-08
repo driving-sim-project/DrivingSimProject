@@ -54,7 +54,7 @@ public class ReplayRecord : MonoBehaviour
             record.isOffTrack = trafficChecker.isOffTrack;
             record.isFinish = trafficChecker.isFinish;
         }
-        record.Finalize();
+        record.FinalizeMotion();
     }
 
     private void RecordFrame()

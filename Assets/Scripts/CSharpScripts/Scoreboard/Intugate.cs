@@ -30,4 +30,6 @@ public abstract class Intugate : MonoBehaviour  {
         get { return fa; }
     }
 
+    abstract public void GetData();
+
 }

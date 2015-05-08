@@ -28,8 +28,8 @@ public class PlayerFrame : RecordedFrame {
         time = Time.time;
         position = new Converter.Vector3(car.transform.position);
         rotation = new Converter.Quaternion(car.transform.rotation);
-        headlight = car.headlight.active;
-        rearlight = car.rearlight.active;
+        headlight = car.headlight.activeInHierarchy;
+        rearlight = car.rearlight.activeInHierarchy;
         sidelightL = car.sidelightSL;
         sidelightR = car.sidelightSR;
         throttle = car.accelKey;

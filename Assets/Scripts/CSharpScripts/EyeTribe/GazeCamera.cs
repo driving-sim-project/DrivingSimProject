@@ -20,10 +20,10 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     private GazeDataValidator gazeUtils;
     private Camera cam;
     private Component gazeIndicator;
-    private Vector3 camPosition;
-    private double eyesDistance;
+    //private Vector3 camPosition;
+    //private double eyesDistance;
     private double baseDist;
-    private double depthMod;
+    //private double depthMod;
     private GazeData gazeDataTmp;
 
 
@@ -33,7 +33,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         if (SceneManager.GoScene == "replay")
             Destroy(this);
         cam = GetComponent<Camera>();
-        camPosition = cam.transform.localPosition;
+        //camPosition = cam.transform.localPosition;
         gazeDataTmp = null;
         Screen.autorotateToPortrait = false;
         
@@ -71,11 +71,11 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 	// Update is called once per frame
 	void Update () {
         Point2D userPos = gazeUtils.GetLastValidSmoothedGazeCoordinates();
-        eyesDistance = gazeUtils.GetLastValidUserDistance();
+        //eyesDistance = gazeUtils.GetLastValidUserDistance();
         if (null == userPos)
         {
             userPos = new Point2D(Input.mousePosition.x, Input.mousePosition.y);
-            eyesDistance = 1;
+            //eyesDistance = 1;
         }
             
 
@@ -85,7 +85,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
 
         //position camera X-Y plane and adjust distance
         
-        depthMod = 0.1f * eyesDistance;
+        //depthMod = 0.1f * eyesDistance;
 
         //Vector3 newPos = new Vector3(
         //    (float)(camPosition.x),

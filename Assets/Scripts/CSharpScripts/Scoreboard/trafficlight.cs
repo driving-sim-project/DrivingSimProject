@@ -37,12 +37,6 @@ class trafficlight : Intugate
 
 
         int a = 100;
-        
-
-
-
-       
-            
             if (yellowshould == false)
             {
                 a -= 25;
@@ -51,9 +45,6 @@ class trafficlight : Intugate
             {
                 a = 0;
             }
-
-
-           
         sc = a;
 
     }
@@ -66,6 +57,9 @@ class trafficlight : Intugate
     public override string loaddesc()
     {
         return desc;
+    }
+    public override void GetData()
+    {
     }
 
 }

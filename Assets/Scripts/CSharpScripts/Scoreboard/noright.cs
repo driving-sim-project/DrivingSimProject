@@ -49,4 +49,8 @@ class Noright : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
 }

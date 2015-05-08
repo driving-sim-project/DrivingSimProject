@@ -6,12 +6,12 @@ public class ControllerMap : MonoBehaviour {
     public Texture[] controllerMap;
 
     private int index;
-    private float selectTime;
+    //private float selectTime;
 
     void Awake()
     {
         Time.timeScale = 1f;
-        selectTime = 0f;
+        //selectTime = 0f;
         index = 0;
     }
 	
@@ -19,7 +19,7 @@ public class ControllerMap : MonoBehaviour {
 	void Update () {
         if (Input.GetAxis("Vertical") < -0.5f)
         {
-            selectTime = Time.time;
+            //selectTime = Time.time;
             if (index == controllerMap.Length - 1)
                 Application.LoadLevel("startmenu");
             else

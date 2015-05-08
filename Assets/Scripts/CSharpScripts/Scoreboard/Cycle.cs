@@ -47,4 +47,8 @@ class Cycle : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    } 
+
 }

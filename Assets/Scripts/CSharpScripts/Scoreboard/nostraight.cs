@@ -44,4 +44,8 @@ class nostraight : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
 }

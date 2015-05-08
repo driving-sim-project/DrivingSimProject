@@ -50,4 +50,8 @@ class Noover : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
 }

@@ -91,7 +91,7 @@ public class Calculate {
         int e = 0;
         List<int> f = new List<int>();
         f.Add(0);
-        int g = 0;
+        //int g = 0;
         List<int> h = new List<int>();
         h.Add(0);
         int i = 0;

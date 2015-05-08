@@ -49,4 +49,9 @@ class Pause : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
+
 }

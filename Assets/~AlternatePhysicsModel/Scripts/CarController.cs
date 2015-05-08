@@ -268,7 +268,7 @@ public class CarController : MonoBehaviour {
 
             //Headlight
             if (Input.GetButtonDown("R3"))
-                headlight.gameObject.SetActive(!headlight.gameObject.active);
+                headlight.gameObject.SetActive(!headlight.gameObject.activeInHierarchy);
 
             //Sidelight switch
             //R

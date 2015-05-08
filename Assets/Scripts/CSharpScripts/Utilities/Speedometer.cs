@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpeedMiles : MonoBehaviour {
+public class Speedometer : MonoBehaviour {
 
     public CarController car;
     public int maxAngle;

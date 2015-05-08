@@ -2,13 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class ScreenTexture : MonoBehaviour {
-    public int thumbProportion = 25;
-    public Color borderColor = Color.white;
-    public int borderWidth = 2;
     public GameObject mirrorPlane;
     public float interval = 0.02f;
     private Texture2D texture;
-    private Texture2D border; 
     private float time;
     private Camera camera;
 

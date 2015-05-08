@@ -80,4 +80,9 @@ class turn : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
+
 }

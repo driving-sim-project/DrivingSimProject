@@ -6,7 +6,7 @@ class Citylimit : Intugate
 {
     private float avgsp;
     private float topsp;
-    private List<float> sp;
+    //private List<float> sp;
     public Citylimit()
     {
         Rulename = "City Limit Speed";
@@ -14,8 +14,6 @@ class Citylimit : Intugate
         desc = "ขับรถเร็วเกินอัตรากำหนด \n \n ปรับตั้งแต่ 200 - 500 บาท";
         sc = 0;
     }
-   
-
 
     public override string loadpic()
     {
@@ -33,10 +31,10 @@ class Citylimit : Intugate
     {
         set { topsp = value; }
     }
-    public List<float> speed
-    {
-        set { sp = value; }
-    }
+    //public List<float> speed
+    //{
+    //    set { sp = value; }
+    //}
 
     public override void score()
     {
@@ -54,8 +52,6 @@ class Citylimit : Intugate
         sc = a;
     }
 
-
-
     public override string loadname()
     {
         return Rulename;
@@ -64,5 +60,11 @@ class Citylimit : Intugate
     public override string loaddesc()
     {
         return desc;
+    }
+
+    public override void GetData()
+    {
+        topspeed = UI.record.topSpeed;
+        avgspeed = UI.record.avgSpeed;
     }
 }

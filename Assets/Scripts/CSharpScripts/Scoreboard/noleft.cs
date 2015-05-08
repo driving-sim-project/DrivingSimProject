@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 class noleft : Intugate
 {
-
     public noleft()
     {
         Rulename = "No Left Turn";
@@ -45,6 +44,10 @@ class noleft : Intugate
      public override string loaddesc()
      {
          return desc;
+     }
+
+     public override void GetData()
+     {
      }
 
 }

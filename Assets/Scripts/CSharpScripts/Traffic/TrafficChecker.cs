@@ -94,9 +94,15 @@ public class TrafficChecker : MonoBehaviour {
             currentFrame = (PlayerFrame)replayRec.currentFrame;
             foreach (string tag in currentFrame.wheelsOnLine)
             {
-                if (tag == "TrafficLine")
+                if (tag == "TrafficLine" )
                 {
                     isCrossingLane = true;
+                    ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).online = true;
+                }
+                else if (tag == "CrossTrafficLine")
+                {
+                    isCrossingLane = true;
+                    ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).online = true;
                 }
                 else if (tag == "Field")
                 {
@@ -104,6 +110,19 @@ public class TrafficChecker : MonoBehaviour {
                 }
             }
             currentFrame.isCrossing = isCrossingLane;
+            if (isCrossingLane == true)
+            {
+                bool longCross = true;
+                for (int i = UI.frames.Count - 1; UI.frames[i].time > Time.time - 5f; i--)
+                {
+                    if (UI.frames[i].isCrossing == false)
+                    {
+                        longCross = false;
+                        break;
+                    }
+                }
+                ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).longCross = longCross;
+            }
         }
         else
             Debug.Log("Initializing");
@@ -114,7 +133,18 @@ public class TrafficChecker : MonoBehaviour {
     {
         if (Other.tag == "TrafficLine")
         {
+            if(currentFrame.speed == 0){
+                ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).isStop = true;
+            }
+            if(currentFrame.sidelightL == false && currentFrame.sidelightR == false){
+                ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).iscross = true;
+            }
             isCrossingLane = true;
+        }
+        else if (tag == "CrossTrafficLine")
+        {
+            isCrossingLane = true;
+            ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).iscross = true;
         }
     }
 

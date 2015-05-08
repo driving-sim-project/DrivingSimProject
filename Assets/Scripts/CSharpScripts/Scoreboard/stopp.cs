@@ -51,4 +51,9 @@ class Stopp : Intugate
         return desc;
     }
 
+    public override void GetData()
+    {
+    }
+
+
 }
