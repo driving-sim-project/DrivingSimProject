@@ -32,6 +32,7 @@ public class UI : MonoBehaviour {
     public static RecordedMotion record = null;
     public static List<Intugate> intu = new List<Intugate>();
     public static List<Intugate> inti = new List<Intugate>();
+    public static AccidentAnalysis accidentAna = new AccidentAnalysis();
 
 	// Use this for initialization
     void Start()

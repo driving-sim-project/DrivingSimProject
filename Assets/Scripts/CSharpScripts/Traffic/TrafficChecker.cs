@@ -9,6 +9,7 @@ public class TrafficChecker : MonoBehaviour {
 
     public TrafficLightController[] trafficLightList;
     public Checkpoint[] checkpointList;
+    public TrafficLaneChecker trafficLane;
     public bool isAccident { get; private set; }
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
@@ -146,6 +147,24 @@ public class TrafficChecker : MonoBehaviour {
             isCrossingLane = true;
             ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).iscross = true;
         }
+
+        if(Other.tag == "TrafficLane"){
+            if (Other.GetComponentInParent<TrafficLane>().startPoint == Other)
+            {
+                trafficLane.startPointEntered(Other, currentFrame.sidelightL, currentFrame.sidelightR);
+            }
+            else if (Other.GetComponentInParent<TrafficLane>().lanePath == Other)
+            {
+                trafficLane.stayInPath(currentFrame.isCrossing, currentFrame.sidelightL, currentFrame.rearlight);
+            }
+            else
+            {
+                trafficLane.endPointEntered(Other);
+                ((turn)UI.intu.Find(x => x.loadname() == "turn")).rlane = trafficLane.inRightLane;
+                ((turn)UI.intu.Find(x => x.loadname() == "turn")).olight = trafficLane.signalLight;
+                ((turn)UI.intu.Find(x => x.loadname() == "turn")).lit = trafficLane.inLaneRange;
+            }
+        }
     }
 
     void OnTriggerEnter( Collider Other )
@@ -154,11 +173,11 @@ public class TrafficChecker : MonoBehaviour {
         {
             if (Other.tag == "SignDetectionLine")
             {
-                if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint.GetInstanceID() == Other.GetInstanceID())
+                if (Other.transform.parent.GetComponent<TurnSignChecker>().startPoint == Other)
                 {
                     Other.transform.parent.GetComponent<TurnSignChecker>().EnterCorner(currentFrame.currentDistance);
                 }
-                else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint.GetInstanceID() == Other.GetInstanceID())
+                else if (Other.transform.parent.GetComponent<TurnSignChecker>().endPoint == Other)
                 {
                     if (Other.transform.parent.GetComponent<TurnSignChecker>().LeaveCorner(currentFrame.currentDistance) == true)
                     {
@@ -219,8 +238,16 @@ public class TrafficChecker : MonoBehaviour {
     void OnCollisionEnter( Collision collision )
     {
         AudioSource.PlayClipAtPoint(accidentSFX, collision.gameObject.transform.position);
-        isAccident = true;
-        Debug.Log("You crush " + collision.gameObject.tag + " !!");
+        if(isAccident == false){
+            isAccident = true;
+            float accidentTime = currentFrame.time;
+            List<PlayerFrame> dataListTmp = new List<PlayerFrame>();
+            for (int i = UI.frames.Count - 1; UI.frames[i].time > accidentTime - 5f; i--)
+            {
+                dataListTmp.Add(UI.frames[i]);
+            }
+            UI.accidentAna.getDataFrame(dataListTmp.ToArray());
+        }
     }
 
 

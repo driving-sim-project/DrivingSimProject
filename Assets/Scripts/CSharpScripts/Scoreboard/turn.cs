@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 class turn : Intugate
 {
-    private bool rightlane;
-    private bool openlight;
-    private bool laneintime;
+    private bool rightlane = true;
+    private bool openlight = true;
+    private bool laneintime = true;
 
     public turn()
     {
@@ -44,13 +44,8 @@ class turn : Intugate
     public override void score()
     {
 
-
         int a = 100;
         
-
-
-
-
         if (rightlane == false)
         {
             a -= 25;
@@ -63,8 +58,6 @@ class turn : Intugate
         {
             a -= 25;
         }
-
-
 
         sc = a;
 

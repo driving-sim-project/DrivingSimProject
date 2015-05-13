@@ -113,7 +113,7 @@ public class AiDriver : MonoBehaviour {
         calDistance = car.speed > 10 ? frontDistance * (Mathf.Clamp(car.speed, 0, 50) / 10) : 3f;
         Debug.DrawRay(frontSensor.transform.position, carDirection * calDistance, Color.blue);
 
-        if (Physics.Raycast(frontSensor.transform.position, carDirection, out hit, calDistance))
+        if (Physics.Raycast(frontSensor.transform.position, carDirection, out hit, calDistance, 1 << 0 | 1 << 8))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
@@ -137,29 +137,29 @@ public class AiDriver : MonoBehaviour {
         right[1].Set(right[1].x, 0f, right[1].z);
 
 
-        if (Physics.Raycast(leftSensor[0].transform.position, front, out hit, calDistance * 0.5f))
+        if (Physics.Raycast(leftSensor[0].transform.position, carDirection, out hit, calDistance * 0.5f, 1 << 0 | 1 << 8))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
                 car.accelKey = -throttle;
             }
         }
-        Debug.DrawRay(leftSensor[0].transform.position, front * calDistance * 0.5f, Color.blue);
+        Debug.DrawRay(leftSensor[0].transform.position, carDirection * calDistance * 0.5f, Color.blue);
 
-        if (Physics.Raycast(rightSensor[0].transform.position, front, out hit, calDistance * 0.5f))
+        if (Physics.Raycast(rightSensor[0].transform.position, carDirection, out hit, calDistance * 0.5f, 1 << 0 | 1 << 8))
         {
             if (hit.transform.tag.Contains("Car") == true)
             {
                 car.accelKey = -throttle;
             }
         }
-        Debug.DrawRay(rightSensor[0].transform.position, front * calDistance * 0.5f, Color.blue);
+        Debug.DrawRay(rightSensor[0].transform.position, carDirection * calDistance * 0.5f, Color.blue);
 
 
         if (car.sidelightSL == true)
         {
             carDirection = new Vector3(-car.transform.right.x, 0f, -car.transform.right.z);
-            if (Physics.Raycast(leftSensor[1].transform.position, carDirection, out hit, 2.5f))
+            if (Physics.Raycast(leftSensor[1].transform.position, carDirection, out hit, 2.5f, 1 << 0 | 1 << 8))
             {
                 if (hit.transform.tag.Contains("Car") == true)
                 {
@@ -172,7 +172,7 @@ public class AiDriver : MonoBehaviour {
         if (car.sidelightSR == true)
         {
             carDirection = new Vector3(car.transform.right.x, 0f, car.transform.right.z);
-            if (Physics.Raycast(rightSensor[1].transform.position, carDirection, out hit, 2.5f))
+            if (Physics.Raycast(rightSensor[1].transform.position, carDirection, out hit, 2.5f, 1 << 0 | 1 << 8))
             {
                 if (hit.transform.tag.Contains("Car") == true)
                 {

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraSwitch : MonoBehaviour
 {
-    public GameObject[] camerasList;
+    public Camera[] camerasList;
     public string[] shortcuts;
     public bool changeAudioListener = true;
 
@@ -17,8 +17,7 @@ public class CameraSwitch : MonoBehaviour
 
     void Update()
     {
-        int i = 0;
-        for (i = 0; i < camerasList.Length; i++)
+         for (int i = 0; i < camerasList.Length; i++)
         {
             if (Input.GetKeyUp(shortcuts[i]))
                 SwitchCamera(i);
@@ -27,8 +26,7 @@ public class CameraSwitch : MonoBehaviour
 
     void SwitchCamera(int index)
     {
-        int i = 0;
-        for (i = 0; i < camerasList.Length; i++)
+        for (int i = 0; i < camerasList.Length; i++)
         {
             if (i != index)
             {
@@ -37,14 +35,16 @@ public class CameraSwitch : MonoBehaviour
                     camerasList[i].GetComponent<AudioListener>().enabled = false;
                 }
                 camerasList[i].camera.enabled = false;
+                camerasList[i].gameObject.SetActive(false);
             }
             else
             {
                 if (changeAudioListener)
                 {
-                    camerasList[i].GetComponent<AudioListener>().enabled = true;
+                    camerasList[index].GetComponent<AudioListener>().enabled = true;
                 }
-                camerasList[i].camera.enabled = true;
+                camerasList[index].camera.enabled = true;
+                camerasList[i].gameObject.SetActive(true);
             }
         }
 

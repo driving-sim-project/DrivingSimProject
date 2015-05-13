@@ -12,6 +12,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     //public float panelSize = 0.5f;
     //public int gazeSpeed = 1;
 
+    public Collider currentGazeObj;
     public string currentGaze;
     public Vector3 screenPoint;
     public float sensitivity = 1f;
@@ -113,12 +114,17 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             else
                 cam.transform.localRotation = Quaternion.identity;
             //handle collision detection
-            currentGaze = checkGazeCollision(screenPoint);
+            checkGazeCollision(screenPoint);
+        }
+        else
+        {
+            currentGaze = "Out of Screen";
+            currentGazeObj = null;
         }
 
 	}
 
-    private string checkGazeCollision(Vector3 screenPoint)
+    private void checkGazeCollision(Vector3 screenPoint)
     {
         string gazingObjectName = "";
         Ray collisionRay = cam.ScreenPointToRay(screenPoint);
@@ -128,13 +134,15 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
             if (null != hit.collider)
             {
                 gazingObjectName = hit.collider.tag;
+                currentGazeObj = hit.collider;
             }
         }
         else
         {
-            gazingObjectName = "Forward";
+            gazingObjectName = "Scene";
+            currentGazeObj = null;
         }
-        return gazingObjectName;
+        currentGaze = gazingObjectName;
     }
 
 

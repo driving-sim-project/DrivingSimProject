@@ -9,6 +9,7 @@ using System.IO;
 public class ReplayPlayer : MonoBehaviour {
 
     public Texture2D cursorImage;
+    public CameraSwitch cameraController;
 
     private int cursorWidth = 32;
     private int cursorHeight = 32;
@@ -89,6 +90,7 @@ public class ReplayPlayer : MonoBehaviour {
             }
             Debug.Log(recording.objectName + " frames: " + (recording.isAi == false ? playerFrames.Count : aiFrames.Count));
             car = GetComponent(typeof(CarController)) as CarController;
+            car.rigidbody.isKinematic = true;
             //recording = recordList[recordList.Count - 1];
             ReplaySetup();
         }        
@@ -131,8 +133,9 @@ public class ReplayPlayer : MonoBehaviour {
                     {
                         car.speed = ((PlayerFrame)frame).speed;
                         car.steeringWheel.transform.localRotation = Converter.ConvertQuaternion(((PlayerFrame)frame).steeringWheelRotation);
+                        cameraController.camerasList[0].transform.rotation = Converter.ConvertQuaternion(((PlayerFrame)frame).cameraRotaion);
                     }
-                    //Camera.main.transform.rotation = recording.frames[fn].cameraRotaion;
+                    
                 }
             }
             else
@@ -153,7 +156,7 @@ public class ReplayPlayer : MonoBehaviour {
             if (playing == true && gui == true)
             {
                 GUI.Box(new Rect(10, 10, 300, 300), "Driving Data", box);
-                GUI.Label(new Rect(20, 40, 300, 30), "Speed : " + tmpFrame.speed + " km/h" + (tmpFrame.speed > 60 ? "( Over speed limit at 60 km/h. )" : "( Speed limit at 60 km/h. )"));
+                GUI.Label(new Rect(20, 40, 300, 30), "Speed : " + tmpFrame.speed + " km/h");
                 GUI.Label(new Rect(20, 60, 300, 30), "Throttle : " + (tmpFrame.throttle > 0 ?
                     (int)(tmpFrame.throttle * 100f) : 0) + " %");
                 GUI.Label(new Rect(20, 80, 300, 30), "Brake : " + (tmpFrame.throttle <= 0 ?
