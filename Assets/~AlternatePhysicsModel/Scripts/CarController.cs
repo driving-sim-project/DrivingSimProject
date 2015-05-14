@@ -483,7 +483,6 @@ public class CarController : MonoBehaviour {
 
 	}
 
-
 	// Debug GUI. Disable when not needed.
     //void OnGUI()
     //{

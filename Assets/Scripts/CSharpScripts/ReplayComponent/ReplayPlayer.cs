@@ -10,6 +10,10 @@ public class ReplayPlayer : MonoBehaviour {
 
     public Texture2D cursorImage;
     public CameraSwitch cameraController;
+    public Material hitCollision;
+    public Material unhitCollision;
+    public Collider carCollision;
+    public AudioClip accidentSFX;
 
     private int cursorWidth = 32;
     private int cursorHeight = 32;
@@ -107,6 +111,22 @@ public class ReplayPlayer : MonoBehaviour {
             Application.LoadLevel("StartMenu");
         }
 
+        if (Input.GetAxis("Vertical") > 0)
+        {
+            if (fn + (Input.GetAxis("Vertical") * 10) < (recording.isAi == false ? playerFrames.Count : aiFrames.Count))
+                fn += (int)(Input.GetAxis("Vertical") * 10);
+            else
+                fn = (recording.isAi == false ? playerFrames.Count : aiFrames.Count);
+        }
+
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            if (fn + (Input.GetAxis("Vertical") * 10) > 0)
+                fn += (int)(Input.GetAxis("Vertical") * 10);
+            else 
+                fn = 0;
+        }
+
 	    if(recording != null){
             if (fn < (recording.isAi == false ? playerFrames.Count : aiFrames.Count ) - 1)
             {
@@ -114,7 +134,7 @@ public class ReplayPlayer : MonoBehaviour {
                     frame = playerFrames[fn];
                 else
                     frame = aiFrames[fn];
-                if (Time.time + startTime > frame.time)
+                if (Time.time > startTime + 0.01f)
                 {
                     fn++;
                     transform.position = Converter.ConvertVector3(frame.position);
@@ -123,7 +143,7 @@ public class ReplayPlayer : MonoBehaviour {
                     car.rearlight.SetActive(frame.rearlight);
                     car.sidelightSL = frame.sidelightL;
                     car.sidelightSR = frame.sidelightR;
-                    car.taillight.SetActive(frame.throttle > 0 ? false : true);
+                    car.taillight.SetActive(frame.throttle >= 0 ? false : true);
                     for (int i = 0; i < car.wheels.Length; i++)
                     {
                         car.wheels[i].model.transform.localPosition = Converter.ConvertVector3(frame.wheelsPosition[i]);
@@ -137,14 +157,29 @@ public class ReplayPlayer : MonoBehaviour {
                     }
                     
                 }
-            }
-            else
-            {
-                fn = 0;
                 startTime = Time.time;
             }
         }
 	}
+
+    void OnTriggerStay(Collider Other)
+    {
+        if (Other.tag.Contains("TrafficLine") == true && recording.isAi == false)
+            carCollision.renderer.material = hitCollision;
+    }
+
+    void OnTriggerExit(Collider Other)
+    {
+        if (Other.tag.Contains("TrafficLine") == true && recording.isAi == false)
+            carCollision.renderer.material = unhitCollision;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        AudioSource.PlayClipAtPoint(accidentSFX, collision.gameObject.transform.position);
+        carCollision.renderer.material = hitCollision;
+    }
+
 
     void OnGUI()
     {
@@ -178,7 +213,7 @@ public class ReplayPlayer : MonoBehaviour {
                 GUI.Box(new Rect(Screen.width - 320, 10, 300, 20 + 30 * recording.gazingNameList.Count), "Gazing Statistics", box);
                 for (int i = 0; i < recording.gazingNameList.Count; i++)
                     GUI.Label(new Rect(Screen.width - 320, 30 + 20 * i, 300, 30),
-                        recording.gazingNameList[i] + " : " + (recording.gazingPerList[i] * 100f) / (recording.isAi == false ? playerFrames.Count : aiFrames.Count) + "%");
+                        (recording.gazingNameList[i]) + " : " + (recording.gazingPerList[i] * 100f) / (recording.isAi == false ? playerFrames.Count : aiFrames.Count) + "%");
                 GUI.DrawTexture(new Rect(tmpFrame.eyePosition.x, Screen.height - tmpFrame.eyePosition.y, cursorWidth, cursorHeight), cursorImage);
 
             }
@@ -196,7 +231,6 @@ public class ReplayPlayer : MonoBehaviour {
 
     void ReplaySetup()
     {
-        startTime = Time.time;
         if (recording != null)
         {
             recording.currentFrameNumber = 0;

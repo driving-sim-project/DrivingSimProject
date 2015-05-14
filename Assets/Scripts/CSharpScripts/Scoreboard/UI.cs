@@ -37,7 +37,6 @@ public class UI : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
-
         //List<float> spdTemp = new List<float>();
         //List<bool> iscrossing = new List<bool>();
         //List<bool> Leftlight = new List<bool>();
@@ -84,6 +83,8 @@ public class UI : MonoBehaviour {
         //    ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).sidelightL = Leftlight;
         //    ((crosslane)inti.Find(x => x.loadname() == "Cross Lane")).sidelightR = rightlight;
         //}
+
+        UI.accidentAna.analyze();
         
         foreach (Intugate i in intu)
         {
@@ -138,8 +139,6 @@ public class UI : MonoBehaviour {
         //rulelis = calc.loadrulen();
         //scoring = calc.loadescore();
         //desc = calc.loaddesc();
-
-        
     }
 
 	void OnGUI(){
@@ -203,10 +202,13 @@ public class UI : MonoBehaviour {
             GUI.Label(new Rect(Screen.width / 2 - 75, Screen.height - 200, 150, 150), grade[gradeCal(inti[bull].getscore())]);
 
         }
-        if (toolbarInt == 2)
+        if (UI.record.isAccident == true)
         {
-            GUI.Label(new Rect(Screen.width / 2 - 50, 100, 200, 50), "drunk");
-            GUI.Label(new Rect(Screen.width / 2 - 100, 225, 400, 400), "You are so very high risky driving");
+            if (toolbarInt == 2)
+            {
+                GUI.Label(new Rect(Screen.width / 2 - 50, 100, 200, 50), "Accident analysis");
+                GUI.Label(new Rect(Screen.width / 2 - 100, 225, 400, 400), UI.accidentAna.details());
+            }
         }
 	}
 

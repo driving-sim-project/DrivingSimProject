@@ -36,7 +36,7 @@ public class ReplayRecord : MonoBehaviour
 	void Update () {
         if (null != tmpFrame)
         {
-            if (Time.time > tmpFrame.time + 0.02f)
+            if (Time.time > tmpFrame.time)
                 RecordFrame();
         }
         else
@@ -67,7 +67,7 @@ public class ReplayRecord : MonoBehaviour
         }
         else
         {
-            currentFrame = new PlayerFrame(car);
+            currentFrame = new PlayerFrame(car, trafficChecker.front.currentObj, trafficChecker.left.currentObj, trafficChecker.right.currentObj, trafficChecker.back.currentObj);
             if (tmpFrame == null)
             {
                 ((PlayerFrame)currentFrame).currentDistance = 0f;

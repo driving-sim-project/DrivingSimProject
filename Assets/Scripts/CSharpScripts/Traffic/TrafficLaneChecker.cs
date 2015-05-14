@@ -75,6 +75,7 @@ public class TrafficLaneChecker : MonoBehaviour {
             tl.setEndPoint(false);
             tl.setStartPoint(true);
         }
+        Debug.Log(inRightLane + "/" + signalLight + "/" + inLaneRange);
     }
 
 }

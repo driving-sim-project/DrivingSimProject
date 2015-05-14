@@ -3,28 +3,31 @@ using System.Collections;
 
 public class EnviromentMonitor : MonoBehaviour {
 
-    public Collider currentObj;
+    public GameObject currentObj = null;
     public Material hitMat;
     public Material unhitMat;
 
     void OnTriggerEnter(Collider Other)
     {
-        renderer.material = hitMat;
+        if (SceneManager.GoScene == "replay")
+        {
+            renderer.material = hitMat;
+        }
+        Debug.Log(Other.gameObject.GetInstanceID());
     }
 
     void OnTriggerStay(Collider Other)
     {
-        currentObj = Other;
-        //Debug.Log(name +" "+ Other.tag);
-        //foreach (ContactPoint contact in collisionInfo.contacts)
-        //{
-        //    Debug.DrawRay(contact.point, contact.normal * 10, Color.white);
-        //}
+        currentObj = Other.gameObject;
     }
 
     void OnTriggerExit(Collider Other)
     {
-        renderer.material = unhitMat;
+        if (SceneManager.GoScene == "replay")
+        {
+            renderer.material = unhitMat;
+        }
+        currentObj = null;
     }
 
 }

@@ -7,6 +7,11 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CarController))]
 public class TrafficChecker : MonoBehaviour {
 
+    public EnviromentMonitor front;
+    public EnviromentMonitor left;
+    public EnviromentMonitor right;
+    public EnviromentMonitor back;
+
     public TrafficLightController[] trafficLightList;
     public Checkpoint[] checkpointList;
     public TrafficLaneChecker trafficLane;
@@ -74,11 +79,6 @@ public class TrafficChecker : MonoBehaviour {
         }
     }
 
-    void FixedUpdate()
-    {
-        isCrossingLane = false;
-    }
-
 	// Update is called once per frame
 	void Update () {
         if (isAccident == true || isOffTrack == true || isFinish == true)
@@ -95,14 +95,10 @@ public class TrafficChecker : MonoBehaviour {
             currentFrame = (PlayerFrame)replayRec.currentFrame;
             foreach (string tag in currentFrame.wheelsOnLine)
             {
-                if (tag == "TrafficLine" )
+                if (tag == "TrafficLine" | tag == "CrossTrafficLine")
                 {
                     isCrossingLane = true;
-                    ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).online = true;
-                }
-                else if (tag == "CrossTrafficLine")
-                {
-                    isCrossingLane = true;
+                    currentFrame.isCrossing = isCrossingLane;
                     ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).online = true;
                 }
                 else if (tag == "Field")
@@ -110,7 +106,6 @@ public class TrafficChecker : MonoBehaviour {
                     isOffTrack = true;
                 }
             }
-            currentFrame.isCrossing = isCrossingLane;
             if (isCrossingLane == true)
             {
                 bool longCross = true;
@@ -141,10 +136,12 @@ public class TrafficChecker : MonoBehaviour {
                 ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).iscross = true;
             }
             isCrossingLane = true;
+            currentFrame.isCrossing = isCrossingLane;
         }
         else if (tag == "CrossTrafficLine")
         {
             isCrossingLane = true;
+            currentFrame.isCrossing = isCrossingLane;
             ((crosslane)UI.intu.Find(x => x.loadname() == "Cross Lane")).iscross = true;
         }
 
@@ -164,6 +161,16 @@ public class TrafficChecker : MonoBehaviour {
                 ((turn)UI.intu.Find(x => x.loadname() == "turn")).olight = trafficLane.signalLight;
                 ((turn)UI.intu.Find(x => x.loadname() == "turn")).lit = trafficLane.inLaneRange;
             }
+        }
+        
+    }
+
+    void OnTriggerExit( Collider Other )
+    {
+        if (tag == "CrossTrafficLine")
+        {
+            isCrossingLane = false;
+            currentFrame.isCrossing = isCrossingLane;
         }
     }
 
@@ -239,6 +246,15 @@ public class TrafficChecker : MonoBehaviour {
     {
         AudioSource.PlayClipAtPoint(accidentSFX, collision.gameObject.transform.position);
         if(isAccident == false){
+            UI.accidentAna.getHitObjID(collision.gameObject.GetInstanceID());
+            if (front.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+                UI.accidentAna.getHitDirection(0);
+            else if (left.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+                UI.accidentAna.getHitDirection(1);
+            else if (right.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+                UI.accidentAna.getHitDirection(2);
+            else if (back.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+                UI.accidentAna.getHitDirection(3);
             isAccident = true;
             float accidentTime = currentFrame.time;
             List<PlayerFrame> dataListTmp = new List<PlayerFrame>();

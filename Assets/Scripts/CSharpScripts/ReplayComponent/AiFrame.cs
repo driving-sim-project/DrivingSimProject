@@ -12,6 +12,7 @@ public class AiFrame : RecordedFrame {
 
     public AiFrame(CarController car)
     {
+        throttle = car.accelKey;
         rpm = car.GetComponent<Drivetrain>().rpm;
         time = Time.time;
         position = new Converter.Vector3(car.transform.position);
