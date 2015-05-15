@@ -245,24 +245,31 @@ public class TrafficChecker : MonoBehaviour {
     void OnCollisionEnter( Collision collision )
     {
         AudioSource.PlayClipAtPoint(accidentSFX, collision.gameObject.transform.position);
+        float angleTmp = Vector2.Angle(new Vector2(transform.forward.x, transform.forward.z), new Vector2(transform.position.x - collision.transform.position.x, transform.position.z - collision.transform.position.z));
+        if (Vector3.Cross(transform.forward, transform.position - collision.transform.position).y > 0)
+            angleTmp *= -1;
+        Debug.Log(angleTmp);
         if(isAccident == false){
-            UI.accidentAna.getHitObjID(collision.gameObject.GetInstanceID());
-            if (front.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+            UI.accidentAna.getHitObjTag(collision.gameObject.tag);
+            if (angleTmp > 135f)
                 UI.accidentAna.getHitDirection(0);
-            else if (left.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
-                UI.accidentAna.getHitDirection(1);
-            else if (right.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+            else if (angleTmp > 45f)
                 UI.accidentAna.getHitDirection(2);
-            else if (back.currentObj.GetInstanceID() == collision.gameObject.GetInstanceID())
+            else if (angleTmp > -45f)
                 UI.accidentAna.getHitDirection(3);
+            else if (angleTmp > -135f)
+                UI.accidentAna.getHitDirection(1);
+            else if (angleTmp > -180f)
+                UI.accidentAna.getHitDirection(0);
+
             isAccident = true;
-            float accidentTime = currentFrame.time;
-            List<PlayerFrame> dataListTmp = new List<PlayerFrame>();
-            for (int i = UI.frames.Count - 1; UI.frames[i].time > accidentTime - 5f; i--)
-            {
-                dataListTmp.Add(UI.frames[i]);
-            }
-            UI.accidentAna.getDataFrame(dataListTmp.ToArray());
+            //float accidentTime = currentFrame.time;
+            //List<PlayerFrame> dataListTmp = new List<PlayerFrame>();
+            //for (int i = UI.frames.Count - 1; UI.frames[i].time > accidentTime - 5f; i--)
+            //{
+            //    dataListTmp.Add(UI.frames[i]);
+            //}
+            //UI.accidentAna.getDataFrame(dataListTmp.ToArray());
         }
     }
 

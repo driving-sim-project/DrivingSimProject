@@ -13,7 +13,6 @@ public class EnviromentMonitor : MonoBehaviour {
         {
             renderer.material = hitMat;
         }
-        Debug.Log(Other.gameObject.GetInstanceID());
     }
 
     void OnTriggerStay(Collider Other)

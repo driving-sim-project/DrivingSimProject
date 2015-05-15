@@ -37,11 +37,12 @@ public class AiDriver : MonoBehaviour {
             waypointCounter %= waypoint.waypoints.Length;
         if (waypointCounter < waypoint.waypoints.Length)
             frontSensor.transform.LookAt(waypoint.waypoints[waypointCounter].transform);
+        front.Set(front.x, 0f, front.z);
         float angleTmp = Vector3.Angle(car.transform.forward, frontSensor.transform.forward);
         if (Vector3.Cross(car.transform.forward, frontSensor.transform.forward).y < 0)
             angleTmp *= -1;
         float steeringAngle = 0f;
-        front.Set(front.x, 0f, front.z);
+        
         RaycastHit hit;
         Debug.DrawRay(frontSensor.transform.position, front * calDistance, Color.red);
         if (angleTmp == 0)

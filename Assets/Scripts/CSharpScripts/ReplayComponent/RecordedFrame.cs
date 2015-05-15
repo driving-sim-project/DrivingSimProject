@@ -84,15 +84,15 @@ public abstract class RecordedFrame {
             }
             ((PlayerFrame)frame).isCrossing = bool.Parse(txtForm[index++]);
 
-            ((PlayerFrame)frame).collisionTag[0] = txtForm[index++];
-            ((PlayerFrame)frame).collisionTag[1] = txtForm[index++];
-            ((PlayerFrame)frame).collisionTag[2] = txtForm[index++];
-            ((PlayerFrame)frame).collisionTag[3] = txtForm[index++];
+            //((PlayerFrame)frame).collisionTag[0] = txtForm[index++];
+            //((PlayerFrame)frame).collisionTag[1] = txtForm[index++];
+            //((PlayerFrame)frame).collisionTag[2] = txtForm[index++];
+            //((PlayerFrame)frame).collisionTag[3] = txtForm[index++];
 
-            ((PlayerFrame)frame).collisionID[0] = int.Parse(txtForm[index++]);
-            ((PlayerFrame)frame).collisionID[1] = int.Parse(txtForm[index++]);
-            ((PlayerFrame)frame).collisionID[2] = int.Parse(txtForm[index++]);
-            ((PlayerFrame)frame).collisionID[3] = int.Parse(txtForm[index++]);
+            //((PlayerFrame)frame).collisionID[0] = int.Parse(txtForm[index++]);
+            //((PlayerFrame)frame).collisionID[1] = int.Parse(txtForm[index++]);
+            //((PlayerFrame)frame).collisionID[2] = int.Parse(txtForm[index++]);
+            //((PlayerFrame)frame).collisionID[3] = int.Parse(txtForm[index++]);
 
         }
         else
@@ -207,17 +207,17 @@ public abstract class RecordedFrame {
             data.Add(s + ',');
         }
 
-        data.Add(playerFrame.isCrossing.ToString() + ',');
+        data.Add(playerFrame.isCrossing.ToString());
 
-        data.Add(playerFrame.collisionTag[0] + ',');
-        data.Add(playerFrame.collisionTag[1] + ',');
-        data.Add(playerFrame.collisionTag[2] + ',');
-        data.Add(playerFrame.collisionTag[3] + ',');
+        //data.Add(playerFrame.collisionTag[0] + ',');
+        //data.Add(playerFrame.collisionTag[1] + ',');
+        //data.Add(playerFrame.collisionTag[2] + ',');
+        //data.Add(playerFrame.collisionTag[3] + ',');
 
-        data.Add(playerFrame.collisionID[0].ToString() + ',');
-        data.Add(playerFrame.collisionID[1].ToString() + ',');
-        data.Add(playerFrame.collisionID[2].ToString() + ',');
-        data.Add(playerFrame.collisionID[3].ToString());
+        //data.Add(playerFrame.collisionID[0].ToString() + ',');
+        //data.Add(playerFrame.collisionID[1].ToString() + ',');
+        //data.Add(playerFrame.collisionID[2].ToString() + ',');
+        //data.Add(playerFrame.collisionID[3].ToString());
 
         return data.ToArray();
     }

@@ -14,12 +14,12 @@ public class PlayerFrame : RecordedFrame {
     public Converter.Quaternion steeringWheelRotation;
     public string[] wheelsOnLine;
     public bool isCrossing;
-    public string[] collisionTag = new string[4];
-    public int[] collisionID = new int[4];
+    //public string[] collisionTag = new string[4];
+    //public int[] collisionID = new int[4];
 
     public PlayerFrame()
     {
-
+        
     }
 
     public PlayerFrame( CarController car, GameObject front, GameObject left, GameObject right, GameObject back)
@@ -57,14 +57,14 @@ public class PlayerFrame : RecordedFrame {
         cameraRotaion = new Converter.Quaternion(Camera.main.transform.rotation);
         eyePosition = new Converter.Vector3(Camera.main.GetComponent<GazeCamera>().screenPoint);
         gazingObjectName = Camera.main.GetComponent<GazeCamera>().currentGaze;
-        collisionTag[0] = front != null ? front.tag : "None";
-        collisionTag[1] = left != null ? left.tag : "None";
-        collisionTag[2] = right != null ? right.tag : "None";
-        collisionTag[3] = back != null ? back.tag : "None";
-        collisionID[0] = front != null ? front.GetInstanceID() : 0;
-        collisionID[1] = left != null ? left.GetInstanceID() : 0;
-        collisionID[2] = right != null ? right.GetInstanceID() : 0;
-        collisionID[3] = back != null ? back.GetInstanceID() : 0;
+        //collisionTag[0] = front != null ? front.tag : "None";
+        //collisionTag[1] = left != null ? left.tag : "None";
+        //collisionTag[2] = right != null ? right.tag : "None";
+        //collisionTag[3] = back != null ? back.tag : "None";
+        //collisionID[0] = front != null ? front.GetInstanceID() : 0;
+        //collisionID[1] = left != null ? left.GetInstanceID() : 0;
+        //collisionID[2] = right != null ? right.GetInstanceID() : 0;
+        //collisionID[3] = back != null ? back.GetInstanceID() : 0;
     }
 
 }

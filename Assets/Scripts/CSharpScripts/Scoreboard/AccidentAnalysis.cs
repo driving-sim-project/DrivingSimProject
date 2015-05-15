@@ -4,53 +4,52 @@ using System.Collections.Generic;
 
 public class AccidentAnalysis {
 
-
-    PlayerFrame[] dataFrames;
-    int hitObjID;
+    //PlayerFrame[] dataFrames;
+    string hitObjTag;
     int hitDirection;
     string anaTxt = "";
 
-    public void getDataFrame( PlayerFrame[] dataList)
-    {
-        dataFrames = dataList;
-    }
+    //public void getDataFrame( PlayerFrame[] dataList)
+    //{
+    //    dataFrames = dataList;
+    //}
 
-    public void getHitObjID(int ID)
+    public void getHitObjTag(string Tag)
     {
-        hitObjID = ID;
+        hitObjTag = Tag;
     }
 
     public void getHitDirection(int direction)
     {
         hitDirection = direction;
+        //Debug.Log("Direction : " + direction);
     }
 
     public void analyze()
     {
 
-        Debug.Log(hitObjID);
         //anaTxt = "";
         //for (int i = 0; i < dataFrames[dataFrames.Length - 1].collisionID.Length; i++)
         //{
         //    Debug.Log(dataFrames[dataFrames.Length - 1].collisionID[i]);
         //    if (dataFrames[dataFrames.Length - 1].collisionID[i] == hitObjID)
         //    {
-        //        anaTxt += "You hited by " + dataFrames[dataFrames.Length - 1].collisionTag;
-        //        switch (i)
-        //        {
-        //            case 0:
-        //                anaTxt += " in front of you.";
-        //                break;
-        //            case 1:
-        //                anaTxt += " on your left.";
-        //                break;
-        //            case 2:
-        //                anaTxt += " on your right.";
-        //                break;
-        //            case 3:
-        //                anaTxt += " in the back.";
-        //                break;
-        //        }
+        anaTxt += "You hited " + hitObjTag;
+        switch (hitDirection)
+        {
+            case 0:
+                anaTxt += " in front of you.";
+                break;
+            case 1:
+                anaTxt += " on your left.";
+                break;
+            case 2:
+                anaTxt += " on your right.";
+                break;
+            case 3:
+                anaTxt += " in the back.";
+                break;
+        }
         //    }
         //    else
         //    {
