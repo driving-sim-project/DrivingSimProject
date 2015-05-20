@@ -23,6 +23,9 @@ class Noright : Intugate
     {
         int a = 100;
 
+        if (isLooked == false)
+            a -= 25;
+
         if (fa)
         {
 

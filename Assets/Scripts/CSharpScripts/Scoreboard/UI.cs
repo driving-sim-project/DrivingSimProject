@@ -198,7 +198,7 @@ public class UI : MonoBehaviour {
             }
             GUI.DrawTexture(new Rect(80, 80, 100, 100), inti[bull].rulePic, ScaleMode.StretchToFill, true, 10.0F);
             GUI.Label(new Rect(Screen.width / 2 - 75, 100, 200, 50), inti[bull].loadname());
-            GUI.Label(new Rect(Screen.width / 2 - 175, 150, 400, 400), desc[bull]);
+            GUI.Label(new Rect(Screen.width / 2 - 175, 150, 400, 400), inti[bull].loaddesc());
             GUI.Label(new Rect(Screen.width / 2 - 75, Screen.height - 200, 150, 150), grade[gradeCal(inti[bull].getscore())]);
 
         }

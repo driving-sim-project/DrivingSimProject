@@ -300,14 +300,14 @@ public class CalibCamera : MonoBehaviour, IGazeListener, ICalibrationProcessHand
                 Invoke("showNextCalibrationPoint", .25f);
             }));
         }
-        else
-        {
-            //Handle on main UI thread
-            QueueCallback(new Callback(delegate
-            {
-                Application.LoadLevel(SceneManager.GoScene);
-            }));
-        }
+        //else
+        //{
+        //    //Handle on main UI thread
+        //    QueueCallback(new Callback(delegate
+        //    {
+        //        Application.LoadLevel(SceneManager.GoScene);
+        //    }));
+        //}
     }
 
     private void shortDelay()

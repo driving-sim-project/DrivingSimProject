@@ -21,12 +21,16 @@ class noleft : Intugate
     {
         int a = 100;
 
+        if (isLooked == false)
+            a -= 25;
+
         if (fa)
         {
             
-            a -= 100;
+            a = 0;
             
         }
+
 
         this.sc = a;
     }

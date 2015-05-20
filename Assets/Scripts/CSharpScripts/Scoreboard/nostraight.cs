@@ -24,8 +24,13 @@ class nostraight : Intugate
     {
         
         int a = 100;
+
+        if (isLooked == false)
+            a -= 25;
+
         if(failed == true)
-            a -= 50;
+            a = 0;
+
         this.sc = a;
     }
 

@@ -15,6 +15,7 @@ public class TrafficChecker : MonoBehaviour {
     public TrafficLightController[] trafficLightList;
     public Checkpoint[] checkpointList;
     public TrafficLaneChecker trafficLane;
+    public GazeCamera gazeCamera;
     public bool isAccident { get; private set; }
     public bool isFinish { get; private set; }
     public int trafficRulesViolentNums = 0;
@@ -58,6 +59,7 @@ public class TrafficChecker : MonoBehaviour {
                 {
                     UI.inti.Add(cpRule);
                     Debug.Log(cpRule.loadname() + " Added.");
+                    Debug.Log(cpRule.setRefObj.GetInstanceID() + " ID.");
                 }
             }
 
@@ -104,8 +106,22 @@ public class TrafficChecker : MonoBehaviour {
                 else if (tag == "Field")
                 {
                     isOffTrack = true;
+                    UI.accidentAna.offTrack = true;
                 }
             }
+
+            if (UI.intu.Exists(x => x.setRefObj != null) && gazeCamera.currentGazeObj != null)
+            {
+                foreach (Intugate rules in UI.intu.FindAll(x => x.setRefObj != null))
+                {
+                    if (gazeCamera.currentGazeObj.transform.IsChildOf(rules.setRefObj) == true)
+                    {
+                        rules.isLooked = true;
+                        Debug.Log(rules.loadname() + " True");
+                    }
+                }
+            }
+
             if (isCrossingLane == true)
             {
                 bool longCross = true;
@@ -248,7 +264,6 @@ public class TrafficChecker : MonoBehaviour {
         float angleTmp = Vector2.Angle(new Vector2(transform.forward.x, transform.forward.z), new Vector2(transform.position.x - collision.transform.position.x, transform.position.z - collision.transform.position.z));
         if (Vector3.Cross(transform.forward, transform.position - collision.transform.position).y > 0)
             angleTmp *= -1;
-        Debug.Log(angleTmp);
         if(isAccident == false){
             UI.accidentAna.getHitObjTag(collision.gameObject.tag);
             if (angleTmp > 135f)
@@ -263,9 +278,15 @@ public class TrafficChecker : MonoBehaviour {
                 UI.accidentAna.getHitDirection(0);
 
             isAccident = true;
-            //float accidentTime = currentFrame.time;
-            //List<PlayerFrame> dataListTmp = new List<PlayerFrame>();
-            //for (int i = UI.frames.Count - 1; UI.frames[i].time > accidentTime - 5f; i--)
+            UI.accidentAna.accident = true;
+
+            float accidentTime = Time.time;
+            for (int i = UI.frames.Count - 1; UI.frames[i].time > accidentTime - 5f; i--)
+            {
+                //if(UI.frames[i].gazingObjectName == ){
+
+                //}
+            }
             //{
             //    dataListTmp.Add(UI.frames[i]);
             //}

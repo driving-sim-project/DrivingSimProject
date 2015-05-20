@@ -49,6 +49,9 @@ class Citylimit : Intugate
         {
             a -= 25;
         }
+        if (isLooked == false)
+            a -= 25;
+
         sc = a;
     }
 

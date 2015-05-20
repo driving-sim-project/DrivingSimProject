@@ -12,7 +12,7 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
     //public float panelSize = 0.5f;
     //public int gazeSpeed = 1;
 
-    public Collider currentGazeObj;
+    public Transform currentGazeObj;
     public string currentGaze;
     public Vector3 screenPoint;
     public float sensitivity = 1f;
@@ -129,12 +129,12 @@ public class GazeCamera : MonoBehaviour, IGazeListener {
         string gazingObjectName = "";
         Ray collisionRay = cam.ScreenPointToRay(screenPoint);
         RaycastHit hit;
-        if (Physics.SphereCast(collisionRay, sensitivity, out hit, 150f, 1 << 0))
+        if (Physics.SphereCast(collisionRay, 0.02f, out hit, 150f, 1 << 0))
         {
             if (null != hit.collider)
             {
                 gazingObjectName = hit.collider.tag;
-                currentGazeObj = hit.collider;
+                currentGazeObj = hit.transform;
             }
         }
         else
