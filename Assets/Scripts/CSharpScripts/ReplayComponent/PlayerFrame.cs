@@ -9,6 +9,7 @@ public class PlayerFrame : RecordedFrame {
     public float steering;
     public float currentDistance;
     public string gazingObjectName;
+    public int gazingObjectID;
     public Converter.Quaternion cameraRotaion;
     public Converter.Vector3 eyePosition;
     public Converter.Quaternion steeringWheelRotation;
@@ -22,7 +23,7 @@ public class PlayerFrame : RecordedFrame {
         
     }
 
-    public PlayerFrame( CarController car, GameObject front, GameObject left, GameObject right, GameObject back)
+    public PlayerFrame( CarController car )
     {
         currentDistance = 0f;
         rpm = car.drivetrain.rpm / car.drivetrain.maxRPM;
@@ -57,6 +58,7 @@ public class PlayerFrame : RecordedFrame {
         cameraRotaion = new Converter.Quaternion(Camera.main.transform.rotation);
         eyePosition = new Converter.Vector3(Camera.main.GetComponent<GazeCamera>().screenPoint);
         gazingObjectName = Camera.main.GetComponent<GazeCamera>().currentGaze;
+        gazingObjectID = Camera.main.GetComponent<GazeCamera>().currentGazeObj != null ? Camera.main.GetComponent<GazeCamera>().currentGazeObj.gameObject.GetInstanceID() : 0;
         //collisionTag[0] = front != null ? front.tag : "None";
         //collisionTag[1] = left != null ? left.tag : "None";
         //collisionTag[2] = right != null ? right.tag : "None";

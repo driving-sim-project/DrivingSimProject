@@ -166,8 +166,8 @@ public class UI : MonoBehaviour {
                 GUI.Label(new Rect(Screen.width - (Screen.width / 3), 110 + (30 * (i + 1)), 200, 40), intu[i].getscore() + " %");
                 GUI.Label(new Rect(Screen.width - 115, 110 + (30 * (i + 1)), 200, 40), grade[gradeCal(intu[i].getscore())]);
             }
-            GUI.Label(new Rect(Screen.width/4-75,Screen.height - 200, 400, 150),passed[s] );
-            GUI.Label(new Rect(Screen.width/2-75, Screen.height - 150, 400, 150),score + "%" ,style2);
+            GUI.Label(new Rect(Screen.width/10,Screen.height - 200, 400, 150),passed[s] );
+            GUI.Label(new Rect(Screen.width/3 + 50, Screen.height - (Screen.height / 4), 100, 100),(int)score + "%" ,style2);
             GUI.Label(new Rect(Screen.width - (Screen.width / 4) - 75, Screen.height - 200, 400, 150), grade[gradeCal((int)score)]);
 
         }

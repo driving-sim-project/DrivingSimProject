@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public abstract class RecordedFrame {
+public class RecordedFrame {
     
     public float time;
     public float rpm;
@@ -17,6 +17,38 @@ public abstract class RecordedFrame {
     public int[] wheelAngle;
     public bool sidelightR;
     public bool sidelightL;
+
+    public RecordedFrame()
+    {
+
+    }
+
+    public RecordedFrame(CarController car)
+    {
+        throttle = car.accelKey;
+        rpm = car.GetComponent<Drivetrain>().rpm;
+        time = Time.time;
+        position = new Converter.Vector3(car.transform.position);
+        rotation = new Converter.Quaternion(car.transform.rotation);
+        headlight = car.headlight.activeInHierarchy;
+        rearlight = car.rearlight.activeInHierarchy;
+        sidelightL = car.sidelightSL;
+        sidelightR = car.sidelightSR;
+        List<Converter.Vector3> wheelsPositionTemp = new List<Converter.Vector3>();
+        List<Converter.Quaternion> wheelsRotationTemp = new List<Converter.Quaternion>();
+        List<int> wheelAngleTemp = new List<int>();
+        foreach (Wheel w in car.wheels)
+        {
+            wheelsPositionTemp.Add(new Converter.Vector3(w.model.transform.localPosition));
+            wheelsRotationTemp.Add(new Converter.Quaternion(w.model.transform.localRotation));
+            wheelAngleTemp.Add((int)((w.model.transform.localRotation.eulerAngles.y % 180) > 90 ?
+                180 - (w.model.transform.localRotation.eulerAngles.y % 180) :
+                w.model.transform.localRotation.eulerAngles.y % 180));
+        }
+        wheelsPosition = wheelsPositionTemp.ToArray();
+        wheelsRotation = wheelsRotationTemp.ToArray();
+        wheelAngle = wheelAngleTemp.ToArray();
+    }
 
     public static RecordedFrame dataFrame (bool isAi, string[] txtForm)
     {
@@ -97,7 +129,7 @@ public abstract class RecordedFrame {
         }
         else
         {
-            frame = new AiFrame();
+            frame = new RecordedFrame();
             frame.time = float.Parse(txtForm[index++]);
             frame.rpm = float.Parse(txtForm[index++]);
             frame.throttle = float.Parse(txtForm[index++]);
@@ -222,7 +254,7 @@ public abstract class RecordedFrame {
         return data.ToArray();
     }
 
-    public static string[] txtForm(AiFrame npcFrame)
+    public static string[] txtForm(RecordedFrame npcFrame)
     {
         List<string> data = new List<string>();
         data.Add(npcFrame.time.ToString() + ',');

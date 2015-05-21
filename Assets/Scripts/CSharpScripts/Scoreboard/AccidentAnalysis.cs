@@ -67,6 +67,10 @@ public class AccidentAnalysis {
         {
             anaTxt += "You might didin't see the " + hitObjTag + " coming to you. You should looking for it next time.";
         }
+        else
+        {
+            anaTxt += "You saw the " + hitObjTag + " but you didn't avoid it. Be careful next time.";
+        }
         //    }
         //    else
         //    {

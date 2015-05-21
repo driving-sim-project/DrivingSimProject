@@ -7,11 +7,6 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CarController))]
 public class TrafficChecker : MonoBehaviour {
 
-    public EnviromentMonitor front;
-    public EnviromentMonitor left;
-    public EnviromentMonitor right;
-    public EnviromentMonitor back;
-
     public TrafficLightController[] trafficLightList;
     public Checkpoint[] checkpointList;
     public TrafficLaneChecker trafficLane;
@@ -283,9 +278,10 @@ public class TrafficChecker : MonoBehaviour {
             float accidentTime = Time.time;
             for (int i = UI.frames.Count - 1; UI.frames[i].time > accidentTime - 5f; i--)
             {
-                //if(UI.frames[i].gazingObjectName == ){
-
-                //}
+                if(UI.frames[i].gazingObjectID == collision.collider.gameObject.GetInstanceID()){
+                    UI.accidentAna.sawObj = true;
+                    Debug.Log(collision.collider.gameObject.GetInstanceID() + " had Seen.");
+                }
             }
             //{
             //    dataListTmp.Add(UI.frames[i]);

@@ -43,7 +43,6 @@ public class AiDriver : MonoBehaviour {
             angleTmp *= -1;
         float steeringAngle = 0f;
         
-        RaycastHit hit;
         Debug.DrawRay(frontSensor.transform.position, front * calDistance, Color.red);
         if (angleTmp == 0)
         {
@@ -62,16 +61,51 @@ public class AiDriver : MonoBehaviour {
         //    steeringAngle *= 0.66f;
         steeringAngle *= Mathf.Clamp(Mathf.Abs(angleTmp), 0f, car.wheels[0].maxSteeringAngle) / car.wheels[0].maxSteeringAngle;
 
+        AdjustAccel(angleTmp, steeringAngle);
+
+        SensorCheck();
+
+        if (Mathf.Abs(steeringAngle) < 0.05f)
+            steeringAngle = 0f;
+        car.steering = steeringAngle;
+
+        //Change to D(drive) gear if else
+        if(car.drivetrain.drivenGear == 0 )
+            car.drivetrain.drivenGear = 1;
+        
+	}
+
+    void OnTriggerEnter(Collider Other)
+    {
+        if (Other.tag == "Waypoint" && waypointCounter < waypoint.waypoints.Length)
+        {
+            if (Other == waypoint.waypoints[waypointCounter].collider)
+            {
+                AiNode nodeTmp = waypoint.waypoints[waypointCounter];
+                car.sidelightSL = nodeTmp.sidelightL;
+                car.sidelightSR = nodeTmp.sidelightR;
+                car.headlight.SetActive(nodeTmp.headlight);
+                decelerate = nodeTmp.decelerate;
+                nodeSpeed = nodeTmp.speed;
+                waypointCounter++;
+            }
+        }
+    }
+
+    void AdjustAccel(float angleTmp, float steeringAngle)
+    {
         if (waypointCounter == waypoint.waypoints.Length)
         {
             car.accelKey = -1f;
         }
-        else if(Mathf.Abs(angleTmp) > 30f){
+        else if (Mathf.Abs(angleTmp) > 30f)
+        {
             if (Mathf.Abs(angleTmp) > 60f && car.speed > 30)
             {
                 car.accelKey = -1f;
             }
-            if (car.speed < 30){
+            if (car.speed < 30)
+            {
                 car.accelKey = throttle;
             }
             else
@@ -79,8 +113,9 @@ public class AiDriver : MonoBehaviour {
                 car.accelKey = -throttle * 0.5f;
             }
         }
-        else if(decelerate == true){
-            if(car.speed > nodeSpeed)
+        else if (decelerate == true)
+        {
+            if (car.speed > nodeSpeed)
                 car.accelKey = -throttle * 0.5f;
             else if (car.speed < speedLimit / 2)
                 car.accelKey = throttle;
@@ -91,14 +126,14 @@ public class AiDriver : MonoBehaviour {
         {
             if (Mathf.Abs(steeringAngle) >= 0.15f)
             {
-                if(car.speed > 60)
+                if (car.speed > 60)
                     car.accelKey = -throttle;
                 if (car.speed < 60)
                     car.accelKey = throttle;
             }
             else
             {
-                if(car.speed < 20)
+                if (car.speed < 20)
                     car.accelKey = throttle * 1.75f;
                 else
                     car.accelKey = throttle;
@@ -108,7 +143,11 @@ public class AiDriver : MonoBehaviour {
         {
             car.accelKey = 0f;
         }
+    }
 
+    void SensorCheck()
+    {
+        RaycastHit hit;
         Vector3 carDirection = new Vector3(car.transform.forward.x, 0f, car.transform.forward.z);
 
         calDistance = car.speed > 10 ? frontDistance * (Mathf.Clamp(car.speed, 0, 50) / 10) : 3f;
@@ -181,31 +220,6 @@ public class AiDriver : MonoBehaviour {
                 }
             }
             Debug.DrawRay(rightSensor[1].transform.position, carDirection * 2.5f, Color.green);
-        }
-
-        if (Mathf.Abs(steeringAngle) < 0.05f)
-            steeringAngle = 0f;
-        car.steering = steeringAngle;
-
-        if(car.drivetrain.drivenGear == 0 )
-            car.drivetrain.drivenGear = 1;
-        
-	}
-
-    void OnTriggerEnter(Collider Other)
-    {
-        if (Other.tag == "Waypoint" && waypointCounter < waypoint.waypoints.Length)
-        {
-            if (Other == waypoint.waypoints[waypointCounter])
-            {
-                AiNode nodeTmp = Other.GetComponent<AiNode>();
-                car.sidelightSL = nodeTmp.sidelightL;
-                car.sidelightSR = nodeTmp.sidelightR;
-                car.headlight.SetActive(nodeTmp.headlight);
-                decelerate = nodeTmp.decelerate;
-                nodeSpeed = nodeTmp.speed;
-                waypointCounter++;
-            }
         }
     }
 }

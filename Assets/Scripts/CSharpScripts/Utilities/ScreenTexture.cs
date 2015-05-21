@@ -2,20 +2,17 @@ using UnityEngine;
 using System.Collections;
 
 public class ScreenTexture : MonoBehaviour {
+
     public GameObject mirrorPlane;
     public float interval = 0.02f;
     private Texture2D texture;
     private float time;
     private Camera camera;
 
-    void Awake()
-    {
-        camera = this.GetComponent<Camera>();
-        texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-    }
-
     void  Start (){
         time = Time.time;
+        camera = this.GetComponent<Camera>();
+        texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
     }
 
     private void OnPostRender()

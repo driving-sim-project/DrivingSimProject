@@ -70,7 +70,7 @@ public class RecordedMotion {
         }
     }
 
-    public void AddFrame(AiFrame rm)
+    public void AddFrame(RecordedFrame rm)
     {
         if (final == false)
         {

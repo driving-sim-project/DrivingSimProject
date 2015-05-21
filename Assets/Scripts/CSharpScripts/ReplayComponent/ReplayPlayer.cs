@@ -20,8 +20,8 @@ public class ReplayPlayer : MonoBehaviour {
 
     List<string> recordList = new List<string>();
     RecordedFrame frame = null;
-    List<AiFrame> aiFrames;
-    List<PlayerFrame> playerFrames;
+    List<RecordedFrame> recFrames;
+    //List<PlayerFrame> playerFrames;
     RecordedMotion recording;
 
     bool gui = true;
@@ -58,12 +58,12 @@ public class ReplayPlayer : MonoBehaviour {
                             file.Close();
                             if (recording.objectName == name)
                             {
-                                aiFrames = new List<AiFrame>();
+                                recFrames = new List<RecordedFrame>();
                                 StreamReader reader = new StreamReader(recordList[recordList.Count - 1] + "/" + recording.recordFile + ".dtm");
                                 string lineTmp;
                                 while ((lineTmp = reader.ReadLine()) != null)
                                 {
-                                    aiFrames.Add((AiFrame)RecordedFrame.dataFrame(recording.isAi, lineTmp.Split(new char[] {','})));
+                                    recFrames.Add(RecordedFrame.dataFrame(recording.isAi, lineTmp.Split(new char[] { ',' })));
                                 }
                                 reader.Close();
                                 break;
@@ -78,12 +78,12 @@ public class ReplayPlayer : MonoBehaviour {
                             FileStream file = File.Open(data, FileMode.Open);
                             recording = (RecordedMotion)bf.Deserialize(file);
                             file.Close();
-                            playerFrames = new List<PlayerFrame>();
+                            recFrames = new List<RecordedFrame>();
                             StreamReader reader = new StreamReader(recordList[recordList.Count - 1] + "/" + recording.recordFile + ".dtm");
                             string lineTmp;
                             while ((lineTmp = reader.ReadLine()) != null)
                             {
-                                playerFrames.Add((PlayerFrame)RecordedFrame.dataFrame(recording.isAi, lineTmp.Split(new char[] { ',' })));
+                                recFrames.Add((PlayerFrame)RecordedFrame.dataFrame(recording.isAi, lineTmp.Split(new char[] { ',' })));
                             }
                             reader.Close();
                             break;
@@ -92,7 +92,7 @@ public class ReplayPlayer : MonoBehaviour {
                 }
 
             }
-            Debug.Log(recording.objectName + " frames: " + (recording.isAi == false ? playerFrames.Count : aiFrames.Count));
+            Debug.Log(recording.objectName + " frames: " + (recording.isAi == false ? recFrames.Count : recFrames.Count));
             car = GetComponent(typeof(CarController)) as CarController;
             car.rigidbody.isKinematic = true;
             //recording = recordList[recordList.Count - 1];
@@ -113,10 +113,10 @@ public class ReplayPlayer : MonoBehaviour {
 
         if (Input.GetAxis("Vertical") > 0)
         {
-            if (fn + (Input.GetAxis("Vertical") * 10) < (recording.isAi == false ? playerFrames.Count : aiFrames.Count))
+            if (fn + (Input.GetAxis("Vertical") * 10) < recFrames.Count)
                 fn += (int)(Input.GetAxis("Vertical") * 10);
             else
-                fn = (recording.isAi == false ? playerFrames.Count : aiFrames.Count);
+                fn = recFrames.Count;
         }
 
         if (Input.GetAxis("Vertical") < 0)
@@ -128,12 +128,9 @@ public class ReplayPlayer : MonoBehaviour {
         }
 
 	    if(recording != null){
-            if (fn < (recording.isAi == false ? playerFrames.Count : aiFrames.Count ) - 1)
+            if (fn < recFrames.Count - 1)
             {
-                if (recording.isAi == false)
-                    frame = playerFrames[fn];
-                else
-                    frame = aiFrames[fn];
+                frame = recFrames[fn];
                 if (Time.time > startTime + 0.01f)
                 {
                     fn++;
@@ -200,7 +197,7 @@ public class ReplayPlayer : MonoBehaviour {
                     (tmpFrame.steering > 0 ? "Left " + (int)Mathf.Abs(tmpFrame.steering) :
                     "Right " + (int)Mathf.Abs(tmpFrame.steering))) + " degree");
                 GUI.Label(new Rect(20, 120, 300, 30), "Looking at : " + tmpFrame.gazingObjectName);
-                GUI.Label(new Rect(20, 140, 300, 30), "Driving time : " + playerFrames[playerFrames.Count - 1].time + " sec");
+                GUI.Label(new Rect(20, 140, 300, 30), "Driving time : " + recFrames[recFrames.Count - 1].time + " sec");
                 GUI.Label(new Rect(20, 160, 300, 30), "Average speed : " + recording.avgSpeed + " km/h");
                 GUI.Label(new Rect(20, 180, 300, 30), "Top speed : " + recording.topSpeed + " km/h");
                 GUI.Label(new Rect(20, 200, 300, 30), "Distance : " + recording.distance + " m");
@@ -213,7 +210,7 @@ public class ReplayPlayer : MonoBehaviour {
                 GUI.Box(new Rect(Screen.width - 320, 10, 300, 20 + 30 * recording.gazingNameList.Count), "Gazing Statistics", box);
                 for (int i = 0; i < recording.gazingNameList.Count; i++)
                     GUI.Label(new Rect(Screen.width - 320, 30 + 20 * i, 300, 30),
-                        (recording.gazingNameList[i]) + " : " + (recording.gazingPerList[i] * 100f) / (recording.isAi == false ? playerFrames.Count : aiFrames.Count) + "%");
+                        (recording.gazingNameList[i]) + " : " + (recording.gazingPerList[i] * 100f) / recFrames.Count + "%");
                 GUI.DrawTexture(new Rect(tmpFrame.eyePosition.x, Screen.height - tmpFrame.eyePosition.y, cursorWidth, cursorHeight), cursorImage);
 
             }
@@ -240,8 +237,7 @@ public class ReplayPlayer : MonoBehaviour {
         if (recording.isAi == false)
         {
             UI.record = recording;
-            UI.frames = playerFrames;
+            UI.frames = recFrames.ConvertAll<PlayerFrame>(new System.Converter<RecordedFrame, PlayerFrame>(Converter.RecordFrameToPlayerFrame));
         }
-            
     }
 }

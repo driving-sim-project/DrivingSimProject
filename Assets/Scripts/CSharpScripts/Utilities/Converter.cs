@@ -46,4 +46,8 @@ public class Converter {
         return new UnityEngine.Quaternion( quaternion.x, quaternion.y, quaternion.z, quaternion.w);
     }
 
+    public static PlayerFrame RecordFrameToPlayerFrame ( RecordedFrame frame ){
+        return (PlayerFrame)frame;
+    }
+
 }

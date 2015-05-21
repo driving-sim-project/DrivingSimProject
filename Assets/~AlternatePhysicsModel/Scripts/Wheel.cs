@@ -274,7 +274,8 @@ public class Wheel : MonoBehaviour {
         
 		if (onGround && hit.collider.isTrigger)
 		{
-			onGround = false;float dist = suspensionTravel + radius;
+			onGround = false;
+            float dist = suspensionTravel + radius;
 			RaycastHit[] hits = Physics.RaycastAll( pos, -up, suspensionTravel + radius);
 			foreach(RaycastHit test in hits)
 			{

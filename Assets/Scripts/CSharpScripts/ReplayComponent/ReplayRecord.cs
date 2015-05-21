@@ -61,13 +61,13 @@ public class ReplayRecord : MonoBehaviour
     {
         if (isAi)
         {
-            currentFrame = new AiFrame(car);
-            record.AddFrame((AiFrame)currentFrame);
+            currentFrame = new RecordedFrame(car);
+            record.AddFrame(currentFrame);
             tmpFrame = currentFrame;
         }
         else
         {
-            currentFrame = new PlayerFrame(car, trafficChecker.front.currentObj, trafficChecker.left.currentObj, trafficChecker.right.currentObj, trafficChecker.back.currentObj);
+            currentFrame = new PlayerFrame(car);
             if (tmpFrame == null)
             {
                 ((PlayerFrame)currentFrame).currentDistance = 0f;
